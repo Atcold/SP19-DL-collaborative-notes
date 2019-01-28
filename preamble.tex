@@ -1,0 +1,60 @@
+\usepackage[UKenglish]{babel}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage[colorlinks]{hyperref}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{ amssymb, dsfont }
+\usepackage{tikz}
+\usepackage{dsfont}
+
+\hypersetup{
+  linkcolor  = Magenta,
+  citecolor  = Aquamarine,
+  urlcolor   = Periwinkle,
+  linktoc    = page
+}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{amsmath,amssymb,bm}
+
+\usepackage{enumitem}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+\usepackage{minted}  % Code embedding in document
+\usepackage[none]{hyphenat}
+
+\usepackage{mathtools}
+\usepackage{verbatim}
+
+\makeatletter
+\newcommand\RedeclareMathOperator{%
+  \@ifstar{\def\rmo@s{m}\rmo@redeclare}{\def\rmo@s{o}\rmo@redeclare}%
+}
+% this is taken from \renew@command
+\newcommand\rmo@redeclare[2]{%
+  \begingroup \escapechar\m@ne\xdef\@gtempa{{\string#1}}\endgroup
+  \expandafter\@ifundefined\@gtempa
+     {\@latex@error{\noexpand#1undefined}\@ehc}%
+     \relax
+  \expandafter\rmo@declmathop\rmo@s{#1}{#2}}
+% This is just \@declmathop without \@ifdefinable
+\newcommand\rmo@declmathop[3]{%
+  \DeclareRobustCommand{#2}{\qopname\newmcodes@#1{#3}}%
+}
+\@onlypreamble\RedeclareMathOperator
+\makeatother
+
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\V}{\mathbb{V}}
+\RedeclareMathOperator{\Pr}{\mathbb{P}}
+\newcommand{\matr}[1]{\bm{#1}}     % ISO complying version
+\newcommand{\vect}[1]{\bm{#1}}     % ISO complying version
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\DeclareMathOperator*{\argmax}{arg\,max}  % in your preamble
+\DeclareMathOperator*{\argmin}{arg\,min}  % in your preamble 
+
+\usepackage[nameinlink,noabbrev]{cleveref}
+\newcommand*{\fullref}[1]{\hyperref[{#1}]{\Cref*{#1} -- \nameref*{#1}}}

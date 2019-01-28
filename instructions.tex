@@ -1,0 +1,73 @@
+\chapter*{Instructions}
+
+There are overall 42 hours of lectures.
+For each hour there is a group of people assigned to summarise what happened in class \textbf{in roughly three pages}.
+Each group is made of three students: two writers and a reviewer.
+
+\section*{Writing directions}
+
+Split your writing across the five parts of this document according to where it seems fit (see \nameref{chp:preface}).
+Be consistent with the notation here specified.
+\begin{itemize}[noitemsep,nolistsep]
+\item Use \verb|\vect{}| and \verb|\matr{}| to decorate vectors and matrices respectively.
+\item Start a new line \textbf{only and every time} you end a sentence with a period `.'; the \LaTeX\ engine will ignore this, but \verb|git| will love you.
+\item Leave an empty line to start a new paragraph, and don't use the `\verb|\\|' break line (see \url{tex.stackexchange.com/a/225925/33287}).
+\item Add date and group's authors name \textbf{as a comment}, after every \verb|\chapter|, \verb|\section|, and \verb|\subsection|.
+\item The transposition symbol is obtained with \verb|^\top|. For example $(AB)^\top = B^\top A^\top$.
+\end{itemize}
+
+Feel free to create new chapters, sections, and subsections with corresponding labels \verb|\label{chp:}|, \verb|\label{sct:}|, and \verb|\label{ssc:}|.
+
+\section*{Peer reviewing within groups}
+
+Check for notation consistency, correctness, grammar, figure captioning, usage of \verb|\cref{}| instead of \verb|\ref{}|, \verb|\vect{}|, and \verb|\matr{}| to decorate vectors and matrices respectively, unnecessary use of bullet points or itemisations, missing references and use of links to papers PDF instead, usage of  $\Pr$, $\E$, and $\V$ for probability, expectation, and variance respectively using \verb|\Pr|, \verb|\E|, and \verb|\V|, \verb|\mid| for the conditional vertical bar, missing backslashes for $log, exp, max$ and any badly formatted functions, $\ast$ for convolutions, $\odot$ for element-wise multiplication, usage of \verb|\caption[Short caption]{Full caption}|, use of the correct transposition symbol obtained with \verb|^\top|, just to name a few.
+
+\section*{Taking inspiration}
+
+You can take inspiration from the work done by the students at NYU, who collectively wrote up the lecture notes in \href{https://www.overleaf.com/read/pchjywcxjkxn
+}{this document} last year.
+For example, you may reuse the following constructs, and others, at your convenience:
+\[
+\matr{X} = \begin{bmatrix}
+    \rule[0.5mm]{0.8cm}{0.1mm} \; \vect{x}^{(1)} \; \rule[0.5mm]{0.8cm}{0.1mm} \\
+    \rule[0.5mm]{0.8cm}{0.1mm} \; \vect{x}^{(2)} \; \rule[0.5mm]{0.8cm}{0.1mm} \\
+    \vdots \\
+    \rule[0.5mm]{0.8cm}{0.1mm} \; \vect{x}^{(m)} \; \rule[0.5mm]{0.8cm}{0.1mm} \\
+\end{bmatrix}_{m \times n}
+\matr{Y} = \begin{bmatrix}
+    \rule[0.5mm]{0.8cm}{0.1mm} \; \vect{y}^{(1)} \; \rule[0.5mm]{0.8cm}{0.1mm} \\
+    \rule[0.5mm]{0.8cm}{0.1mm} \; \vect{y}^{(2)} \; \rule[0.5mm]{0.8cm}{0.1mm} \\
+    \vdots \\
+    \rule[0.5mm]{0.8cm}{0.1mm} \; \vect{y}^{(m)} \; \rule[0.5mm]{0.8cm}{0.1mm} \\
+\end{bmatrix}_{m \times K}
+\]
+\[
+\hat{\matr{A}}\vect{x} =
+\begin{bmatrix}
+    \rule[0.5mm]{0.8cm}{0.1mm} \; \hat{\vect{a}}^{(1)} \; \rule[0.5mm]{0.8cm}{0.1mm} \\
+    \rule[0.5mm]{0.8cm}{0.1mm} \; \hat{\vect{a}}^{(2)} \; \rule[0.5mm]{0.8cm}{0.1mm} \\
+    \vdots \\
+    \rule[0.5mm]{0.8cm}{0.1mm} \; \hat{\vect{a}}^{(m)} \; \rule[0.5mm]{0.8cm}{0.1mm} \\
+\end{bmatrix}
+\begin{pmatrix}
+    \vrule height 0.6cm \\ \vect{x} \\ \vrule height 0.6cm
+\end{pmatrix} =
+\begin{pmatrix}
+    \hat{\vect{a}}^{(1)} \vect{x} \\ \hat{\vect{a}}^{(2)} \vect{x} \\ \vdots \\ \hat{\vect{a}}^{(m)} \vect{x}
+\end{pmatrix}_{m \times 1}
+\]
+\[
+\matr{T}^{(1)}\vect{x} =
+\begin{bmatrix}
+    a_{1,1} & a_{1,2} & \dotsc & a_{1,k} & 0 & 0 & \dotsc & 0 \\
+    0 & a_{1,1} & a_{1,2} & \dotsc & a_{1,k} & 0 & \dotsc & 0 \\
+    0 & 0 & a_{1,1} & a_{1,2} & \dotsc & a_{1,k} & \dotsc & 0 \\
+    \vdots & \vdots & \vdots & \ddots & \ddots & \ddots & \ddots & \vdots \\
+    0 & \dotsc & 0 & 0 & a_{1,1} & a_{1,2} & \dotsc & a_{1,k}
+\end{bmatrix}_{(n-k+1) \times n} =
+\begin{pmatrix}
+    \vect{a}^{(1)} \vect{x}_{1:1+k-1} \\ \vect{a}^{(1)} \vect{x}_{2:2+k-1} \\ \vdots \\ \vect{a}^{(1)}  \vect{x}_{n-k+1:n}
+\end{pmatrix}_{(n-k+1) \times 1}
+\]
+
+Have fun!
