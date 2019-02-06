@@ -1,7 +1,6 @@
-
-\section{Introduction to \emph{PyTorch} and \texttt{Tensor}s}
+\chapter{Introduction to \emph{PyTorch} and \texttt{Tensor}s}
 % Authors: Dustin Godevais , Reuben Juste, Yi Li,. 2/5/18.
-    \subsection{What is \emph{PyTorch}?}\label{what-is-pytorch}
+    \section{What is \emph{PyTorch}?}\label{what-is-pytorch}
     % Authors: Dustin Godevais , Reuben Juste, Yi Li,. 2/5/18.
     \emph{PyTorch} is a Python based scientific computing package targeting on two sets of audiences:
 
@@ -20,16 +19,16 @@
 {\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{torch}
 \end{Verbatim}
 
-    \subsection{Getting help in Jupyter}\label{getting-help-in-jupyter}
+    \section{Getting help in Jupyter}\label{getting-help-in-jupyter}
     % Authors: Dustin Godevais , Reuben Juste, Yi Li,. 2/5/18.
 
     
 %\subsection*{Jupyter Tips}
     \href{https://jupyter.org/}{Jupyter Notebook} is a common Integrated Development Environment (IDE) for deep learning. There are a few commands specific to Jupyter Notebook that are helpful for coding.   
-        \subsubsection{Using tab}
+        \subsection{Using tab}
         Tab will list all available functions, while shift + tab will open the documentation.
 
-        \subsubsection{Using ?}
+        \subsection{Using ?}
         \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Open the documentation, same as \PYZlt{}shift\PYZgt{} + \PYZlt{}tab\PYZgt{} on \PYZsq{}torch.nn.Module()\PYZsq{}}
          torch.nn.Module\PY{o}{?}
@@ -41,7 +40,7 @@
          torch.nn.Module\PY{o}{??}
 \end{Verbatim}
         
-\subsubsection{Dropping to Bash}
+\subsection{Dropping to Bash}
 \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} List all the files in the current directory}
          \PY{o}{!}ls \PYZhy{}lh 
@@ -52,7 +51,7 @@
          \PY{o}{\PYZpc{}}\PY{k}{magic} 
 \end{Verbatim}
 
-\subsection{Tensors}\label{tensors}   
+\section{Tensors}\label{tensors}   
 % Authors: Dustin Godevais , Reuben Juste, Yi Li,. 2/5/18.
 A tensor is a n-dimensional array, \emph{PyTorch} provides functions for operating on Tensors like numpy does for arrays.
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -192,7 +191,7 @@ The in-place replacement will change the object. It is encouraged to perform ope
 \end{Verbatim}
           
 
-\subsubsection{Vectors: 1D Tensor}
+\subsection{Vectors: 1D Tensor}
 \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}17}]:} \PY{n}{v} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
          \PY{n}{w} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
@@ -249,7 +248,7 @@ Note: torch.arange gives only integers. Use torch.arange(1, 4 + 1, dtype = torch
 \begin{Verbatim}[commandchars=\\\{\}]
 {\color{outcolor}Out[{\color{outcolor}21}]:} tensor([1, 2, 3, 4])
 \end{Verbatim}
-\subsubsection{Matrices: 2D Tensor}
+\subsection{Matrices: 2D Tensor}
 \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} Create a 2x4 tensor}
          \PY{n}{m} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,}
@@ -357,7 +356,7 @@ Note: We can specify dimensions dimensions we want to swap using m.transpose(c1,
                   [0., 1., 0.],
                   [0., 0., 1.]])
 \end{Verbatim}
-\subsubsection{Images: 3D Tensor}
+\subsection{Images: 3D Tensor}
 Q: Why would we use 4D Tensors while training convolutional neural networks?\\
 A: Images are 3D Tensors with dimensions channels, height, and width. We will use a stack of multiple images to form a 4-dimensional tensor.
 

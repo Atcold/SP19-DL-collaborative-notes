@@ -1,4 +1,4 @@
-\section{Tensor Transformations}
+\chapter{Tensor Transformations}
 % Authors: Dustin Godevais , Reuben Juste, Yi Li,. 2/5/18.
 
 The following sections summarize and visualize how you can transform data represented in matrix form. 
@@ -25,7 +25,7 @@ In the following figures, data points are colored according to their original $x
 \label{fig:mon}
 \end{figure}
 
-\subsection{Linear Transformations}
+\section{Linear Transformations}
 % Authors: Dustin Godevais , Reuben Juste, Yi Li,. 2/5/18.
 There are several linear transformation that can be executed on $\matr{X}$ including:
 
@@ -57,7 +57,7 @@ The product of the first three form weights as shown below.
 \]
 
 
-\subsubsection{Rotation}
+\subsection{Rotation}
 During rotation, each point is rotated about the origin by the indicated angle. 
 The below equation populates $\matr{U}$ based on rotating points by \(\theta\) counter-clockwise.
 
@@ -81,7 +81,7 @@ Keeping scaling and reflection constant, the below figure shows a set up points 
 % \FloatBarrier
 
 
-\subsubsection{Scaling}
+\subsection{Scaling}
 Scaling the points expands or contracts the points about the origin. 
 This controlled separately for each dimension by \(s_1\) and \(s_2\) .
 
@@ -95,7 +95,7 @@ This controlled separately for each dimension by \(s_1\) and \(s_2\) .
 % \FloatBarrier
 
 
-\subsubsection{Reflection}
+\subsection{Reflection}
 Reflecting points projects them on the other side of a defined line that crosses the origin. 
 The line that goes from the original point to the projected point is perpendicular to the defined line, and the intersection to the defined line is the midpoint.
 
@@ -131,7 +131,7 @@ Where the defined line is \(x_2 = \tan(\theta) x_1 \)
 \end{figure}
 % \FloatBarrier
 
-\subsubsection{Shearing}
+\subsection{Shearing}
 Shearing points, which is separate from the weight calculation, shifting points in one dimension proportional to their value in the other dimension.
 
 \(\matr{Y} = \matr{X}  \begin{bmatrix}
@@ -155,7 +155,7 @@ Shift points on the \(x_2\) dimension proportional to the \(x_1\) dimension
 \end{figure}
 % \FloatBarrier
 
-\subsubsection{Translation}
+\subsection{Translation}
 The translation of points, which is separate from the weight calculations moves them uniforming in the direction indicated.
 
 \[ \matr{Y} = \matr{X} 
@@ -181,7 +181,7 @@ The translation of points, which is separate from the weight calculations moves 
 \end{figure}
 % \FloatBarrier
 
-\subsection{Non-Linear Transformations}
+\section{Non-Linear Transformations}
 % Authors: Dustin Godevais , Reuben Juste, Yi Li,. 2/5/18.
 Linear transformations are capable of altering data in many different ways, but linear transformations cannot curve data. 
 That is where non-linear transformations come in. There are several types of non-linear transformations such as:
