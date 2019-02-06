@@ -59,9 +59,7 @@ Ultimately phones and phonemes are formed and pieced into words.
 % Authors: Hongyu (Florence) Lu, Michael Gold, Erica Dominic.
 % Lecture date: 1.28.19
 
-A network is ``deep" if it has more than one stage of non-linear feature transformation.
-
-A natural question arises: why are deep networks necessary?
+A network is ``deep'' if it has more than one stage of non-linear feature transformation. A natural question arises: why are deep networks necessary?
 Theoretically, kernel machines can approximate any function with as much precision as desired.
 However, that might be computationally expensive---too expensive to achieve anything in practice.
 
@@ -90,16 +88,16 @@ That brings us to deep networks, which by definition are networks with more than
 % Authors: Hongyu (Florence) Lu, Michael Gold, Erica Dominic.
 % Lecture date: 1.28.19
 
-Before we address exactly expand dimensionality in a nonlinear way, we should address one concern: will working in a higher dimension alleviate the separability problem while simultaneously introduce an intractability problem?
-The Manifold Hypothesis contradicts this.
-The Manifold Hypothesis postulates that natural data in high-dimensional space generally has a low-dimensional structure (see \cref{chp: manifold_hypothesis} for further discussion).
+Before we discuss how to expand dimensionality in a nonlinear way, we should address one concern: will working in a higher introduce an intractability problem?
+The manifold hypothesis suggests that it will not pose a problem.
+The manifold hypothesis postulates that natural data in high-dimensional space generally has a low-dimensional structure (see \cref{chp: manifold_hypothesis} for further discussion).
 The shape of that low-dimensional space is dictated by the intrinsic factors of variation in the data, and our ideal feature extractor would extract those factors of variation.
 
 \section{How to Expand Dimensionality Nonlinearly}\label{sec: expand_dim}
 % Authors: Hongyu (Florence) Lu, Michael Gold, Erica Dominic.
 % Lecture date: 1.28.19
 
-As described in the previous section, Cover's Theorem and the Manifold Hypothesis urge us to expand the dimension of the representation (nonlinearly) and explore it in higher dimensional space.
+As described in the previous section, Cover's theorem and the manifold hypothesis urge us to expand the dimension of the representation (nonlinearly) and explore it in higher dimensional space.
 This is the pipeline for nonlinear dimensionality expansion:
 \begin{enumerate}
     \item Linearly expand the dimension (this can be done by multiplying by matrix with more rows than columns)
@@ -213,7 +211,7 @@ which measures the distance between the predicted output $X_n$ of and the desire
 % Authors: Hongyu (Florence) Lu, Michael Gold, Erica Dominic.
 % Lecture date: 1.28.19
 
-Recall that a learning algorithm is considered ``deep" if it has more than one layer.
+Recall that a learning algorithm is considered ``deep'' if it has more than one layer.
 A multimodule system with a sequential structure is often called a \textbf{multi-layer feedforward neural network}, or a \textbf{deep neural network}.
 See an example of defining a two-layer neural network in PyTorch in \cref{sec: Multilayer Neural Network}.
 In PyTorch, as the signal of the initial input $X_0$ propagates through a sequence of approximation functions $F_i$, PyTorch instantaneously generates another function internally, called \textbf{backpropagation}, that propagates the cascade of modules backwards in order to compute gradients discussed in \cref{sec: SGD}. 
