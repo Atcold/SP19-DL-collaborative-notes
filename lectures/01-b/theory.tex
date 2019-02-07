@@ -221,7 +221,7 @@ In PyTorch, as the signal of the initial input $X_0$ propagates through a sequen
 % Lecture date: 1.28.19
 
 To compute the gradient of the objective function $E(W,Y,X)$ in an $n$-layer neural network, first consider a module $F_k$ in the network, where $k\in (0, n)$.
-The forward propagation method uses the input $X_{k-1}$ produced by the $(k-1)$-th module and computes a predicted output $X_k$ using the weight $W_k$, 
+The forward propagation method uses the input $X_{k-1}$ produced by the $(k-1)^{\text{th}}$ module and computes a predicted output $X_k$ using the weight $W_k$, 
 \[ X_k=F_k(X_{k-1},W_k). \]
 Suppose we know the gradient $\frac{\partial E}{\partial X_k}$ of the cost function with respect to the output of the $k^\text{th}$ module.
 That is, for each component of the vector $X_k$, we know how much $E$ wiggles if we wiggle that component of $X_k$.
@@ -243,7 +243,7 @@ Note that
 \[
 \frac{\partial F_k(X_{k-1},W_k)}{\partial W_k}, \frac{\partial F_k(X_{k-1},W_k)}{\partial X_{k-1}}
 \]
-are the \textbf{Jacobian matrices} of the modulo $F_k$ with respect to  $W_k$ and $X_{k-1}$.
+are the \textbf{Jacobian matrices} of the module $F_k$ with respect to  $W_k$ and $X_{k-1}$.
 
 The entire process of recursively calculating gradients $\frac{\partial E}{\partial X_{i-1}}$ and $\frac{\partial E}{\partial W_i}$ starting from the $n^\text{th}$ module backwards to the first module in the network is called \textbf{backpropagation}.
 We have (see \cref{fig: multimodule_cascade}),
@@ -264,15 +264,15 @@ We have (see \cref{fig: multimodule_cascade}),
 % Authors: Hongyu (Florence) Lu, Michael Gold, Erica Dominic.
 % Lecture date: 1.28.19
 
-Several modules are discussed here along with their respective gradients as they are the most commonly used modules to build a multi-layer neural network.
+Several module classes are discussed here along with their respective gradients as they are the most commonly used modules to build a multi-layer neural network.
 
 \textbf{Cost module}.
-A cost module is a squared distance function $C=\|\bar{Y}-Y\|^2$ which measures the distance between predicted and expected outputs.
+A typical cost module is a squared distance function $C=\|\bar{Y}-Y\|^2$ which measures the distance between predicted and expected outputs.
 It is mostly used to indicate errors in prediction.
 
 \textbf{Linear module}.
 A linear module is a function $Y=W\cdot X$ that predicts an output $Y$ by multiplying a Jacobian matrix $W$ by the input $X$.
-The gradients of the cost function with respect to input and the weight are 
+The gradients of the cost function with respect to input and weight are 
 \begin{align*}
     \frac{\partial C}{\partial X} &= W^\top \cdot \frac{\partial C}{\partial Y} \\
     \frac{\partial C}{\partial W} &= W^\top \cdot \frac{\partial C}{\partial Y} 
