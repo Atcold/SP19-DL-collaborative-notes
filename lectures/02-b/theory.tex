@@ -1,7 +1,11 @@
 \chapter{Backprop In Practice}\label{chp:Backprop in Practice}
+% Authors: tn1050@nyu.edu, vy404@nyu.edu, sk7685@nyu.edu.
+% Lecture date: 2.4.19
 \setlength{\abovedisplayskip}{7pt}
 \setlength{\belowdisplayskip}{7pt}
 
+% Authors: tn1050@nyu.edu, vy404@nyu.edu, sk7685@nyu.edu.
+% Lecture date: 2.4.19
 \section{Use of ReLU non-linearities}
 As an artificial neuron does not know the bounds of its values and can not decide whether it should fire or not, we use activation functions to check the value 
 \begin{equation}
@@ -86,7 +90,7 @@ ReLU is analogous to half-wave rectification in electrical engineering and has b
 \end{enumerate}
 \end{minipage}}\par}
 
-\section{Use cross-entropy loss for classification}
+% Authors: tn1050@nyu.edu, vy404@nyu.edu, sk7685@nyu.edu. % Lecture date: 2.4.19{Use cross-entropy loss for classification}
 When we work on classification problems we use cross-entropy loss which measures performance of a classification model whose output is a probability value. 
 The cross entropy loss increases as the predicted probability moves away from the actual label. 
 Log loss penalizes all errors however gives higher penalty to the predictions that are confident and wrong. 
@@ -109,6 +113,8 @@ Log softmax is a special case of cross entropy loss where only one value in the 
 The more general form calculates the cross-entropy between two discrete distributions which log-softmax doesn’t compute. 
 Softmax is often the best option to use for classification problems. 
 
+% Authors: tn1050@nyu.edu, vy404@nyu.edu, sk7685@nyu.edu. 
+% Lecture date: 2.4.19 
 \section{Use Stochastic Gradient on Minibatches}
 The standard gradient descent algorithm updates the parameters $θ$ of the objective $J(θ)$ as, 
 % θ=θ−α∇θE[J(θ)] 
@@ -166,6 +172,8 @@ Their gradients will then be averaged and used for updating the model parameters
 \end{enumerate}
 \end{minipage}}\par}
 
+% Authors: tn1050@nyu.edu, vy404@nyu.edu, sk7685@nyu.edu.
+% Lecture date: 2.4.19
 \section{Shuffle training samples} 
 The optimum way of using the training data is by shuffling it in a way that each minibatch would have as much diversity as possible. 
 If we were to be given a training set where the first six thousand examples are all zeros, next six thousand examples are all ones, followed by twos, threes, etc. the neural network will learn extremely slowly. 
@@ -203,6 +211,8 @@ However this will result in using a bigger step size for smaller underrepresente
 \end{minipage}}\par}
 \vspace{5pt}
 
+% Authors: tn1050@nyu.edu, vy404@nyu.edu, sk7685@nyu.edu.
+% Lecture date: 2.4.19
 \section{Normalize Input Variable} 
 It is important for inputs to be normalized (having mean zero and standard deviation of one) so to make sure that the optimization well behaved and converges at a fast rate.
 A shift of the average input away from zero creates a bias in the updates in a particular direction slowing down learning. 
@@ -264,6 +274,8 @@ As a result of introducing orthogonality between layers such that we avoid shift
 \end{enumerate}
 \end{minipage}}\par}
 
+% Authors: tn1050@nyu.edu, vy404@nyu.edu, sk7685@nyu.edu.
+% Lecture date: 2.4.19
 \section{Use a bit of L1 and L2 regularization on the weights} 
 The use of regularization is well studied in the machine learning literature and they are used widely in different types of learning algorithms in one form or another to avoid overfitting. 
 One form of regularization we can impose on the learning algorithm would be by putting constraints on the weights, and this is usually done by adding a term to the cost function. 
@@ -288,6 +300,8 @@ It is best to start regularization after a couple of epochs and crank it up as l
 \end{enumerate}
 \end{minipage}}\par}
 
+% Authors: tn1050@nyu.edu, vy404@nyu.edu, sk7685@nyu.edu.
+% Lecture date: 2.4.19
 \section{Use “dropout” for Regularization}
 Dropout is a way of regularization that makes neural nets more robust and prevents overfitting. 
 It is a layer that randomly masks out some percentage of the units in the layer and “ignores” them during a particular forward or backward pass.\\
@@ -321,6 +335,8 @@ The network can then be used as per normal to make predictions.\\
 \end{enumerate}
 \end{minipage}}\par}
 
+% Authors: tn1050@nyu.edu, vy404@nyu.edu, sk7685@nyu.edu.
+% Lecture date: 2.4.19
 \section{Schedule To Decrease Learning Rate}
 Some tricks are not well understood theoretically and are based on intuition supported by empirical evidence. 
 One such trick is decreasing the learning rate during the training. 
