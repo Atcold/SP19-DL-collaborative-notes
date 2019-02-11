@@ -7,7 +7,7 @@
 % Authors: tn1050@nyu.edu, vy404@nyu.edu, sk7685@nyu.edu.
 % Lecture date: 2.4.19
 \section{Use of ReLU non-linearities}
-As an artificial neuron does not know the bounds of its values and can not decide whether it should fire or not, we use activation functions to check the value 
+Non-linear transformations are an essential part of the deep neural networks as discussed in the Chapter 3. An artificial neuron does not know the bounds of its values and can not decide whether it should fire or not, we use activation functions to check the value 
 \begin{equation}
     Y = \sum (W * X_{in}) + C
 \end{equation}
@@ -22,8 +22,7 @@ produced by the neuron and decide if the neuron is fired or not.
         \end{cases}
 \end{equation}
 
-However the step function does not account for partial activation which can help learning become smoother and easier (less wiggly). 
-People also used sigmoid or hyperbolic tangent non-linearities in neural networks, which are saturating functions. 
+However the step function does not account for partial activation which can help learning become smoother and easier (less wiggly). It also has zero gradients, which makes it hard to train in practical setting. As an alternative, people used sigmoid or hyperbolic tangent non-linearities in neural networks, which are saturating functions. 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=50mm]{lectures/02-b/step_function.png}
@@ -31,7 +30,7 @@ People also used sigmoid or hyperbolic tangent non-linearities in neural network
 \label{fig:step_function}
 \end{figure}
 
-\item The Sigmoid function is a mathematical function having an "S" shaped curve (sigmoid curve).
+\item The sigmoid function is a mathematical function having an "S" shaped curve (sigmoid curve).
 \begin{equation}
     f(x) = \frac{1}{1+e^{-x}}
 \end{equation}
@@ -44,11 +43,11 @@ has a problem of vanishing gradients towards either end of the function causing 
 \label{fig:sigmoid}
 \end{figure}
 
-\item The tanh function also has vanishing gradient characteristics similar to that of sigmoid function,
+\item The tanh function also has vanishing gradient characteristics similar to sigmoid function,
 \begin{equation}
     f(x) = \frac{2}{(1+e^{-2x})}-1
 \end{equation}
-but it presents an improvement over the sigmoids by avoiding bias in the gradients. 
+but it presents an improvement over the sigmoid by extending to negative values and avoiding bias in the gradients. 
 However its gradient characteristics hinders our ability to train deeper neural network and for this reason, they fell out of favor and using ReLU non-linearities enabled us to train much deeper networks. 
 
 \begin{figure}[ht]
@@ -63,12 +62,12 @@ However its gradient characteristics hinders our ability to train deeper neural 
     f(x) = \max (0,x)
 \end{equation}
 where x is the input to a neuron giving an output x if x is positive and 0 otherwise. 
-This promotes the reduced likelihood of the gradient to vanish. When $a > 0$, the gradient has a constant value. 
+This promotes a reduced likelihood of encountering vanishing gradient problems. When $a > 0$, the gradient has a constant value. 
 In contrast, the gradient of sigmoids becomes increasingly small as the absolute value of x increases.
-The constant gradient of ReLUs results in faster learning. 
+The constant gradient of ReLUs results in faster learning.\\
 
 ReLU also helps with increasing the sparsity of the network which arises when $a ≤ 0$. 
-As the number of such units increases in a layer it leads to a sparse representation. 
+As the number of such units increase in a layer, it leads to a sparse representation. 
 Sigmoids on the other hand are always likely to generate some non-zero value resulting in dense representations. 
 The range of values can also be infinite.\\
 
@@ -85,12 +84,14 @@ ReLU is analogous to half-wave rectification in electrical engineering and has b
 {\centering\fbox{\begin{minipage}{30em}
 \centering\textbf{Use of ReLU non-linearities}
 \begin{enumerate}
-    \item ReLU nonlinearities converge much faster than the standard sigmoid function.
+    \item ReLU nonlinearities learns much faster than the standard sigmoid function and improves our ability to train deeper neural networks.
     \item Also helps with increasing the sparsity of network as the neuron is switched off for $a \leq 0$
 \end{enumerate}
 \end{minipage}}\par}
 
-% Authors: tn1050@nyu.edu, vy404@nyu.edu, sk7685@nyu.edu. % Lecture date: 2.4.19{Use cross-entropy loss for classification}
+% Authors: tn1050@nyu.edu, vy404@nyu.edu, sk7685@nyu.edu. 
+% Lecture date: 2.4.19
+\section{Use cross-entropy loss for classification}
 When we work on classification problems we use cross-entropy loss which measures performance of a classification model whose output is a probability value. 
 The cross entropy loss increases as the predicted probability moves away from the actual label. 
 Log loss penalizes all errors however gives higher penalty to the predictions that are confident and wrong. 
@@ -101,6 +102,10 @@ H(y, p)=-\sum_i y_i \log(p_i)
 we calculate a separate loss for each class label per observation and sum the result. 
 Cross entropy measure is a widely used alternative of squared error.\\
 
+Log softmax is a special case of cross entropy loss where only one value in the output array is $1$ and the others are $0$. 
+The more general form calculates the cross-entropy between two discrete distributions which log-softmax doesn’t compute. 
+Softmax is often the best option to use for classification problems. 
+
 {\centering\fbox{\begin{minipage}{30em}
 \centering\textbf{Use cross-entropy loss for classification}
 \begin{enumerate}
@@ -109,24 +114,22 @@ Cross entropy measure is a widely used alternative of squared error.\\
 \end{enumerate}
 \end{minipage}}\par}
 \vspace{5pt}
-Log softmax is a special case of cross entropy loss where only one value in the output array is $1$ and the others are $0$. 
-The more general form calculates the cross-entropy between two discrete distributions which log-softmax doesn’t compute. 
-Softmax is often the best option to use for classification problems. 
+
 
 % Authors: tn1050@nyu.edu, vy404@nyu.edu, sk7685@nyu.edu. 
 % Lecture date: 2.4.19 
 \section{Use Stochastic Gradient on Minibatches}
-The standard gradient descent algorithm updates the parameters $θ$ of the objective $J(θ)$ as, 
+The standard gradient descent algorithm updates the model parameters $θ$ in the following way: 
 % θ=θ−α∇θE[J(θ)] 
 \begin{equation}
     \theta = \theta - \alpha\bigtriangledown\theta E [J(\theta)]
 \end{equation}
 where the expectation in the above equation is approximated by evaluating the cost and gradient over the full training set. 
 Stochastic Gradient Descent (SGD) simply does away with the expectation in the update and computes the gradient of the parameters using only a single or a few training examples. 
-An estimate of the true gradient is computed based on the error $E^t$ of that example, and the weights are updated: 
+An estimate of the true gradient is computed based on the error $E^t$ of that example, and the weights are updated in the following way: 
 % W(t+1) = W(t) - ndel E^t/del W. 
 \begin{equation}
-    W(t+1) = W(t) - n\dfrac{\delta E^t}{\delta W}
+    W(t+1) = W(t) - \eta \dfrac{\delta E^t}{\delta W}
 \end{equation}
 Generally each parameter update in SGD is computed w.r.t a few training examples or a minibatch as opposed to a single example. 
 
@@ -137,17 +140,16 @@ Generally each parameter update in SGD is computed w.r.t a few training examples
 \label{fig:sgd}
 \end{figure}
 We do forward and backward propagation on a small group of samples, compute their average gradients which are then used to update the model parameters. 
-We then take the next group of samples and repeat. The two limit cases are when the size of the batch is one or the size of the batch is the entire training set. 
+We then take the next group of samples and repeat this process. The two limit cases are when the size of the batch is one or the size of the batch is the entire training set. 
 It is inefficient to use the entire training set to compute the gradient as there might be many redundant samples in the training set. 
-For instance, if a training set contains one million samples which are just repetition of ten-thousand images hundred times, then by using the full batch gradient-descent we will be using hundred times the number of resources computing the gradient than we should. 
-We do not have such training sets in real life.\\ 
+For instance, if a training set contains one million samples which are just repetition of ten-thousand images hundred times, then by using the full batch gradient-descent we will be using hundred times the number of resources computing the gradient than we should. \\
 
-However, we often have a lot of samples that are very redundant. 
+We do not have such training sets in real life. However, we often have a lot of samples that are very redundant. 
 For instance, while doing character recognition on MNIST dataset, we will have a lot of ones very very similar to each other (with very minor variations). 
-Similarly, imagenet has many pictures where samples within the same category are very similar to each other. 
+Similarly, ImageNet has many pictures where samples within the same category are very similar to each other. 
 On large datasets, SGD can converge faster than batch training because it performs updates more frequently.
 We can get away with this because the data often contains redundant information, so the gradient can be reasonably approximated without using the full dataset. 
-If there were no redundancy we wouldn’t be able to learn anything.\\
+If there were no redundancy we wouldn’t be able to learn any generalizable information.\\
 
 However, in the presence of redundancy if we calculate the gradient on the entire training set we will be doing more computation than necessary. 
 There has been some research done on the optimal size of a batch. 
@@ -168,7 +170,8 @@ Their gradients will then be averaged and used for updating the model parameters
 \centering\textbf{Stochastic Learning with minibatches}
 \begin{enumerate}
     \item Stochastic learning is usually much faster and uses lesser resources than batch learning.
-    \item Stochastic learning often results in better solutions than batch learning
+    \item Stochastic learning often results in better solutions than batch learning that produce less generalization error
+    \item As a rule of thumb, we can use the samllest batch size that will saturate the hardware.
 \end{enumerate}
 \end{minipage}}\par}
 
@@ -185,7 +188,7 @@ One way of accomplishing this would be taking an equal number of samples for eac
 There is some research suggesting that the optimal size of a batch is somewhat related to the number of categories for classification problems.\\
 
 One other concern is that if a type of input is underrepresented in the training data, the model would not be incentivized to learn them well. 
-Often we have different categories having different frequencies. 
+Often we have different categories that have different frequencies in the dataset. 
 For instance, if we train the facial recognition model where the training data has a racial distribution that reflects the racial distribution of the United States, it would result in some races to be underrepresented. 
 This would hinder the model’s performance on these types of inputs as it will focus on learning the dominant types of inputs. 
 Eventually, it will not learn the relevant properties/features to represent those underrepresented races and would not work well for such samples.\\
@@ -195,7 +198,7 @@ This should be avoided and we must try to make use of all available data.
 One way of doing this would be by picking a category at random first, and then taking a sample within that category. 
 One can generate a counter for each class, which would denote the number of samples that were taken from that class so far. 
 This counter would be incremented for each sample taken from that category. 
-Once we reach the end of a given category, we would shuffle its samples, set its counter to zero and proceed. 
+Once we reach the end of a given category, we would shuffle its samples, set its counter to zero and proceed further. 
 This would equalize the frequency in a simple way while still making us able to use all the available data. 
 However, it will also cause the model to assign similar probabilities to all categories however rare they may be.  
 To overcome this, we can do one more pass using the real distribution of the data and re-train with real frequencies which will affect the last few layers, changing their bias and adjusting to accommodate for the real percentages. 
@@ -206,7 +209,7 @@ However this will result in using a bigger step size for smaller underrepresente
 \centering\textbf{Shuffling Training Samples}
 \begin{enumerate}
     \item Shuffle training samples so that the samples in a batch belong to different classes.
-    \item Do one more pass with real frequencies after training the model with equalized frequencies to accommodate for real percentages.
+    \item Present input variables that produce a large error more frequently than examples that produce a small error. Then do one more pass with real frequencies after training the model with equalized frequencies to accommodate for real data distribution.
 \end{enumerate}
 \end{minipage}}\par}
 \vspace{5pt}
@@ -214,10 +217,10 @@ However this will result in using a bigger step size for smaller underrepresente
 % Authors: tn1050@nyu.edu, vy404@nyu.edu, sk7685@nyu.edu.
 % Lecture date: 2.4.19
 \section{Normalize Input Variable} 
-It is important for inputs to be normalized (having mean zero and standard deviation of one) so to make sure that the optimization well behaved and converges at a fast rate.
-A shift of the average input away from zero creates a bias in the updates in a particular direction slowing down learning. 
+It is important for inputs to be normalized (having mean zero and standard deviation of one) so to make sure that the optimization well behaves and converges at a fast rate.
+A shift of the average input away from zero creates a bias in the updates in a particular direction, which slows down learning. 
 Because of this reason it is advisable to have a zero mean over the training set. 
-Having nonzero means creating large eigenvalues. This causes the cost surface to be steep in some directions and shallow in others, which in turn would slow the convergence. \\
+Having nonzero means, create large eigenvalues. This causes the cost surface to be steep in some directions and shallow in others, which in turn would slows the convergence. \\
 
 \begin{figure}[ht]
 \centering
@@ -226,9 +229,9 @@ Having nonzero means creating large eigenvalues. This causes the cost surface to
 \label{fig:normalize}
 \end{figure}
 
-Another factor influencing the convergence rate is the scaling of the input variables such that they have the same covariance as inputs that have large variations in spread along different directions of the input space do also slow down the learning. 
-This speeds up learning as it helps balance out the rate at which the weights connected to input nodes learn. 
-By normalizing each layer, we're introducing a level of orthogonality between layers - which generally makes for an easier learning process.\\
+Another factor influencing the convergence rate is the scaling of the input variables such that they have the same covariance, as inputs that have large variations in spread along different directions of the input space do also slow down the learning. 
+This speeds up learning as it helps to balance out the rate at which the weights connected to input nodes learn. 
+By normalizing each layer, we are introducing a level of orthogonality between layers - which generally makes it easier for the learning process.\\
 
 \begin{figure}[ht]
 \centering
@@ -313,7 +316,7 @@ It is a layer that randomly masks out some percentage of the units in the layer 
 \label{fig:dropout}
 \end{figure}
 
-Dropout has the effect of making the training process noisy, forcing nodes within a layer to probabilistically take on more or less responsibility for the inputs. 
+Dropout has the effect of making the training process noisy, forcing nodes within a layer to probabilistically take on more responsibility for the inputs. 
 It helps to spread the evidence to multiple features and prevents the network from giving too much importance to a particular feature. 
 It also provides a cheap way of ensembling multiple networks. 
 Dropout also helps reduce interdependent learning amongst the neurons and limits the networks ability to memorize very specific conditions during the training. 
@@ -331,7 +334,7 @@ The network can then be used as per normal to make predictions.\\
 \centering\textbf{Use “dropout” for Regularization}
 \begin{enumerate}
     \item A layer that randomly masks out some percentage of the units in the layer and “ignores” them during a pass.
-    \item Helps prevent the network from giving too much importance to a particular feature.
+    \item Helps prevent the network from giving too much importance to a particular feature, and incentives to spread the evidence to multiple features
 \end{enumerate}
 \end{minipage}}\par}
 
@@ -341,15 +344,15 @@ The network can then be used as per normal to make predictions.\\
 Some tricks are not well understood theoretically and are based on intuition supported by empirical evidence. 
 One such trick is decreasing the learning rate during the training. 
 When we observe the loss of the neural net plateaus and stops decreasing, it might be helpful to continue training with a lower learning rate. 
-To understand why this might be helpful, imagine there are two minima (one deep and narrow and another shallow and wider) and we are optimizing the model parameters with SGD.
 
 \begin{figure}[hbt!]
 \centering
-\includegraphics[width=115mm]{lectures/02-b/Learning rate_3.png}
+\includegraphics[width=120mm]{lectures/02-b/Learning rate_3.png}
 \caption{Gradient descent with small (left), optimal (middle) and large (right) learning rates}
 \label{fig:learningrate1}
 \end{figure}
 
+To understand why this might be helpful, imagine there are two minima (one deep and narrow and another shallow and wider) and we are optimizing the model parameters with SGD.
 Note that the noise in the gradients will be causing the parameters to fluctuate. 
 The fluctuations will be smaller in the wider shallower minima than the narrow and deeper one as the weights will be bouncing off sharper in the narrower one, and they might bounce so much that the parameters will go out of the curvature. 
 In the wider shallower minima it is very likely that the fluctuations will be smaller even though the minima is higher.
