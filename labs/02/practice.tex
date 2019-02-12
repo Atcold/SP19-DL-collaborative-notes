@@ -22,8 +22,8 @@ We have three curves defined by functions:
 \newpage
 
 If we were to use two linear transformations $ W_h$ and $ W_y$  transform the data $x$ as so:
-\[\vect{h}= \vect{W_h}\vect{x}+ \vect{b_h} \]
-\[\hat{\vect{y}} = \vect{W_y} \vect{h} + \vect{b_y}\]
+\[\matr{h}= \matr{W_h}\matr{x}+ \vect{b_h} \]
+\[\hat{\vect{y}} = \matr{W_y} \matr{h} + \vect{b_y}\]
 We would not be able to  linearly separate the data points in these curves as shown in figure \ref{fig:spiral_with_noise}.  These points are defined by the same function with added noise.
 
 \[X_c(t) = t
@@ -111,5 +111,45 @@ Given the index $c$ in the 1-hot encoding representation of the correct label an
     \ell(\hat{\vect{y}},c) &= -\log(\hat{\vect{y}}[c]) \\
     \mathcal{L}(\hat{\vect{Y}},\vect{c}) &= \frac{1}{m}\sum_{i=1}^m \ell(\hat{\vect{y}}^{(i)},c^{(i)})
 \end{align*}
+Since the softmax produces exponentiation of the logits, we never receive exactly $0$ or $1$. Instead, $0^+$ or $1^-$ are returned which signify slightly greater than $0$ and slightly less than $1$.
+Since the loss is the cross entropy/negative log of the output, if the correct class is predicted the loss will be $-\log(1^-)$, which is $0^+$. Similarly, for the other class $-\log(0^+)$ will be $+\infty$.
 
 \subsection{Neural Network Training: Part 2}
+Finally, How to train the Neural Network. 
+\[\Theta \equiv \{ W_h, b_h , W_y, b_y \} \]
+Here $\Theta$ is  a conglomeration of all the parameters and it represents one point in the parameter space.  
+\[
+   \mathcal{J}(\Theta) \equiv \mathcal{L}(\hat{\mathcal{Y}}(\Theta,c) \in R^+\
+\]
+$J(\Theta)$ is the loss over the entire data set and is a function of the parameter $\Theta$.
+
+The next step is to compute the partial derivatives of the loss $\mathcal{J}(\Theta)$ with respect to the two different linear transformations. 
+\[\matr{h} = f(\matr{W_h} \matr{x} + \vect{b_h})\]
+\[\matr{\hat{y}} = f(\matr{W_y} \matr{x} + \vect{b_y})\]
+
+Using backpropagation we find these two partial derivatives:
+\[
+    \frac{\partial J(\Theta)}{\partial \matr{W_y}} = 
+    \frac{\partial J(\Theta)}{\partial \hat{\vect{y}}}
+    \frac{\partial \hat{\vect{y}}}{\partial \matr{W_y}}
+\]
+    
+\[\frac{\partial J(\Theta)}{\partial \matr{W_h}} =
+\frac{\partial J(\Theta)}{\partial \hat{\vect{y}}}
+\frac{\partial \hat{\vect{y}}}{\partial \matr{h}}
+\frac{\partial \matr{h}}{\partial \matr{W_h}}
+
+\]
+
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=300pt]{labs/02/images/gradient_descent.jpg}
+    \caption{Representation: Gradient Descent}
+    \label{fig:gradient_descent}
+\end{figure}
+
+Here $J{\Theta}$ is a  quadratic function, and given a point, the derivative/slope can be computed. Let $\Theta_0$ be the starting position, the loss can be evaluate over the data set and the derivative or the slope can be figured out. The derivative of $J{\Theta}$ which is a quadratic function will be a linear function. In (figure \ref{fig:gradient_descent}) the slope at point $\Theta_0$ is positive, hence the derivative is linear function which points $\nearrow$, hence, weights will be modified by stepping in the opposite direction $\swarrow$.
+
+
+
