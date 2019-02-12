@@ -273,7 +273,7 @@ A linear module is a function $Y=W\cdot X$ which predicts an output $Y$ by multi
 The gradients of the cost function with respect to input and weight are 
 \begin{align*}
     \frac{\partial C}{\partial X} &= W^\top \cdot \frac{\partial C}{\partial Y} \\
-    \frac{\partial C}{\partial W} &= W^\top \cdot \frac{\partial C}{\partial Y} 
+    \frac{\partial C}{\partial W} &= \frac{\partial C}{\partial Y}  \cdot \vect{X}^\top
 \end{align*}
 respectively.
 
