@@ -139,11 +139,11 @@ This process can be repeated multiple times.
 % Authors: Hongyu (Florence) Lu, Michael Gold, Erica Dominic.
 % Lecture date: 1.28.19
 
-\textbf{Supervised learning} is the process of improving the prediction accuracy of the outputs of some differentiable parameterized function (\textbf{module}) $G$ by learning from the discrepancies between predicted and expected outputs.
-To illustrate (see \cref{fig:supervised}), suppose we would like to train a function $G(x,w)$, where $x$ is the input and $w$ is a parameter called \textbf{weight}.
-Say we have an input-output pair $(x,y)$.
-The function $G(x,w)$ first takes the input $x$ and predicts an output $\bar{y}$.
-Then, the \textbf{cost function} $C(\bar{y},y)$ measures the distance between the expected output $\bar{y}$ and the predicted output $\bar{y}$ and returns a \textbf{cost}, that is, a scalar value indicating the error in prediction.
+\textbf{Supervised learning} is the process of improving prediction accuracy of some differentiable parameterized function (\textbf{module}) $G$ by learning from discrepancies between predicted and expected outputs.
+As an illustration (see \cref{fig:supervised}), suppose we would like to train a function $G(x,w)$, where $x$ is the input variable and $w$ is a parameter called \textbf{weight}.
+Say we have an input-output pair $(x,y)\in \mathbb{R}^2$.
+The function $G(x,w)$ first takes the value of $x$ and predicts an output $\bar{y}$.
+Then, the \textbf{cost function} $C(\bar{y},y)$ measures the distance between the predicted output $\bar{y}$ and the expected output $y$ and returns a \textbf{cost}, that is, a scalar value indicating error in prediction.
 Finally, the weight $w$ will be adjusted according to the cost by using a method called \textbf{stochastic gradient descent}. 
 
 Some examples of modules can be found in \cref{ssc:Module Classes}. 
@@ -159,22 +159,21 @@ Some examples of modules can be found in \cref{ssc:Module Classes}.
 % Authors: Hongyu (Florence) Lu, Michael Gold, Erica Dominic.
 % Lecture date: 1.28.19
 
-Suppose we are given a training data set consisting of $P$ pairs of inputs and their associated outputs $(x^i, y^i)$, where $i \in [1, P]$.
-We would like to optimize the weights $\vect{w}$ of some function according to the error produced by an objective function:
+Suppose we are given a training data set consisting of $P$ pairs of $N$-feature inputs and their associated outputs $(\vect{x^i}, y^i)$, where $i \in [1, P], x\in \mathbb{R}^N$, and $y\in \mathbb{R}$.
+We would like to optimize the weights $\vect{w}\in \mathbb{R}^N$ of some function according to errors produced by an \textbf{objective function}:
 \[
-L(x^i, y^i, \vect{w}) = C(G(x^i, \vect{w}), y^i).
+L(\vect{x^i}, y^i, \vect{w}) = C(G(\vect{x^i}, \vect{w}), y^i).
 \]
-Recall that \textbf{gradient descent} calculates the derivative of the cost function in attempt to find the minimal cost.
+Recall that \textbf{gradient descent} calculates the derivative of the cost function in attempt to find minimal cost.
 If we compute the gradient for the entire training set, it may be too computationally expensive for very large training sets.
 Instead, a more efficient method is adopted called \textbf{stochastic gradient descent}.
-This method evaluates the gradient randomly at the $i^\text{th}$ pair of input and output, and the weight vector $\vect{w}$ is immediately updated accordingly for each iteration with a learning rate $\eta$:
+This method first evaluates the gradient randomly at the $i^\text{th}$ pair of input and output, then $\vect{w}$ is updated accordingly with a \textbf{learning rate} $\eta$:
 \begin{equation}\label{eq: SGD}
-\vect{w} \leftarrow \vect{w} - \eta \left[ \frac{\partial L(x^i, y^i, \vect{w})}{\partial \vect{w}} \right]^\top
+\vect{w} \leftarrow \vect{w} - \eta \left[ \frac{\partial L(\vect{x^i}, y^i, \vect{w})}{\partial \vect{w}} \right]^\top.
 \end{equation}
-Note that $\vect{w}$ is a vector which has the same dimension as the input $x^{i}$.
-The result is a row vector consisting of partial derivatives with respect to each component of $\vect{w}$:
+The result is a row vector consisting of $N$ partial derivatives with respect to each component of $\vect{w}$:
 \[
-\left[ \frac{\partial L(x^i, y^i, \vect{w})}{\partial \vect{w}} \right]^\top = \left[ \hspace{2mm} \frac{\partial L}{\partial w_1} \hspace{2mm} \frac{\partial L}{\partial w_2} \hspace{2mm} \cdots \hspace{2mm} \right]
+\left[ \frac{\partial L(\vect{x^i}, y^i, \vect{w})}{\partial \vect{w}} \right]^\top = \left[ \hspace{2mm} \frac{\partial L}{\partial w_1} \hspace{2mm} \frac{\partial L}{\partial w_2} \hspace{2mm} \cdots \hspace{2mm} \right].
 \]
 These partial derivatives are then evaluated using a method called \textbf{backpropagation}, which will be introduced in \cref{ssc: Compute SGD using backprop}.
 
@@ -182,18 +181,18 @@ These partial derivatives are then evaluated using a method called \textbf{backp
 % Authors: Hongyu (Florence) Lu, Michael Gold, Erica Dominic.
 % Lecture date: 1.28.19
 
-The above supervised learning algorithm uses only one module to predict the output $\bar{y}$.
+The above supervised learning algorithm uses only one module to predict outputs $\bar{y}$.
 Often, we can build a complex learning machine by assembling modules into networks.
 \Cref{fig: multimodule_cascade} illustrates a simple example of a multimodule system.
-This system has a \textit{cascade}, or \textit{sequential}, architecture, that is, a structure where no cycles are formed in the network and the input $X$ is passed forward in only one direction.
+This system has a \textit{cascade}, or \textit{sequential}, architecture, that is, a structure where no cycles are formed in the network and the input $X$\footnote{We simplify notations for $X$, $W$, and $Y$ in the rest of Chapter 4 since the following abstract analysis on the structure and the gradient of a multi-layer neural network applies to scalars, vectors, or matrices of the same dimension.} is passed forward in only one direction.
 We can use a recurrence equation to represent a system with $n$ modules:
 \[
 X_i = F_i(X_{i-1}, W_i)
 \]
 for all $i \in [1, n]$.
-Here, each module $F_i$ is an object that contains trainable parameters $W_i$.
+Here, each module $F_i$ is an object containing trainable parameters $W_i$.
 The output of the $(i-1)^\text{th}$ module $X_{i-1}$ is returned and stored internally.
-It is then taken as the input for the $i^\text{th}$ module $F_i$ and so on until the signal reaches the last module $F_n$ and computes the predicted output $X_n$.
+It is then taken as the input for the $i^\text{th}$ module $F_i$ and so on until the signal $X_0$ reaches the last module $F_n$ and computes the predicted output $X_n$.
 
 \begin{figure}[ht]
 \centering
@@ -202,7 +201,7 @@ It is then taken as the input for the $i^\text{th}$ module $F_i$ and so on until
 \label{fig: multimodule_cascade}
 \end{figure}
 
-Similar to a single module system, the objective function $E$ that we would like to optimize is the cost function:
+Similar to a single module system, the objective function $E$ is the cost function:
 \[
 E(Y, X_0, W) = C(X_n, Y)
 \]
@@ -211,10 +210,10 @@ which measures the distance between the predicted output $X_n$ of and the desire
 % Authors: Hongyu (Florence) Lu, Michael Gold, Erica Dominic.
 % Lecture date: 1.28.19
 
-Recall that a learning algorithm is considered ``deep'' if it has more than one layer.
+Recall that a learning algorithm is considered ``deep'' if it has more than one nonlinear layer.
 A multimodule system with a sequential structure is often called a \textbf{multi-layer feedforward neural network}, or a \textbf{deep neural network}.
 See an example of defining a two-layer neural network in PyTorch in \cref{sec: Multilayer Neural Network}.
-In PyTorch, as the signal of the initial input $X_0$ propagates through a sequence of approximation functions $F_i$, PyTorch instantaneously generates another function internally, called \textbf{backpropagation}, that propagates the cascade of modules backwards in order to compute gradients discussed in \cref{sec: SGD}. 
+In PyTorch, as the signal of the initial input $X_0$ propagates through a sequence of approximation functions $F_i$, PyTorch instantaneously generates another function internally, called \textbf{backpropagation}, which propagates the cascade of modules backwards in order to compute gradients discussed in \cref{sec: SGD}. 
 
 \subsection{Compute Gradient Using Backpropagation}\label{ssc: Compute SGD using backprop}
 % Authors: Hongyu (Florence) Lu, Michael Gold, Erica Dominic.
@@ -224,18 +223,18 @@ To compute the gradient of the objective function $E(W,Y,X)$ in an $n$-layer neu
 The forward propagation method uses the input $X_{k-1}$ produced by the $(k-1)^{\text{th}}$ module and computes a predicted output $X_k$ using the weight $W_k$, 
 \[ X_k=F_k(X_{k-1},W_k). \]
 Suppose we know the gradient $\frac{\partial E}{\partial X_k}$ of the cost function with respect to the output of the $k^\text{th}$ module.
-That is, for each component of the vector $X_k$, we know how much $E$ wiggles if we wiggle that component of $X_k$.
-As mentioned in \cref{sec: supervised learning}, since the goal is to adjust the weight $W_k$, we would like to know how much $E$ wiggles if wiggle each component of $W_k$, namely, the gradient $\frac{\partial E}{\partial W_k}$ of the cost function with respect to the weight of the $k^\text{th}$ module.
-To do so, we can simply apply the chain rule using $\frac{\partial E}{\partial X_k}$: 
+That is, for each component of $X_k$, we know how much $E$ wiggles if we wiggle that component of $X_k$.
+As mentioned in \cref{sec: supervised learning}, since the goal is to optimize weight $W_k$, we would like to know how much $E$ wiggles if we wiggle each component of $W_k$, namely, the gradient $\frac{\partial E}{\partial W_k}$ of the cost function with respect to the weight of the $k^\text{th}$ module.
+To do so, we can simply apply \textit{chain rule} using $\frac{\partial E}{\partial X_k}$: 
 \[
 \frac{\partial E}{\partial W_k} = \frac{\partial E}{\partial X_k} \frac{\partial F_k(X_{k-1},W_k)}{\partial W_k}.
 \]
-In particular, each element $(p,q)$ of the Jacobian matrix indicates how much the $p^\text{th}$ output wiggles when we wiggle the $q^\text{th}$ weight:
+In particular, each element $(p,q)$ of the matrix indicates how much the $p^\text{th}$ output wiggles when we wiggle the $q^\text{th}$ weight:
 \[
 \left[ \frac{\partial F_k(X_{k-1},W_k)}{\partial W_k} \right]_{pq} = \frac{[\partial F_k(X_{k-1},W_k)]_p}{\partial [W_k]_q}.
 \]
 Then, using the same method, we compute the gradient $\frac{\partial E}{\partial X_{k-1}}$ of the cost function with respect to the input of the $k^\text{th}$ module in order to pass the signal to the $(k-1)^\text{th}$ module for it to repeat the above process again.
-A chain rule is applied:
+The chain rule is applied:
 \[
 \frac{\partial E}{\partial X_{k-1}} = \frac{\partial E}{\partial X_k} \frac{\partial F_k(X_{k-1},W_k)}{\partial X_{k-1}}.
 \]
@@ -245,8 +244,7 @@ Note that
 \]
 are the \textbf{Jacobian matrices} of the module $F_k$ with respect to  $W_k$ and $X_{k-1}$.
 
-The entire process of recursively calculating gradients $\frac{\partial E}{\partial X_{i-1}}$ and $\frac{\partial E}{\partial W_i}$ starting from the $n^\text{th}$ module backwards to the first module in the network is called \textbf{backpropagation}.
-We have (see \cref{fig: multimodule_cascade}),
+The entire process of recursively calculating gradients $\frac{\partial E}{\partial X_{i-1}}$ and $\frac{\partial E}{\partial W_i}$ starting from the $n^\text{th}$ module backwards to the first module in the network is called \textbf{backpropagation}, that is (see \cref{fig: multimodule_cascade}),
 
 \begin{align*}
  \frac{\partial E}{\partial X_n} &= \frac{\partial C(X_n, Y)}{\partial X_n}\\
@@ -264,31 +262,31 @@ We have (see \cref{fig: multimodule_cascade}),
 % Authors: Hongyu (Florence) Lu, Michael Gold, Erica Dominic.
 % Lecture date: 1.28.19
 
-Several module classes are discussed here along with their respective gradients as they are the most commonly used modules to build a multi-layer neural network.
+Several module classes are discussed here along with their respective gradients as they some of the most commonly used modules to build a multi-layer neural network.
 
 \textbf{Cost module}.
 A typical cost module is a squared distance function $C=\|\bar{Y}-Y\|^2$ which measures the distance between predicted and expected outputs.
 It is mostly used to indicate errors in prediction.
 
 \textbf{Linear module}.
-A linear module is a function $Y=W\cdot X$ that predicts an output $Y$ by multiplying a Jacobian matrix $W$ by the input $X$.
+A linear module is a function $Y=W\cdot X$ which predicts an output $Y$ by multiplying a Jacobian matrix $W$ by the input $X$.
 The gradients of the cost function with respect to input and weight are 
 \begin{align*}
     \frac{\partial C}{\partial X} &= W^\top \cdot \frac{\partial C}{\partial Y} \\
-    \frac{\partial C}{\partial W} &= W^\top \cdot \frac{\partial C}{\partial Y} 
+    \frac{\partial C}{\partial W} &= \frac{\partial C}{\partial Y}  \cdot \vect{X}^\top
 \end{align*}
 respectively.
 
 \textbf{ReLU module}.
-A Rectifier Linear Unit(ReLU) is a pointwise nonlinearity $Y=ReLU(X)$ which takes an input $X$ and returns the identity function $Y=X$ if $X>=0$ and $0$ if $X<0$.
+A Rectifier Linear Unit(ReLU) is a pointwise nonlinearity $Y=ReLU(X)$ which takes an input $X$ and returns the identity function $Y=X$ if $X\geq0$ and $0$ if $X<0$.
 The gradient is 
-\begin{equation}
+\[
     \frac{\partial C}{\partial X} =
     \begin{cases}
      \frac{\partial C}{\partial Y}, &\text{if } X\geq 0 \\
       0 , &\text{otherwise}
     \end{cases}
-\end{equation}
+\]
 
 \textbf{Duplicate module}.
 A duplicate module $Y_1=X, Y_2=X$ makes two copies of the input $X$ and return two identical outputs $Y_1$ and $Y_2$.
@@ -307,25 +305,29 @@ Therefore, the gradients of the inputs are the same
 \]
 
 \textbf{Max module}.
-A max module $Y=\max(X_1,X_2)$ compares the first input $X_1$ to the second input $X_2$ and returns the identity function if $X_1>X_2$ and $0$ otherwise.
-Since the value of of $X_2$ is never passed forward, gradient of the input is only calculated with respect to $X_1$, that is,
-
-\begin{equation}
+A max module $Y = \max(X_1, X_2)$ compares inputs $X_1$ and $X_2$ and returns the larger of the two.  
+The gradients with respect to $X_1$ and $X_2$ are as follows:
+\[
     \frac{\partial C}{\partial X_1} =
     \begin{cases}
      \frac{\partial C}{\partial Y}, &\text{if } X_1 > X_2 \\
       0 , &\text{otherwise}
+    \end{cases} \hspace{5mm},\hspace{5mm}
+    \frac{\partial C}{\partial X_2} =
+    \begin{cases}
+     \frac{\partial C}{\partial Y}, &\text{if } X_1 < X_2 \\
+      0 , &\text{otherwise}
     \end{cases}
-\end{equation}
+\]
 
 \textbf{LogSoftMax module}.
 A LogSoftMax module given by
 \[
-Y=\log\left(\frac{\exp{(X)}}{\sum_j\exp{(X_j)}}\right) = X - \log\left(\sum_j\exp{(X_j)}\right)
+Y_i=\log\left(\frac{\exp{(X_i)}}{\sum_j\exp{(X_j)}}\right) = X_i - \log\left(\sum_j\exp{(X_j)}\right)
 \]
 normalizes the given input $X$ to a probability distribution indicating the likelihood in $[0,1]$.
 The gradient is computed as follows:
-\[
-\frac{\partial C}{\partial X} = 1 -  \frac{\exp{X}}{\sum_j\exp{(X_j)}}
+\[    
+\frac{\partial C}{\partial X_i}=\frac{\partial C}{\partial Y_i} - \frac{\exp{X_i}}{\sum_j \exp{X_j}} \frac{\partial C}{\partial Y_k}
 \]
-Note that the sum of all components $X_j$ of an input $X$ is equal to $1$.
+Note that the gradient differs when $i=k$ and $i\neq k$.

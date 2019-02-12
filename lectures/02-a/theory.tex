@@ -1,0 +1,101 @@
+\chapter{Backpropagation}\label{chp:Backpropagation}
+% Authors: Vaibhav A Gadodia, Yair Schiff, Goutham Panneeru
+% Lecture date: 02.04.2019
+
+\section{Motivation}
+% Authors: Vaibhav A Gadodia, Yair Schiff, Goutham Panneeru
+% Lecture date: 02.04.2019
+
+Backpropagation is the process of finding the gradients of the weights and biases of a neural network using chain rule, starting with the last layer, and moving backwards.
+It provides a disciplined way to train neural networks using gradient descent.
+At the heart of back-propagation is the use of the chain-rule for calculating gradients of composed functions.
+Neural networks model the composition of linear and element-wise non-linear transformations, and so the calculation of gradients to be used in model training via the chain-rule is a natural choice.
+
+\section{Automatic Backpropagation}
+% Authors: Vaibhav A Gadodia, Yair Schiff, Goutham Panneeru
+% Lecture date: 02.04.2019
+
+Given the importance of gradients in training neural networks, frameworks, such as torch, keep track of and pre-calculate derivatives of commonly used functions or modules.
+The PyTorch library has both functional (stateless) and class forms of frequently used neural network modules.
+Class forms of these modules have constructors and forward propagation methods, and generally there is no need to compute the gradient of functions, as they are already computed and maintained in the class.
+Thus in module classes, state consists of two variables: one holding the result of forward propagation from the module to it successor nodes, and one holding the derivatives with respect to inputs and weights in the module to be passed backwards during back propagation.
+
+\section{Common Modules}
+% Authors: Vaibhav A Gadodia, Yair Schiff, Goutham Panneeru
+% Lecture date: 02.04.2019
+
+Below are some of the common modules and the gradients of a cost function $E(W)$, which is parameterized by the weights, $W$ of the neural network connections.
+
+\subsection{Linear Module}
+% Authors: Vaibhav A Gadodia, Yair Schiff, Goutham Panneeru
+% Lecture date: 02.04.2019
+
+The linear module represents the multiplication of an input vector by a matrix of weights $W$ and thus expresses a linear transformation of inputs. 
+More formally, the forward propagation of this module can be written as: $$X_{out} = WX_{in}$$ where $X_{in}$ is a $p$-dimensional vector of inputs to the module, $W$ is a $d \times p$-dimensional matrix of weights, and $X_{out}$ is a $d$-dimensional vector that is the output of the module.
+Now in order to back propagate through a network, we will need to calculate the Jacobian with respect to $X_{in}$ and with respect to $W$.
+To do so, we employ the chain-rule: $$\frac{\partial E}{\partial X_{in}} = \frac{\partial E}{\partial X_{out}}\frac{\partial X_{out}}{\partial X_{in}} = \frac{\partial E}{\partial X_{out}}W$$ Given the dimensions above, this will be a $1 \times p$ row vector of partial derivatives. To turn this vector into a column vector, we take its transpose: $$\left(\frac{\partial E}{\partial X_{in}}\right)^\top = W^\top \left(\frac{\partial E}{\partial X_{out}}\right)^\top$$ Thus, we see that in the linear module, for the input vector $X_{in}$, we multiply by the weight matrix $W$ on forward propagation and by $W^\top$ on backward propagation.
+To calculate the partial derivative of E w.r.t $X_{in}$, we need to calculate the gradient w.r.t each entry of the input vector. Consider the i-th entry of $X_{out}$ which has the following equation:
+$$X_{out,i} = \sum_{j}(W_{ij} * X_{in,j})$$ Here each entry of $X_{in}$ i.e., $X_{in,j}$ influences all the entries in $X_{out}$ through various W entries which gives rise to: $$\frac{\partial E}{\partial X_{in, j}} = \sum_{i}\frac{\partial E}{\partial X_{out,i}} \frac{\partial X_{out,i}}{\partial X_{in,j}} $$
+
+Now, to calculate the gradient with respect to the weight matrix $W$, we begin by looking at the partial derivative with respect to an individual entry $W_{ij}$ of the weight matrix. The only factor influenced when $X_{out,i}$ changes w.r.t $W_{ij}$ is $X_{in,j}$:  $$\frac{\partial E}{\partial W_{ij}} = \frac{\partial E}{\partial X_{out, i}}\frac{\partial X_{out, i}}{\partial W_{ij}} = \frac{\partial E}{\partial X_{out, i}}X_{in, j}$$ Extrapolating from here, the Jacobian w.r.t the full weight matrix can be expressed as an outer product: $$\left(\frac{\partial E}{\partial W}\right)^\top = \left(\frac{\partial E}{\partial X_{out}}\right)^\top X_{in}^\top$$
+
+\subsection{Hyperbolic Tangent - tanh}
+% Authors: Vaibhav A Gadodia, Yair Schiff, Goutham Panneeru
+% Lecture date: 02.04.2019
+
+The tanh module is a popular non-linearity. Other commonly used non-linearities, such as the sigmoid function and rectified linear unit (ReLU), follow a similar pattern to tanh.
+
+To execute non-linear transformations of the input data, in addition to the linear modules, neural nets employ point-wise non-linearities, such as the tanh function.
+The hyperbolic tangent is computed as follows: $$\mathrm{tanh}(x) = \frac{2}{1 + \exp(-x)} - 1 = \frac{1 - \exp(-x)}{1 + \exp(-x)}$$ Given this non-linearity is applied element-wise, for forward propagation, we can look at an individual index $i$ of the output vector $X_{out}$: $$X_{out, i} = \mathrm{tanh}(X_{in, i} + \beta_i)$$ where $\beta$ is a bias vector added to the input vector.
+For back propagation on the input vector and bias, we again use the chain rule: $$\left(\frac{\partial E}{\partial X_{in}}\right)_{i} = \left(\frac{\partial E}{\partial X_{out}}\right)_{i}\mathrm{tanh}'(X_{in, i} + \beta)$$ $$\frac{\partial E}{\partial \beta_i} = \left(\frac{\partial E}{\partial X_{out}}\right)_{i}\mathrm{tanh}'(X_{in, i} + \beta)$$ where the derivative $\mathrm{tanh}'$ is: $$\frac{d}{dx}\mathrm{tanh}(x) = 1 - \mathrm{tanh}^2(x)$$
+
+\subsection{Euclidean Distance Module}
+% Authors: Vaibhav A Gadodia, Yair Schiff, Goutham Panneeru
+% Lecture date: 02.04.2019
+
+Euclidean distance is a metric for determining proximity of two points in Euclidean space.
+This module is often used as the final layer of a neural network to compute the distance between a prediction and a ground truth label, where it is also commonly known as mean squared error (MSE).
+
+In forward propagation, the output, scalar quantity is calculated as one half the $\ell_2$ norm of the difference between the input vector $X_{in}$ and the provided label $Y$, squared: $$X_{out} = \frac{1}{2}||X_{in} - Y||^2$$ Back propagation to the input vector and label is symmetric: $$\frac{\partial E}{\partial X_{in}} = X_{in} - Y$$ $$\frac{\partial E}{\partial Y} = Y - X_{in}$$
+
+\subsection{Y-connector and Addition Modules}
+% Authors: Vaibhav A Gadodia, Yair Schiff, Goutham Panneeru
+% Lecture date: 02.04.2019
+
+The Y-connector and Addition modules are related, in that the two mirror each other on forward and backward propagation.
+The Y-connector module takes an input vector and \textit{copies} it to two or more output vectors.
+The Addition module, on the other hand, takes two or more input vectors and adds them to form a single output vector.
+
+On the backwards pass, the Y-connector needs to sum the partial derivatives with respect to each of the its output vectors in order to calculate the gradient with respect to the input vector.
+The Addition module need only copy the partial derivative of the output vector to each of its inputs, thus giving rise to the mirrored pattern referenced above.
+More formally, the Y-connector module can be formulated as follows:
+\begin{itemize}
+    \item Forward: $\forall k \in [1..K]: \ X_{out}^{(k)} = X_{in}$
+    \item Backward: $\frac{\partial E}{\partial X_{in}} = \sum_k{\frac{\partial E}{\partial X_{out}^{(k)}}}$
+\end{itemize}
+The Addition module can be expressed as:
+\begin{itemize}
+    \item Forward: $X_{out} = \sum_k{X_{in}^{(k)}}$
+    \item Backward: $\forall k \in [1..K]: \ \frac{\partial E}{\partial X_{in}^{(k)}} = X_{out}$
+\end{itemize}
+
+\subsection{Switch Module}
+% Authors: Vaibhav A Gadodia, Yair Schiff, Goutham Panneeru
+% Lecture date: 02.04.2019
+
+This module takes in $k$ input vectors $X_{in}^{(k)}$ and a discrete-valued $Y$ variable, which acts as a switch, selecting one of the $k$ inputs to be copied to the output vector $X_{out}$.
+At first glance, this module may seem non-differentiable, but further examination reveals that indeed the gradient can be calculated by simply passing the gradient of the output to the input vector that was selected by $Y$ and setting the gradient for all other input vectors to zero.
+For this module, the state variable that maintains information about forward propagation is essential to back propagation as well, since it allows for the gradient to flow backwards through the selected input. 
+
+\subsection{SoftMax Module}
+% Authors: Vaibhav A Gadodia, Yair Schiff, Goutham Panneeru
+% Lecture date: 02.04.2019
+
+The SoftMax module is an important module that is often used in multi-class supervised learning.
+Known also as the Boltzmann-Gibbs distribution by the Physics community, this module takes as an input a vector $X_{in}$ and produces an output vector $X_{out}$ that resembles a probability distribution, as each output component $X_{out, i} \in [0, 1]$ and they all sum to 1: $||X_{out}||_1 = 1$.
+The softmax equation for a given index $j$ of the output vector is expressed as follows: $$X_{out, j} = \frac{\exp(\beta X_{in, j})}{\sum_i{\exp(\beta X_{in, i})}}$$ Back propagation for each component $i$ of the input vector depends on whether that component is equal to $j$ or not.
+More formally:
+\begin{itemize}
+    \item $i = j$: $\frac{\partial X_{out, j}}{\partial X_{in, i}} = \beta X_{out, j}(1 - X_{out, j})$
+    \item $i \neq j$: $\frac{\partial X_{out, j}}{\partial X_{in, i}} = -\beta X_{out, i}X_{out, j}$ 
+\end{itemize}
