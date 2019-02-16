@@ -210,6 +210,15 @@ This is because the model can do some work by simply rotating the decision bound
 \textbf{NB}: Always print the initial loss before any optimizer steps. 
 This is because we need to see if our model is actually improving at all from a random initialization of weights. 
 
+Here is how to compute the initial loss for the model we have above. With three classes, we can compute what our initial loss would be by using
+\begin{minted}{python}
+-math.log(1/3) # 1/3 because of random guess for 3 classes
+# or you can equivalently use:
+math.log(3) # outputs 1.09861228867
+\end{minted}
+
+This value is what we would see with using a random guess for one of each classes. As we saw from running the notebook, with a Linear Model, we can achieve a final loss of 0.861541 which is lower than initial loss of 1.0986. Computing what the initial loss would have been with random guess and putting that into the loss function is very important because it allows us to see that after some training, we did in fact do 'better.'
+
 \section{Non-Linear Model}
 % Authors: Fekade Brook, Nicholas Greenquist, Aaron Wong
 % Lecture date: 2/11/2019
