@@ -19,7 +19,14 @@ Let's review multiplication between a matrix and a vector.
 \end{pmatrix}_{m \times 1}
 \]
 Alternatively, we could write $\vect{z}$ as 
-\[\begin{bmatrix} z_1 \\ z_2 \\ \cdots \\z_m\end{bmatrix} = \begin{bmatrix} \matr{A}^{(1)}\vect{x} \\ \matr{A}^{(2)}\vect{x} \\\cdots \\\matr{A}^{(m)}\vect{x}\end{bmatrix}\]
+\[z = \begin{bmatrix} z_1 \\ z_2 \\ \cdots \\z_m\end{bmatrix} = \begin{bmatrix} \matr{a}^{(1)}\vect{x} \\ \matr{a}^{(2)}\vect{x} \\\cdots \\\matr{a}^{(m)}\vect{x}\end{bmatrix}
+= \begin{pmatrix}
+    \vrule height 0.6cm \\ \vect{a}^{(1) \\ \vrule height 0.6cm
+\end{pmatrix} \vect{x_1} + \begin{pmatrix}
+    \vrule height 0.6cm \\ \vect{a}^{(2) \\ \vrule height 0.6cm
+\end{pmatrix} \vect{x_2}+\cdots+\begin{pmatrix}
+    \vrule height 0.6cm \\ \vect{a}^{(n) \\ \vrule height 0.6cm
+\end{pmatrix} \vect{x_n}\]
 
 What does this look like in practice?
 Suppose $n=2$, we have the $i$th component of $\vect{z}$ 
@@ -28,7 +35,7 @@ z_i & = \vect{a}^T\vect{x} \\
 & = a_1x_1 + a_2x_2 \\
 &= ||\vect{a}|| \cos \alpha ||\vect{x}|| \cos\xi + ||\vect{a}|| \sin \alpha  ||\vect{x}|| \sin\xi \\
 &= ||\vect{a}||\vect{x}|| [\cos\alpha \cos\xi + sin\alpha \sin\xi \\
-&=||\vect{a}||\,||\vect{x}||\cos(\apha-\xi)
+&=||\vect{a}||\,||\vect{x}||\cos(\alpha-\xi)
 \end{align}
 
 
@@ -50,9 +57,10 @@ Let $\matr{A}$ of dimension $3\times 4$ be our kernel. Consider the mapping that
     \vect{a}^{(1)} \vect{x}_{1:1+k-1} \\ \vect{a}^{(1)} \vect{x}_{2:2+k-1} \\ \vdots \\ \vect{a}^{(1)}  \vect{x}_{n-k+1:n}
 \end{pmatrix}_{(n-k+1) \times 1}
 \]
-$\matr{T^{(i)}}$ here is a \texti{Toeplitz matrix}. What is the reason that $\matr{T^{(i)}}$ has $0$s padded in on the top right and lower left corners?
+$\matr{T^{(i)}}$ here is a \textit{Toeplitz matrix}. What is the reason that $\matr{T^{(i)}}$ has $0$s padded in on the top right and lower left corners?
 \subsubsection{Locality}
 We don't care about the points that are far away, since they tend to be less related in natural signals.
 
 \subsubsection{Stationarity}
 We keep the input stationary by utilizing parameter-sharing, so $\vect{a}^{(1)}$ is used through out all rows of $\matr{T^{(i)}}$.
+
