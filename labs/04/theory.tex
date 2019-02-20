@@ -1,0 +1,58 @@
+\chapter{Convolutions}
+
+The following chapter clarifies working with convolutions.
+\section{Matrix Multiplication Review}
+Let's review multiplication between a matrix and a vector.
+\[
+\vect{z} = {\matr{A}}\vect{x} =
+\begin{bmatrix}
+    \rule[0.5mm]{0.8cm}{0.1mm} \; {\vect{a}}^{(1)} \; \rule[0.5mm]{0.8cm}{0.1mm} \\
+    \rule[0.5mm]{0.8cm}{0.1mm} \; {\vect{a}}^{(2)} \; \rule[0.5mm]{0.8cm}{0.1mm} \\
+    \vdots \\
+    \rule[0.5mm]{0.8cm}{0.1mm} \; {\vect{a}}^{(m)} \; \rule[0.5mm]{0.8cm}{0.1mm} \\
+\end{bmatrix}
+\begin{pmatrix}
+    \vrule height 0.6cm \\ \vect{x} \\ \vrule height 0.6cm
+\end{pmatrix} =
+\begin{pmatrix}
+    {\vect{a}}^{(1)} \vect{x} \\ {\vect{a}}^{(2)} \vect{x} \\ \vdots \\ {\vect{a}}^{(m)} \vect{x}
+\end{pmatrix}_{m \times 1}
+\]
+Alternatively, we could write $\vect{z}$ as 
+\[\begin{bmatrix} z_1 \\ z_2 \\ \cdots \\z_m\end{bmatrix} = \begin{bmatrix} \matr{A}^{(1)}\vect{x} \\ \matr{A}^{(2)}\vect{x} \\\cdots \\\matr{A}^{(m)}\vect{x}\end{bmatrix}\]
+
+What does this look like in practice?
+Suppose $n=2$, we have the $i$th component of $\vect{z}$ 
+\begin{align}
+z_i & = \vect{a}^T\vect{x} \\
+& = a_1x_1 + a_2x_2 \\
+&= ||\vect{a}|| \cos \alpha ||\vect{x}|| \cos\xi + ||\vect{a}|| \sin \alpha  ||\vect{x}|| \sin\xi \\
+&= ||\vect{a}||\vect{x}|| [\cos\alpha \cos\xi + sin\alpha \sin\xi \\
+&=||\vect{a}||\,||\vect{x}||\cos(\apha-\xi)
+\end{align}
+
+
+This means $\vect{z}$ represents the \texti{alignment} between each row of $A$ and $\vect{x}$. If we also make $x$ unitary, we have the norms be 1, then $\vec{z}$ has just cosine values as entries. Here, aligning perfectly gives us the maximum value of positive $1$, while going the other direction achieves the most negative value $-1$.
+
+The next section talks about how this relates to convolutions.
+\section{Convolutions}
+Let $\matr{A}$ of dimension $3\times 4$ be our kernel. Consider the mapping that transforms $x_{11}, x_{12}, x_{13}:\, \to \vect{a}^{(1)} x[1:3]$, and filling in the values as the top left $1\times 3$ block of a new matrix. Completing this mapping, we construct the following transformation $\matr{T}$: every component $\matr{T^{(i)}}$ is multiplied by $\vect{x}$ to obtain a convolution. More generally for width $k$, we have
+\[
+\matr{T}^{(1)}\vect{x} =
+\begin{bmatrix}
+    a_{1,1} & a_{1,2} & \dotsc & a_{1,k} & 0 & 0 & \dotsc & 0 \\
+    0 & a_{1,1} & a_{1,2} & \dotsc & a_{1,k} & 0 & \dotsc & 0 \\
+    0 & 0 & a_{1,1} & a_{1,2} & \dotsc & a_{1,k} & \dotsc & 0 \\
+    \vdots & \vdots & \vdots & \ddots & \ddots & \ddots & \ddots & \vdots \\
+    0 & \dotsc & 0 & 0 & a_{1,1} & a_{1,2} & \dotsc & a_{1,k}
+\end{bmatrix}_{(n-k+1) \times n} \vect{x}=
+\begin{pmatrix}
+    \vect{a}^{(1)} \vect{x}_{1:1+k-1} \\ \vect{a}^{(1)} \vect{x}_{2:2+k-1} \\ \vdots \\ \vect{a}^{(1)}  \vect{x}_{n-k+1:n}
+\end{pmatrix}_{(n-k+1) \times 1}
+\]
+$\matr{T^{(i)}}$ here is a \texti{Toeplitz matrix}. What is the reason that $\matr{T^{(i)}}$ has $0$s padded in on the top right and lower left corners?
+\subsubsection{Locality}
+We don't care about the points that are far away, since they tend to be less related in natural signals.
+
+\subsubsection{Stationarity}
+We keep the input stationary by utilizing parameter-sharing, so $\vect{a}^{(1)}$ is used through out all rows of $\matr{T^{(i)}}$.
