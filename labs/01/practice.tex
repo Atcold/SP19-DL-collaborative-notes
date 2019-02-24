@@ -1,5 +1,5 @@
 \chapter{Tensor Transformations}
-% Authors: Dustin Godevais , Reuben Juster, Yi Li,. 2/5/18.
+% Authors: Dustin Godevais , Reuben Juste, Yi Li,. 2/5/18.
 
 The following sections summarize and visualize how you can transform data represented in matrix form. 
 Input data can be defined as a matrix with the $i^{th}$ row corresponding to the $i^{th}$ data point and each additional columns representing a new dimension of the data.
@@ -17,7 +17,7 @@ In the following figures, data points are colored according to their original $x
 \end{bmatrix}
 \]
 
-\begin{figure}[H]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=200pt]{labs/01/images/standardnormal.png}
 \end{center} 
@@ -26,7 +26,7 @@ In the following figures, data points are colored according to their original $x
 \end{figure}
 
 \section{Linear Transformations}
-% Authors: Dustin Godevais , Reuben Juster, Yi Li,. 2/5/18.
+% Authors: Dustin Godevais , Reuben Juste, Yi Li,. 2/5/18.
 There are several linear transformation that can be executed on $\matr{X}$ including:
 
 \begin{itemize}
@@ -71,7 +71,7 @@ The below equation populates $\matr{U}$ based on rotating points by \(\theta\) c
 
 Keeping scaling and reflection constant, the below figure shows a set up points with different  \(\theta\)s .
 
-\begin{figure}[H]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=300pt]{labs/01/images/Rotation.png}
 \end{center} 
@@ -85,7 +85,7 @@ Keeping scaling and reflection constant, the below figure shows a set up points 
 Scaling the points expands or contracts the points about the origin. 
 This controlled separately for each dimension by \(s_1\) and \(s_2\) .
 
-\begin{figure}[H]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=300pt]{labs/01/images/Scaling.png}
 \caption{Scaling Visualized}
@@ -100,7 +100,7 @@ Reflecting points projects them on the other side of a defined line that crosses
 The line that goes from the original point to the projected point is perpendicular to the defined line, and the intersection to the defined line is the midpoint.
 
 
-\begin{figure}[H]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=200pt]{labs/01/images/reflection_example.png}
 \end{center} 
@@ -122,7 +122,7 @@ The line that goes from the original point to the projected point is perpendicul
 
 Where the defined line is \(x_2 = \tan(\theta) x_1 \)
 
-\begin{figure}[H]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=400pt]{labs/01/images/Reflection.png}
 \end{center} 
@@ -146,7 +146,7 @@ Shift points on the \(x_1\) dimension proportional to the \(x_2\) dimension
 \end{bmatrix} \)
 Shift points on the \(x_2\) dimension proportional to the \(x_1\) dimension
 
-\begin{figure}[H]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=400pt]{labs/01/images/shear.png}
 \end{center} 
@@ -172,7 +172,7 @@ The translation of points, which is separate from the weight calculations moves 
 \end{bmatrix} \] 
 (Shift points left or right by \(t_1\) and up or down by  \(t_2\) dimension)
 
-\begin{figure}[H]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=400pt]{labs/01/images/translation.png}
 \end{center} 
@@ -208,7 +208,7 @@ x)\]
 This function first stretches out the points using scalar $s$ via scaling, then the hyperbolic tanget squashes the points into a square.
 The larger $s$ is, the more points end up in the square.
 
-\begin{figure}[H]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=400pt]{labs/01/images/tanh.png}
 \end{center} 
@@ -219,7 +219,7 @@ The larger $s$ is, the more points end up in the square.
 
 Tanh can create curved surfaces when it is sandwiched in-between two linear transformations in a three layer neural network.
 
-\begin{figure}[H]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=400pt]{labs/01/images/tanh_sandwich.png}
 \end{center} 
