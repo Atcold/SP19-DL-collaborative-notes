@@ -1,79 +1,30 @@
 
-\section{CNN: tricks for visualization (Alfredo Canziani)}
-% Authors: Pedro Manuel Herrero Vidal, Doruk Kilitcioglu
-% Lecture date: 2/27/2019
+\section{Striding}
+% Authors: Doruk Kilitcioglu, Pedro Manuel Herrero Vidal, Yves Greatti
+% Lecture date: 2/25/2019
 
-We take the data simulated in the 04-spiral\_classification notebook (\href{https://github.com/Atcold/pytorch-Deep-Learning-Minicourse/blob/master/04-spiral\_classification.ipynb} {"Spiral Classification"}), 
-consisting of 3,000 samples of dimension 2 (Fig. ~\ref{fig:NonLinearlySeparableParametricCurves2}). 
-The data is generated from the following expression:
+Striding is a way of subsampling the input to a convolution or a pooling layer such that consecutive operations skip $S-1$ elements between their calculation (Fig. ~\ref{fig:ConvolutionATrou}).
+With $S=1$ as default, there will be an output for all inputs, except for the edges.
+With $S=2$, there will only be an output for every other input node.
+The generalized equation for the resulting number of nodes is
+\begin{equation}
+    M = \frac{N - K + 1}{2}
+\end{equation}
 
-\[
-X_c(t) = t
-\begin{bmatrix}
-    \sin{\frac{2\pi}{C} (2t+c+1) + \mathcal{N} (0, \sigma^2)} \\
-    \cos{\frac{2\pi}{C} (2t+c+1) + \mathcal{N} (0, \sigma^2)}
-\end{bmatrix}
-\]
-%\noindent
-where $0 \leq t \leq 1$ and classes $c=1, ..., C$.
+\section{A trou (with holes)}
+% Authors: Doruk Kilitcioglu, Pedro Manuel Herrero Vidal, Yves Greatti
+% Lecture date: 2/25/2019
 
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.5\textwidth]{lectures/04-a/images/NonLinearlySeparableParametricCurves.png}
-\caption{3 non linearly separable curves consisting in 3,000 samples from $X \in {{\rm I\!R}}^2$.}
-\label{fig:NonLinearlySeparableParametricCurves2}
-\end{figure}
-
-\noindent
-To classify the data into the three categories, we are going to use a three layer net with: 
-\begin{itemize}
-\item[(1)] 2 input units (dimensionality of the data).
-\item[(2)] A 100-units hidden layer (used to increase the space and extract features).
-\item[(3)] Followed by a ReLU activation function that connects to a two-units layer (here is the trick for visualization!) 
-\item[(4)] And then a linear transformation (with no non-linearity in between) to a 3-unit output layer with softmax activation function for classification 
-(Fig. ~\ref{fig:ArchitectureForClassificationAndVisualizationInTheInputSpace}). 
-Having a 2-unit layer (same as input layer) right before the output layer allows to visualize the transformations 
-that the original space went throw to solve the classification task. 
-The last linear transformation involves the multiplication of $A^{(3)}$ and $W^{(2)}$, 
-where the different rows of $W^{(2)}$ are the 2D vectors that will point at the different classes in the 2D space. 
-In this representation, the different classes are linearly separable.
-\end{itemize}
-
-\begin{figure}[!h]
-\centering
-\includegraphics[width=170mm]{lectures/04-a/images/ArchitectureForClassificationAndVisualizationInTheInputSpace.png}
-\caption{Neural network architecture for classification and visualization in the input space. (a) Architecture of the neural network, which takes 2D inputs and visualizes in the same dimensional space before classification. (b) Linear transformation that takes $A^{(2)}$ and returns $A^{(3)}$ via multiplication with $W^{(2)}$. Rectangular color boxes in $W^{(2)}$ represent the three 2D vectors that will define each class. Calculation of $A^{(3)}$ is followed by a softmax activation function for classification. In the bottom half of (b), the transformed data after and the population vectors (plot credit: Alfredo Canziani).}
-\label{fig:ArchitectureForClassificationAndVisualizationInTheInputSpace}
-\end{figure}
-
-\noindent
-We can linearly interpolate between the two data representations, before and 
-after being feed into the network, in the 2D space by:
-
-\[
-(1-\alpha)(x^{(1)}) + \alpha \phi (x^{(i)}) ~~\text{ where } 0 \leq \alpha \leq 1
-\]
-
-\section{Convolution kernels}
-\noindent
-When applying a convolution transformation for a given layer of $N$ units and size of the kernel $K = 3$, 
-it results in a layer of size $M = N-K+1$. However, this is only the case when the stride $S$ is 1 
-and there is no skip (Fig. 3a). For a larger stride, or displacement of the kernel window in a given direction, 
-the output dimensionality taking also padding $P$ into account is:
-
-\[
- M = \frac{N + 2P - K}{S} + 1
-\]
-
-\noindent
-This operation increases the subsampling rate, but helps speeding up the computation 
-and may keep the relevant features for the task as well as assisting sample invariance (Fig. ~\ref{fig:ConvolutionATrou}). 
-Another kind is the convolution 'a trou' ("with holes"). 
-It applies a convolution kernel but skips a given number of inputs (Fig. ~\ref{fig:ConvolutionATrou}). 
-Convolution 'a trou' results in an output with lower resolution than the input. 
-However, when moving up the hierarchy units will pool inputs from several units after the 'a trou' convolution 
-preserving the receptive field size of those neurons. In this case the output dimension is $M N(K-1)S_k +1$, being $S_k$ the skip size.
+A trou is a similar idea to striding, but without the same cost of the resolution decrease.
+Instead of skipping between the kernels, a trou skips inside the kernels (Fig. ~\ref{fig:ConvolutionATrou}).
+For example, with a trou of 2, one kernel would get input from every other node.
+This widens the receptive field of a kernel without subsampling.
+The generalized equation for the resulting number of nodes is
+\begin{equation}
+    M = N - (K-1)S \text{ (ref. \href{https://arxiv.org/pdf/1603.07285.pdf}{A guide to convolution arithmetic for deeplearning})}
+\end{equation}
+where $S-1$ is the number of holes each kernel leaves while calculating the convolution.
+Since the resolution depends on the ratio of output nodes to the input nodes, a trou loses less resolution when compared to striding.
 
 \begin{figure}[!h]
 \centering
@@ -82,22 +33,108 @@ preserving the receptive field size of those neurons. In this case the output di
 \label{fig:ConvolutionATrou}
 \end{figure}
 
-\vspace{4mm}
+\vspace{2mm}
 \noindent
-In the context of images we want to be able to identify the desired categories independent of location and size. CNN exploit the locality, stationarity and compositionality of the input data using sparsness, parameter sharing and hierarchical structures, respectively. Therefore, we can use these networks to not only classify but also locate and segregate data. It is doubly beneficial because convolutions are computationally cheap; especially given that we can share parameters for a given convolution kernel (Fig. ~\ref{fig:ConvolutionATrou}, orange selection). Since it is common there is no need to recompute it. It also means that we can only get one output for a particular kernel. So, we can implement different kernels to the same input (increasing the depth of the representation), to extract different features. 
+In the context of images we want to be able to identify the desired categories independent of location and size. CNN exploit the locality, stationarity and compositionality of the input data using sparsness, parameter sharing and hierarchical structures, respectively. 
+Therefore, we can use these networks to not only classify but also locate and segregate data. 
+It is doubly beneficial because convolutions are computationally cheap given that we can share parameters for a given convolution kernel (Fig. ~\ref{fig:ConvolutionATrou}, orange selection). Since it is common there is no need to recompute it. It also means that we can only get one output for a particular kernel. So we can apply different kernels to the same input (increasing the depth of the representation) to extract different features. 
 
-\subsection{Multiple character and face recognition}
-\noindent
-Properties of CNN allowed to train this networks to identify components regardless of size and location. If we apply those different kernels and give scores to each location for each of the classes and then determine that there was an object and which one it by the largest score. Higher scores are given to regions of the image with correct predictions and low to incorrect ones. This idea was implemented in the MNIST data set in the early 90s', for digit detection.
+\section{Object detection}
+% Authors: Doruk Kilitcioglu, Pedro Manuel Herrero Vidal, Yves Greatti
+% Lecture date: 2/25/2019
 
-\vspace{4mm}
-\noindent
-Originally, face detection was originally implemented with customized features. In 1993 Vaillant et al. used CNN on large images for face detection (binary classification). It resulted in a large number of false positives, because face-like patterns are common in images. To prevent this from happening they added a second round of training with a training set that has no faces in them. Adding a hard negative mining step (train what 'no face' looks like enabled updated of the patches of the network that were incorrectly identifying faces. The CNN approach to face detection even at its early stages resulted in a significant improvement in the field. Furthermore, if we want to extract several features from the classification, for example, where are the faces and the orientation; it is better to train the same network to solve both tasks rather than training one per task. When training a network to solve all tasks at the same time, the CNN can generalize and use redundancy.
+Let's say that we have an object detector that detects objects in an image of 6 pixels.
+These 6 pixels are operated on by 4 3x3 kernels to give 4 features.
+These four features are operated on by 2 3x3 kernels to give 2 higher level features.
+The final layer uses these two features to perform binary classification.
+
+In a larger image, we can slide this object detector over the image to get a probability value of there being our desired object over those pixels. However, if we use a sliding window approach, we do a lot of extra computations because our object detector will re-compute some parts (a whole child branch leading to the output) that were already handled.
+
+Instead we can first apply the first layer of convolutions over the entire image.
+From there, we can apply the second batch of convolutionsand finally top it off by doing the binary classification.
+
+If we want to emulate a fully connected layer in our object detector, we can use $1\times1$ convolutions.
+
+\section{Uses of object detection}
+% Authors: Doruk Kilitcioglu, Pedro Manuel Herrero Vidal, Yves Greatti
+% Lecture date: 2/25/2019
+
+\subsection{Word-level training with weak supervision}
+% Authors: Doruk Kilitcioglu, Pedro Manuel Herrero Vidal, Yves Greatti
+% Lecture date: 2/25/2019
+
+This model introduced the idea of using different window widths to recognize objects (numbers) of different sizes.
+Using a sliding window this model can get the probability of a digit occurring over every slice of pixels.
+
+\begin{figure}[!h]
+\centering
+	\includegraphics[width=0.5\linewidth]{lectures/04-a/images/word-level.png}
+\label{fig:WordLevel}
+\end{figure}
+
+When going over a digit, there may be multiple slices of the image where the model gives a high probability of that digit.
+In order not to repeat the same digit twice, this model uses a Probabilistic Finite State Machine that combines these probabilities, 
+combining regions with high probabilities into one.
+This FSM can be solved using the Viterbi algorithm.
+
+\subsection{Face Detection}
+% Authors: Doruk Kilitcioglu, Pedro Manuel Herrero Vidal, Yves Greatti
+% Lecture date: 2/25/2019
+
+At the time, the largest dataset used for face detection was in around 1000s of examples, instead of the many millions neural networks usually require.
+These images were of size $20\times20$, and the neural net used to detect faces was also quite small: there were only two convolutional layers, and a binary output.
+
+The accuracy of this model was also not good, because there were a lot of false positives with images that looked like faces.
+In order to increase the accuracy, researchers needed a way of finding negative samples.
+The solution was to take a set of images that you knew didn't contain faces and create tons of $20\times20$ batches from those images.
+If any of those images gave a false positive, you would add that batch into the set of negative samples.
+
+It should be noted that using white noise as negative sample is not an effective way of training, as the set of all real-life images is only a very small portion of the set of all possible pixel combinations.
+
+This research was unfortunately largely ignored by the computer vision community.
+
+During mid 2000s, research groups realized that detecting if there is a face and the orientation of the face at the same time led to better results compared to doing both tasks separately.
+This is called multi-task learning, and it forces the neural net to learn the commonality in between the two tasks.
+This acts as a form of regularization, leading to more generalized features for an image.
+
+One other important outcome of this research was the use of non-maximal suppression.
+In non-maximal suppression, the same image is first subsampled multiple times, creating multiple sizes of the same image.
+
+\begin{center}
+	\includegraphics[width=0.5\linewidth]{lectures/04-a/images/non-max-supp.png}
+	\label{fig:NonMaxSupp}
+\end{center}
+
+After this sub-sampling, each kernel goes over each image, generating multiple feature maps.
+If there is a partial match in one of the higher resolution images, there is a good chance that there is a perfect match in one of the lower resolution images.
+By suppressing all of the non-maximal matches, you can find the right bounding box for an object.
+It also allows one kernel to detect the same feature while being size-invariant.
 
 
-\section{Semantic segmentation}
-\noindent
-CNN can be use not only to identify but also segment images. This is important when dealing with biological images since we want to classify and know every pixel of the image. Manually labelled sets are required to train the net. Another application is self-driving vehicles. We may want to take images and label walk-able paths and obstacles. Before CNN, stereo-vision provided a solution where images can be segmented almost at real time, but with a limited depth range. Using the labelled examples from stereo-systems, we can train CNN to label and segment images using such features. It not only resulted in a comparable segmentation of the space but also overcame the depth restrains of stereo-vision. For the long range vision effect of neural networks, we can train it using scaled patches of the label set (just widen), making a depth impression for the network to learn. That way we can use the same kernel through the entire image. In 2010 another label set of 3,000 images was released. We can train CNN to identify the different categories to parse the scene and label it. Another strategy to produce segmented images is to generate an image of patches using super-pixel to define the boundaries, and then fill each of the patches with the label that is most 'voted' by the network in that section. 
+
+\section{Semantic Segmentation}
+% Authors: Doruk Kilitcioglu, Pedro Manuel Herrero Vidal, Yves Greatti
+% Lecture date: 2/25/2019
+
+Semantic segmentation looks at the problem of identifying where exactly each object begins and end.
+This gives higher fidelity information when compared to using bounding boxes.
+Examples include medical imaging for detecting tumors (where you would want to isolate different tumors), and DARPA's LAGR program.
+
+\begin{figure}[!ht]
+\centering
+	\includegraphics[width=0.8\linewidth]{lectures/04-a/images/semantic-segmentation.png}
+\label{fig:SemanticSegmentation}
+\end{figure}
+
+One way of training these networks is to hand-label each and every pixel with the desired output.
+
+For self-driving vehicles, DARPA's LAGR program used stereo vision, or stereo depth estimation, in order to estimate the relative depth of objects.
+Since there is a maximum range you can estimate using stereo vision, LAGR used convolutional nets to estimate longer range depth.
+It again used the idea of subsampling to bring down the image to multiple different resolutions before doing the convolution.
+This made the convolutional nets more robust (compared to stereo vision) for objects that were near or very far.
+
+
+Another strategy to produce segmented images is to generate an image of patches using super-pixel to define the boundaries, and then fill each of the patches with the label that is most 'voted' by the network in that section. 
 
 \noindent
 To identify categories regardless of location and size, a general recipe would be:
