@@ -26,7 +26,7 @@ The generalized equation for the resulting number of nodes is
 where $S-1$ is the number of holes each kernel leaves while calculating the convolution.
 Since the resolution depends on the ratio of output nodes to the input nodes, a trou loses less resolution when compared to striding.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=170mm]{lectures/04-a/images/ConvolutionATrou.png}
 \caption{Types of convolutions in a CNN module. (a) CNN module with input layer of size $N$ a kernel of size $K$ and output $M$, followed by and activation and pooling layers. Convolution with stride $2$ (b) and 'a trou' (c) diagrams.}
@@ -66,7 +66,7 @@ If we want to emulate a fully connected layer in our object detector, we can use
 This model introduced the idea of using different window widths to recognize objects (numbers) of different sizes.
 Using a sliding window this model can get the probability of a digit occurring over every slice of pixels.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 \centering
 	\includegraphics[width=0.5\linewidth]{lectures/04-a/images/word-level.png}
 \label{fig:WordLevel}
