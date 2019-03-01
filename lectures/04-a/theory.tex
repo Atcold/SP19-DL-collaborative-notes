@@ -51,7 +51,7 @@ The final layer uses these two features to perform binary classification.
 In a larger image, we can slide this object detector over the image to get a probability value of there being our desired object over those pixels. However, if we use a sliding window approach, we do a lot of extra computations because our object detector will re-compute some parts (a whole child branch leading to the output) that were already handled.
 
 Instead we can first apply the first layer of convolutions over the entire image.
-From there, we can apply the second batch of convolutionsand finally top it off by doing the binary classification.
+From there, we can apply the second batch of convolutions and finally top it off by doing the binary classification.
 
 If we want to emulate a fully connected layer in our object detector, we can use $1\times1$ convolutions.
 
@@ -69,6 +69,7 @@ Using a sliding window this model can get the probability of a digit occurring o
 \begin{figure}[!ht]
 \centering
 	\includegraphics[width=0.5\linewidth]{lectures/04-a/images/word-level.png}
+	\caption{Digit recognition}
 \label{fig:WordLevel}
 \end{figure}
 
@@ -98,12 +99,14 @@ This is called multi-task learning, and it forces the neural net to learn the co
 This acts as a form of regularization, leading to more generalized features for an image.
 
 One other important outcome of this research was the use of non-maximal suppression.
-In non-maximal suppression, the same image is first subsampled multiple times, creating multiple sizes of the same image.
+In non-maximal suppression (Fig. ~\ref{fig:NonMaxSupp}), the same image is first subsampled multiple times, creating multiple sizes of the same image.
 
-\begin{center}
+\begin{figure}[ht]
+\centering
 	\includegraphics[width=0.5\linewidth]{lectures/04-a/images/non-max-supp.png}
+	 \caption{Non-maximal suppression}
 	\label{fig:NonMaxSupp}
-\end{center}
+\end{figure}
 
 After this sub-sampling, each kernel goes over each image, generating multiple feature maps.
 If there is a partial match in one of the higher resolution images, there is a good chance that there is a perfect match in one of the lower resolution images.
@@ -120,9 +123,10 @@ Semantic segmentation looks at the problem of identifying where exactly each obj
 This gives higher fidelity information when compared to using bounding boxes.
 Examples include medical imaging for detecting tumors (where you would want to isolate different tumors), and DARPA's LAGR program.
 
-\begin{figure}[!ht]
+\begin{figure}[ht]
 \centering
 	\includegraphics[width=0.8\linewidth]{lectures/04-a/images/semantic-segmentation.png}
+	\caption{Sematic segmentation}
 \label{fig:SemanticSegmentation}
 \end{figure}
 
