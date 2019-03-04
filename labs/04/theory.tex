@@ -22,25 +22,27 @@ Let's review multiplication between a matrix and a vector.
 Alternatively, we could write $\vect{z}$ as 
 \[z = \begin{bmatrix} z_1 \\ z_2 \\ \cdots \\z_m\end{bmatrix} = \begin{bmatrix} \matr{a}^{(1)}\vect{x} \\ \matr{a}^{(2)}\vect{x} \\\cdots \\\matr{a}^{(m)}\vect{x}\end{bmatrix}
 = \begin{pmatrix}
-    \vrule height 0.6cm \\ \vect{a}^{(1) \\ \vrule height 0.6cm
+    \vrule height 0.6cm \\ \vect{a}^{(1)} \\ \vrule height 0.6cm
 \end{pmatrix} \vect{x_1} + \begin{pmatrix}
-    \vrule height 0.6cm \\ \vect{a}^{(2) \\ \vrule height 0.6cm
+    \vrule height 0.6cm \\ \vect{a}^{(2)} \\ \vrule height 0.6cm
 \end{pmatrix} \vect{x_2}+\cdots+\begin{pmatrix}
-    \vrule height 0.6cm \\ \vect{a}^{(n) \\ \vrule height 0.6cm
+    \vrule height 0.6cm \\ \vect{a}^{(n)} \\ \vrule height 0.6cm
 \end{pmatrix} \vect{x_n}\]
 
 What does this look like in practice?
-Suppose $n=2$, we have the $i$th component of $\vect{z}$ 
+Suppose $n=2$, we have the $i$-th component of $\vect{z}$ 
 \begin{align}
 z_i & = \vect{a}^T\vect{x} \\
 & = a_1x_1 + a_2x_2 \\
-&= ||\vect{a}|| \cos \alpha ||\vect{x}|| \cos\xi + ||\vect{a}|| \sin \alpha  ||\vect{x}|| \sin\xi \\
-&= ||\vect{a}||\vect{x}|| [\cos\alpha \cos\xi + sin\alpha \sin\xi \\
-&=||\vect{a}||\,||\vect{x}||\cos(\alpha-\xi)
+&= \Vert\vect{a}\Vert \cos \alpha \Vert\vect{x}\Vert \cos\xi + \Vert\vect{a}\Vert \sin \alpha  \Vert\vect{x}\Vert \sin\xi \\
+&= \Vert\vect{a}\Vert\Vert\vect{x}\Vert (\cos\alpha \cos\xi + sin\alpha \sin\xi) \\
+&=\Vert\vect{a}\Vert \Vert\vect{x}\Vert\cos(\alpha-\xi)
 \end{align}
 
 
-This means $\vect{z}$ represents the \texti{alignment} between each row of $A$ and $\vect{x}$. If we $x$ unitary, we have the norms as 1, then $\vec{z}$ has just cosine values as entries. Here, aligning perfectly gives us the maximum value of positive $1$, while going the other direction achieves the most negative value $-1$.
+This means $\vect{z}$ represents the \emph{alignment} between each row of $A$ and $\vect{x}$.
+If we $\vect{x}$ unitary, we have the norms as 1, then $\vect{z}$ has just cosine values as entries.
+Here, aligning perfectly gives us the maximum value of positive $1$, while going the other direction achieves the most negative value $-1$.
 
 The next section talks about how this relates to convolutions.
 \section{Convolutions}
