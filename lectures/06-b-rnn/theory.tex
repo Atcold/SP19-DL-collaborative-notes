@@ -7,11 +7,10 @@
 % Lecture date: 3/11/2019
 
 The idea behind RNNs is to make use of sequential information. 
-In a traditional neural network we assume that all inputs are independent of each other.
+In a traditional neural network, we assume that all inputs are independent of each other.
 But for many tasks that’s a very bad idea. 
 If you want to predict the next word in a sentence you better know which words came before it. 
-RNNs are called recurrent because they perform the same task for every element of a sequence, with the output being depended on the previous computations. 
-Another way to think about RNNs is that they have a “memory” which captures information about what has been calculated so far. 
+Recurrent nets perform the same task for every element of a sequence, with the output being depended on the previous computations. 
 In theory RNNs can make use of information in arbitrarily long sequences, but in practice they are limited to looking back only a few steps. 
 Here is what a typical RNN looks like:\cref{fig:Simple RNN}
 
@@ -73,7 +72,7 @@ From these two, we get
 \end{split}
 \end{align}
 
-Suppose the recurrent activation function $f$ is linear, \cref{eq:bptt_result} reduces to
+Suppose the recurrent activation function $f$ is linear, \cref{eq:bptt_result} is reduced to
 \begin{equation} \label{eq:bptt_linear_result}
 \frac{\partial \vect{z_t}}{\partial \vect{z_{t-n}}} = \matr{W_Z}^{n-1}
 \end{equation}
@@ -84,7 +83,6 @@ Suppose the recurrent activation function $f$ is linear, \cref{eq:bptt_result} r
 % Lecture date: 3/11/2019
 In recurrent neural networks, gradients can accumulate during an update and result in very large gradients. 
 These in turn result in large updates to the network weights, and in turn, an unstable network. 
-At an extreme, the values of weights can become so large as to overflow and result in NaN values.
 
 The explosion occurs through exponential growth by repeatedly multiplying gradients through the network layers that have values larger than $1.0$.
 
@@ -93,8 +91,8 @@ From \cref{eq:bptt_linear_result}, $\frac{\partial \vect{z_t}}{\partial \vect{z_
 \subsection{Vanishing Gradients}
 % Authors: Qintai Liu
 % Lecture date: 3/11/2019
-When we do Back-propagation in the recurrent neural networks and calculating gradients of loss with respect to the weights , the gradients may also get smaller and smaller as we keep on moving backward in the Network. 
-This means that the neurons in the earlier layers learn very slowly as compared to the neurons in the later layers in the hierarchy. 
+When we do back-propagation in the recurrent neural networks and calculating gradients of loss with respect to the weights , the gradients may also get smaller and smaller as we keep on moving backward in the network. 
+This means that the neurons in the earlier layers learn very slowly as compared to the neurons in the later layers. 
 The earlier layers in the network are slowest to train.
 
 From \cref{eq:bptt_linear_result}, $\norm{\frac{\partial \vect{z_t}}{\partial \vect{z_{t-n}}}} \rightarrow 0$ when $e_{max} < 1$, where $e_{max}$ is the largest eigenvalue of $\matr{W_Z}$.
@@ -102,7 +100,7 @@ From \cref{eq:bptt_linear_result}, $\norm{\frac{\partial \vect{z_t}}{\partial \v
 \section{Gradient clipping}
 % Authors: Qintai Liu
 % Lecture date: 3/11/2019
-Fortunately it's easy to solve the problem of exploding gradients by doing gradient clipping.
+Fortunately it's easy to solve the problem of exploding gradients by doing gradient clipping \cite{1211.5063}.
 First, it is straightforward to detect whether the exploding gradient happened by inspecting the norm of the gradient for the cost with respect to the parameters $\norm{\nabla}$.
 If the gradient's norm is larger than some predefined threshold $\tau > 0$, we can renormalize the norm of the gradient to be $\tau$.
 
@@ -129,10 +127,10 @@ If the gradient's norm is larger than some predefined threshold $\tau > 0$, we c
           \label{fig:lstm}
 \end{figure}
 
-Long Short Term Memory networks – usually just called “LSTMs” – are a special kind of RNN, capable of learning long-term dependencies. 
-They were introduced by Hochreiter \& Schmidhuber (1997). They work tremendously well on a large variety of problems, and are now widely used.
+Long Short Term Memory networks \cite{article-lstm} are a special kind of RNN, capable of learning long-term dependencies. 
+They work tremendously well on a large variety of problems, and are now widely used.
 LSTMs are explicitly designed to avoid the long-term dependency problem. 
-Remembering information for long periods of time is practically their default behavior, not something they struggle to learn. Below is how LSTM works
+Below is how LSTM works
 
 The forget gate in LSTM is to decide what information we’re going to throw away from the cell state.
 \[\vect{f_t} = \sigma(\matr{W_{fh}}\vect{h_{t-1}}+\matr{W_{fx}}\vect{x_t} + \vect{b_f}) \]
@@ -150,7 +148,7 @@ Output Gate decides what parts of the cell state we’re going to output.
 \[\vect{o_t} = \sigma(\matr{W_{oh}}\vect{h_{t-1}} + \matr{W_{ox}}\vect{x_t} + \vect{b_o})\]
 
 Output:
-\[\vect{h_t} = \vect{o_t}*\vect{tanh(c_t)}\]
+\[\vect{h_t} = \vect{o_t}*tanh\vect{(c_t)}\]
 
 \section{Gated Recurrent Units}
 % Authors: Qintai Liu
@@ -166,9 +164,9 @@ Output:
           \label{fig:lstm}
 \end{figure}
 
-A slightly more dramatic variation on the LSTM is the Gated Recurrent Unit, or GRU, introduced by Cho, et al. (2014).
+A slightly more dramatic variation on the LSTM is the Gated Recurrent Unit \cite{1406.1078}, or GRU, introduced by Cho, et al. (2014).
 It combines the forget and input gates into a single “update gate.” It also merges the cell state and hidden state, and makes some other changes. 
-The resulting model is simpler than standard LSTM models, and has been growing increasingly popular.
+The resulting model is simpler than standard LSTM models.
 Below is how GRU works
 
 The update gate decides what information from the past would be passed to the next cell state.
