@@ -184,7 +184,7 @@ The reset gate determine what information would be discarded from previous cell 
 
 Then the current memory content update the stories the latest important information by using the reset gate.
 
-\[\vect{\widetilde{h}_t} = tanh(\matr{W_{hr}}(\vect{r_t}*\vect{h_{t-1}}) + \matr{W_{hx}}\vect{x_t} + \vect{b_h})\]
+\[\vect{\widetilde{h}_t} = \tanh(\matr{W_{hr}}(\vect{r_t}*\vect{h_{t-1}}) + \matr{W_{hx}}\vect{x_t} + \vect{b_h})\]
 
 Finally, the final cell state updates the information gained from the current unit and passed it to the next cell.
 

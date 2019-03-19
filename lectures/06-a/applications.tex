@@ -20,7 +20,7 @@ Connectomics is the study of reconstructing schematics of the brain. Researchers
 \subsubsection{U-Net}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.75\textwidth]{lectures/05-a/unet.png}
+    \includegraphics[width=0.75\textwidth]{lectures/06-a/unet.png}
     \caption{U-net architecture from \citep{unet}}
     \label{fig:unet}
 \end{figure}
@@ -30,13 +30,13 @@ In medical imaging applications, the U-Net architecture is often used. This arch
 \begin{figure}[ht]
     \centering
     \begin{subfigure}{0.25\textwidth}
-    \includegraphics[width=0.9\linewidth]{lectures/05-a/checkerboard0.png} 
+    \includegraphics[width=0.9\linewidth]{lectures/06-a/checkerboard0.png} 
     \end{subfigure}
     \begin{subfigure}{0.25\textwidth}
-    \includegraphics[width=0.9\linewidth]{lectures/05-a/checkerboard1.png}
+    \includegraphics[width=0.9\linewidth]{lectures/06-a/checkerboard1.png}
     \end{subfigure}
     \begin{subfigure}{0.25\textwidth}
-    \includegraphics[width=0.9\linewidth]{lectures/05-a/checkerboard2.png}
+    \includegraphics[width=0.9\linewidth]{lectures/06-a/checkerboard2.png}
     \end{subfigure}
     \caption{checkerboard artifacts from \citep{odena2016deconvolution}}
     \label{fig:checkerboard}
@@ -50,7 +50,7 @@ Point cloud (Figure \ref{fig:pointcloud}) is another way of representing 3D data
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.75\textwidth]{lectures/05-a/pointnet.jpg}
+    \includegraphics[width=0.75\textwidth]{lectures/06-a/pointnet.jpg}
     \caption{Point cloud images from \citep{qi2017pointnet}}
     \label{fig:pointcloud}
 \end{figure}
@@ -69,13 +69,13 @@ The aim of an Automatic Speech Recognition(ASR) system is to find the most likel
 Useful techniques for speech feature extraction are Short-time Fourier Transforms(STFTS), Mel-frequency cepstrum (MFFCs), Linear Predictive Coding (LPC), etc (\ref{fig:feature}). Then a ConvNet is trained on labeled transcriptions for frame-level classification. Further alighment techniques such as Hidden Markov Models will be applied to get phones. Then the alighed phones will be fit into some pre-trained lexicon model to get the corresponding words. At last, a language model will be applied to the words to get the transcription. 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\textwidth]{lectures/05-a/cnn_asr.png}
+    \includegraphics[width=1\textwidth]{lectures/06-a/cnn_asr.png}
     \caption{CNN-HMM ASR system architecture}
     \label{fig:cnn_asr}
 \end{figure}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.75\textwidth]{lectures/05-a/feature.png}
+    \includegraphics[width=0.75\textwidth]{lectures/06-a/feature.png}
     \caption{speech audio representations}
     \label{fig:feature}
 \end{figure}
