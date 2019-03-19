@@ -18,7 +18,7 @@ Connectomics is the study of reconstructing schematics of the brain. Researchers
 \subsection{3D ConvNets for Medical Image Analysis}
 
 \subsubsection{U-Net}
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.75\textwidth]{lectures/05-a/unet.png}
     \caption{U-net architecture from \citep{unet}}
@@ -27,7 +27,7 @@ Connectomics is the study of reconstructing schematics of the brain. Researchers
 
 In medical imaging applications, the U-Net architecture is often used. This architecture consists of a cascade of convolutional filters that downsample the input image from high-resolution to low resolution as in a normal ConvNet and then a series of "deconvolution" filters that upsample the representation back to high resolution (along with skip connections across the "U" structure to make up for the loss of resolution during the downsampling phase). Figure \ref{fig:unet} shows the U-Net architecture. U-Net has won the EM segmentation challenge at ISBI 2012 by a large margin.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \begin{subfigure}{0.25\textwidth}
     \includegraphics[width=0.9\linewidth]{lectures/05-a/checkerboard0.png} 
@@ -48,7 +48,7 @@ Some 3D data can be represented as 2D images along with estimates of the depth o
 
 Point cloud (Figure \ref{fig:pointcloud}) is another way of representing 3D data. The data here consists of a "cloud" of $(x,y,z)$  coordinates along with RGB values. However, point clouds are very sparse since most voxels do not contain any object. This causes problems for traditional ConvNets because the input would be almost entirely zeros.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.75\textwidth]{lectures/05-a/pointnet.jpg}
     \caption{Point cloud images from \citep{qi2017pointnet}}
@@ -67,13 +67,13 @@ There are mainly two approaches to speech recognition:
 \end{enumerate}
 The aim of an Automatic Speech Recognition(ASR) system is to find the most likely sentence (word sequence) $W$ which transcribes the speech audio $A$, with acoustic model $P(A|W)$ and language model $P(W)$. The general process of utilizing ConvNets for speech recognition can be illustrated as Figure \ref{fig:cnn_asr}.
 Useful techniques for speech feature extraction are Short-time Fourier Transforms(STFTS), Mel-frequency cepstrum (MFFCs), Linear Predictive Coding (LPC), etc (\ref{fig:feature}). Then a ConvNet is trained on labeled transcriptions for frame-level classification. Further alighment techniques such as Hidden Markov Models will be applied to get phones. Then the alighed phones will be fit into some pre-trained lexicon model to get the corresponding words. At last, a language model will be applied to the words to get the transcription. 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{lectures/05-a/cnn_asr.png}
     \caption{CNN-HMM ASR system architecture}
     \label{fig:cnn_asr}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.75\textwidth]{lectures/05-a/feature.png}
     \caption{speech audio representations}
