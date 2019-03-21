@@ -151,9 +151,9 @@ The decomposition of a Gated Recurrent Unit (GRU) will be visualized as:\\
 i[t] & = \sigma(W_{i} \begin{bmatrix} x[t] \\ h[t - 1] \\ \end{bmatrix}) + b_{i}\\
 f[t] & = \sigma(W_{f} \begin{bmatrix} x[t] \\ h[t - 1] \\ \end{bmatrix}) + b_{f}\\ 
 o[t] & = \sigma(W_{o} \begin{bmatrix} x[t] \\ h[t - 1] \\ \end{bmatrix}) + b_{o}\\
-\bar{c}[t] & = tanh(W_{c} \begin{bmatrix} x[t] \\ h[t - 1] \\ \end{bmatrix}) + b_{c}\\
+\bar{c}[t] & = \tanh(W_{c} \begin{bmatrix} x[t] \\ h[t - 1] \\ \end{bmatrix}) + b_{c}\\
 c[t] & = f[t] \odot c[t-1] + i[t] \odot \bar{c}[t]\\
-h[t] & = o[t] \odot tanh(c[t])\\
+h[t] & = o[t] \odot \tanh(c[t])\\
 \end{align*}
 To control the output, take saturated (squashing / squeezing inputs to a range) sigmoid as an example which we could make the switch simply as 1 or 0, we could determine the hidden representation to be zero by setting the sigmoid function to be null; On the other hand, we could output accordingly by setting the sigmoid function to be 1.\\
 

@@ -33,14 +33,14 @@ Some images, though only labeled as only certain object, might contain several o
 It is discovered that the resource utilization of AlexNet is strongly associated with the choice of batch size during the training. In this section, we are going to mainly focus on this surprising finding. 
 
 In the following graphs, we observe that the use of energy, memory, inference time remains the same for most of the Deep Neural Nets when we change the batch sizes. Nevertheless, for AlexNet, the inference time per image is less, and the net power consumption is more, when batch size is increased. The speedup is due to a weak optimization of AlexNet's fully connected layers with small batch size, which causes the poor system memory and power utilization. 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
     \includegraphics[scale=0.45]{labs/06/images/01.png}
     \caption{}
     \label{01}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
     \includegraphics[scale=0.45]{labs/06/images/02.png}
     \caption{}
@@ -48,14 +48,14 @@ In the following graphs, we observe that the use of energy, memory, inference ti
 \end{figure}
 \clearpage
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
     \includegraphics[scale=0.55]{labs/06/images/04.png}
     \caption{}
     \label{04}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
     \includegraphics[scale=0.55]{labs/06/images/03.png}
     \caption{}
