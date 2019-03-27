@@ -1,0 +1,59 @@
+\chapter{Graph CNN and spectral networks}
+% \author{Yuqiong Li}
+% \date{March 2019}
+
+\section{Why do CNNs work so well}
+% Authors: Yuqiong Li
+% Lecture date: 3/11/2019
+CNNs have worked well on Euclidean structures (e.g. a regular grid) because of the following properties:
+\begin{enumerate}
+    \item Images, videos and speeches have translation invariant properties. For example, one can consider images as sampled instances from distributions on the Euclidean space. They are stationary in that they are shift-invariant. 
+    \item Images are scale separation 
+    \item Features are usually localized, meaning they are much smaller than the input image
+    \item CNNs have a fixed number of parameters 
+    \item With advancement in graphic gards, CNNs can be computed efficiently 
+\end{enumerate}
+However, it is not immediately obvious how to extend CNNs to graphs because they do not have these properties as in Euclidean space.
+
+\section{Extend CNN on Graphs}
+% Authors: Yuqiong Li
+% Lecture date: 3/11/2019
+\subsection{A bit of graph theories}
+
+\begin{enumerate}
+    \item A weighted undirected graph G with
+vertices $V = {1, . . . , n}$, edges $E \subseteq V × V$
+and edge weights $wij \geq 0$ for $(i, j) \in E$. 
+    \item We can define functions over the vertices $L^2(V) = {V \to R}$, which is also a vectors $f = (f_1, . . . , f_n)$.
+    \item We can define the unnormalized Laplacian for $f$ as $(\bigtriangleup f)_i = \sum_{j: (i, j)\in E} w_{ij} (f_i - f_j) $ which is the difference of $f$ and its local average. 
+\end{enumerate}
+
+By doing eigendecomposition of a graph Laplacian, we can obtain the its orthogonal eigenvectors as well as the corresponding non-negative eigenvalues.
+
+\subsection{Fourier analysis on Euclidean spaces}
+A function $f : [−π, π] → R$ can be written as a Fourier series as the following formula:
+\begin{align} 
+    f(x) = \sum_{k \geq 0} \langle f, e^{ikx} \rangle_{L^2([-\pi, \pi]) e^{ikx}}
+\end{align}
+and the corresponding Fourier basis are the Laplacian eigenfunctions: $k^2 e^{ikx}$
+
+
+\subsection{Fourier analysis on graphs }
+A function $f : V \to R$ can be written as a Fourier series as the following formula:
+\begin{align} 
+    f(x) = \sum_{k=1}^{n} \langle f, \phi_k \rangle_{L^2(V) \phi_k}
+\end{align}
+and the corresponding Fourier basis are the Laplacian eigenfunctions: $\lambda_k \phi_k$ with $\lambda_k$ being the frequency.
+
+\subsection{Convolution on Euclidean space }
+Given two functions $f, g \in [-\pi, \pi] \to R$, their convolution can be written as 
+\begin{align} 
+    (f \star g) (x) = \int_{-\pi}^{\pi} f(x') g(x-x') dx'
+\end{align}
+
+\subsection{Spectral convolution}
+Finally, spectral convolution can be defined by analogy to convolution on Euclidean space as 
+\begin{align} 
+    (f \star g) (x) = \sum{k\geq 1} \langle f, \phi_k \rangle_{L^2_(v)}\phi_k
+\end{align}
+which is the inverse Fourier transform. 

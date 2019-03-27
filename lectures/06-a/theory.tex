@@ -1,0 +1,24 @@
+\chapter{A digression on the Fourier Transform}
+% \author{David Brandfonbrener, Min Jae Song}
+% \date{3/11/19}
+
+\section{Definition}
+
+The Fourier transform takes a function of time (sometimes called a signal) and decomposes it into its frequencies. The Fourier transform refers to both the operation that decomposes the function and the resulting decomposition. The domain of the Fourier transform $\hat{f}(\xi)$ is called the ``frequency domain".
+
+The Fourier transform maps a function $ f: \mathbb{R} \to  \mathbb{C}$ into a function $\hat f$ as follows:
+\begin{align}
+    \hat f(\xi) = \int_{-\infty}^\infty f(x) e^{-2\pi i \xi x}dx
+\end{align}
+Note that this can be inverted so that given the Fourier transform $ \hat f $ in the frequency domain we can recover the original function $ f$.
+
+In machine learning, we discretize the data and use the discrete Fourier transform. Given a sequence $x_0,\dots, x_{n-1}$ we can map this to a sequence of frequencies $ \hat x_0,\dots, \hat x_{n-1}$:
+\begin{align}
+    \hat x_k = \sum_{j=0}^{n-1} x_j e^{2\pi i (kj/n)} = \sum_{j=0}^{n-1} x_j (\cos(2\pi kj/n) - i\sin(2\pi kj/n))
+\end{align}
+The discrete Fourier transform can be calculated quickly by the Fast Fourier Transform (FFT) algorithm. There is also an analog of the Fourier transform for graphs, which is closely related to the graph Laplacian.
+
+\section{Connection to convolution}
+One nice property of the Fourier transform called the convolution theorem says that Fourier transform of the convolution of two functions is equivalent to product of the Fourier transforms of the functions in the frequency domain.
+A similar theorem applies to cross-correlations (which is what Convnets are doing).
+One nice application of this is that according to Yann sometimes cudnn calculates convolutions by finding the FFT and performing multiplication in the frequency domain and then using the inverse Fourier transform to recover the result.
