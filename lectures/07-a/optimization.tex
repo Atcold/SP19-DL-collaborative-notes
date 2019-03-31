@@ -50,18 +50,18 @@ In this section, we observe the gradient descent in multiple dimensions. Let $m$
 \caption{A single linear unit with 2-dimensional input.}
 \end{figure}
 The quadratic loss function is given as follows: 
-$$ E(W)= \frac{1}{p}\sum_{p}(Y_{p} - WX_{p})^2$$
+$$ E(\vect{W})= \frac{1}{p}\sum_{p}(Y_{p} - \vect{W}\vect{X}_{p})^2$$
 where $p$ refers to the index of the training data. We want to compute the gradient and the second derivative.
 
 \begin{align*}
-E(W) &=\frac{1}{p}\sum_{p}(Y_{p} - wX_{p})(Y_{p} - wX_{p})\\
-&= \frac{1}{p}\sum_{p}Y_{p}^2 - 2Y_{p}WX_{p} + WX_{p} X_p^{\top}W^\top
+E(\vect{W}) &=\frac{1}{p}\sum_{p}(Y_{p} - \vect{W}\vect{X}_{p})(Y_{p} - \vect{W}\vect{X}_{p})\\
+&= \frac{1}{p}\sum_{p}Y_{p}^2 - 2Y_{p}\vect{W}\vect{X}_{p} + \vect{W}\vect{X}_{p} \vect{X}_p^{\top}\vect{W}^\top
 \end{align*}
-Taking the first and second derivative of $E(W)$ with respect to $W$ gives us:
+Taking the first and second derivative of $E(\vect{W})$ with respect to $\vect{W}$ gives us:
 \begin{eqnarray*}
-\frac{\partial E}{\partial W} &=& -\frac{2}{p}\sum_{p}(Y_{p} - WX_{p}) X_{p}^\top\\
-\frac{\partial^2 E}{\partial W^2} &=&  \frac{2}{p}\sum_{p}X_{p}X_{p}^\top
+\frac{\partial E}{\partial \vect{W}} &=& -\frac{2}{p}\sum_{p}(Y_{p} - \vect{W}\vect{X}_{p}) \vect{X}_{p}^\top\\
+\frac{\partial^2 E}{\partial \vect{W}^2} &=&  \frac{2}{p}\sum_{p}\vect{X}_{p}\vect{X}_{p}^\top
 \end{eqnarray*}
-The second derivative turns out to be a covariance matrix of the input vectors, shaped as a symmetric matrix with $m \times m$ dimension. This matrix is also called as the Hessian Matrix, represented by $H$. Therefore the update rule is now given by:
-$$ W_{t+1} = W_t - H^{-1}\frac{\partial E}{\partial W_t}^{\top} $$
+The second derivative turns out to be a covariance matrix of the input vectors, shaped as a symmetric matrix with $m \times m$ dimension. This matrix is also called as the Hessian Matrix, represented by $\matr{H}$. Therefore the update rule is now given by:
+$$ \vect{W}_{t+1} = \vect{W}_t - \matr{H}^{-1}\frac{\partial E}{\partial \vect{W}_t}^{\top} $$
 The main takeaways are as follows. With the right learning rate, the gradient doesn't paddle left or right, and this also leads to the convergence to the global minimizer. Another thing to note is that when we tune the learning rate, it affects the speed of training but it is usually hard to find the optimal learning rate beforehand.
