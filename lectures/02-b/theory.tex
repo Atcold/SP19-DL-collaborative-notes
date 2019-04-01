@@ -264,7 +264,7 @@ Using these values, we can normalize the vectors $z[l]$ as follows.
 \end{equation}
 We add a very small number ϵ to prevent the chance of a divide by zero error.\\
 
-Batch norm is the most popular however is not that great as it depends on the batch size and we need to maintain a running average of mean and standard deviation which can not be done when running on test cases and we need an equivalent operation for that time. 
+Batch norm is the most popular however is not that great as it depends on the batch size and we need to maintain a running average of mean and standard deviation which can not be done when running on test dataset and we need an equivalent operation for that time. 
 In goodnorm, on the other hand, we do the same operation in both testing and training. \\
 
 As a result of introducing orthogonality between layers such that we avoid shifting distributions in activations as the parameters in earlier layers are updated, we can build deeper networks using normalization.\\
