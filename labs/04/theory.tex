@@ -1,0 +1,75 @@
+\chapter{Convolutions}
+% Authors: Mimee Xu , Sai Anirudh Kondaveeti, Rui Jiang(rj1407), 2/20/18.
+The following chapter clarifies working with convolutions.
+Neural networks can be used to model audio, image, text, or other signals. The signals are represented as sequences of scalars. Audio is often represented as waveform heights. 
+\section{Matrix Multiplication Review}
+Let's review multiplication between a matrix and a vector.
+\[
+\vect{z} = {\matr{A}}\vect{x} =
+\begin{bmatrix}
+    \rule[0.5mm]{0.8cm}{0.1mm} \; {\vect{a}}^{(1)} \; \rule[0.5mm]{0.8cm}{0.1mm} \\
+    \rule[0.5mm]{0.8cm}{0.1mm} \; {\vect{a}}^{(2)} \; \rule[0.5mm]{0.8cm}{0.1mm} \\
+    \vdots \\
+    \rule[0.5mm]{0.8cm}{0.1mm} \; {\vect{a}}^{(m)} \; \rule[0.5mm]{0.8cm}{0.1mm} \\
+\end{bmatrix}
+\begin{pmatrix}
+    \vrule height 0.6cm \\ \vect{x} \\ \vrule height 0.6cm
+\end{pmatrix} =
+\begin{pmatrix}
+    {\vect{a}}^{(1)} \vect{x} \\ {\vect{a}}^{(2)} \vect{x} \\ \vdots \\ {\vect{a}}^{(m)} \vect{x}
+\end{pmatrix}_{m \times 1}
+\]
+Alternatively, we could write $\vect{z}$ as 
+\[z = \begin{bmatrix} z_1 \\ z_2 \\ \cdots \\z_m\end{bmatrix} = \begin{bmatrix} \matr{a}^{(1)}\vect{x} \\ \matr{a}^{(2)}\vect{x} \\\cdots \\\matr{a}^{(m)}\vect{x}\end{bmatrix}
+= \begin{pmatrix}
+    \vrule height 0.6cm \\ \vect{a}^{(1)} \\ \vrule height 0.6cm
+\end{pmatrix} \vect{x_1} + \begin{pmatrix}
+    \vrule height 0.6cm \\ \vect{a}^{(2)} \\ \vrule height 0.6cm
+\end{pmatrix} \vect{x_2}+\cdots+\begin{pmatrix}
+    \vrule height 0.6cm \\ \vect{a}^{(n)} \\ \vrule height 0.6cm
+\end{pmatrix} \vect{x_n}\]
+
+What does this look like in practice?
+Suppose $n=2$, we have the $i$-th component of $\vect{z}$ 
+\begin{align}
+z_i & = \vect{a}^T\vect{x} \\
+& = a_1x_1 + a_2x_2 \\
+&= \Vert\vect{a}\Vert \cos \alpha \Vert\vect{x}\Vert \cos\xi + \Vert\vect{a}\Vert \sin \alpha  \Vert\vect{x}\Vert \sin\xi \\
+&= \Vert\vect{a}\Vert\Vert\vect{x}\Vert (\cos\alpha \cos\xi + sin\alpha \sin\xi) \\
+&=\Vert\vect{a}\Vert \Vert\vect{x}\Vert\cos(\alpha-\xi)
+\end{align}
+
+
+This means $\vect{z}$ represents the \emph{alignment} between each row of $A$ and $\vect{x}$.
+If we $\vect{x}$ unitary, we have the norms as 1, then $\vect{z}$ has just cosine values as entries.
+Here, aligning perfectly gives us the maximum value of positive $1$, while going the other direction achieves the most negative value $-1$.
+
+The next section talks about how this relates to convolutions.
+\section{Convolutions}
+Let $\matr{A}$ of dimension $3\times 4$ be our kernel. Consider the mapping that transforms $x_{11}, x_{12}, x_{13}:\, \to \vect{a}^{(1)} x[1:3]$, and filling in the values as the top left $1\times 3$ block of a new matrix. Completing this mapping, we construct the following transformation $\matr{T}$: every component $\matr{T^{(i)}}$ is multiplied by $\vect{x}$ to obtain a convolution. More generally for width $k$, we have
+\[
+\matr{T}^{(1)}\vect{x} =
+\begin{bmatrix}
+    a_{1,1} & a_{1,2} & \dotsc & a_{1,k} & 0 & 0 & \dotsc & 0 \\
+    0 & a_{1,1} & a_{1,2} & \dotsc & a_{1,k} & 0 & \dotsc & 0 \\
+    0 & 0 & a_{1,1} & a_{1,2} & \dotsc & a_{1,k} & \dotsc & 0 \\
+    \vdots & \vdots & \vdots & \ddots & \ddots & \ddots & \ddots & \vdots \\
+    0 & \dotsc & 0 & 0 & a_{1,1} & a_{1,2} & \dotsc & a_{1,k}
+\end{bmatrix}_{(n-k+1) \times n} \vect{x}=
+\begin{pmatrix}
+    \vect{a}^{(1)} \vect{x}_{1:1+k-1} \\ \vect{a}^{(1)} \vect{x}_{2:2+k-1} \\ \vdots \\ \vect{a}^{(1)}  \vect{x}_{n-k+1:n}
+\end{pmatrix}_{(n-k+1) \times 1}
+\]
+$\matr{T^{(i)}}$ here is a \textit{Toeplitz matrix}. What is the reason that $\matr{T^{(i)}}$ has $0$s padded in on the top right and lower left corners?
+
+Natural signals (not artificial or synthetic) tend to exhibit two important patterns, which are both crucial for convolutional neural networks:
+
+\subsubsection{Stationarity}
+1. Stationarity - Patterns within the signal repeat themselves in multiple places throughout the signal.
+The type of features encountered in the signal don’t depend on the location within the signal. The statistics of one part of the signal are the same as any other part. Some sources also note that stationarity implies that “features that are useful in one region are also likely to be useful for other regions. We keep the input stationary by utilizing parameter-sharing, so $\vect{a}^{(1)}$ is used through out all rows of $\matr{T^{(i)}}$.
+
+\subsubsection{Locality}
+2. Locality - The correlation is high between nearby datapoints, but lower and lower between data points that are farther and farther away.
+So we don't care about the points that are far away, since they tend to be less related in natural signals.
+
+
