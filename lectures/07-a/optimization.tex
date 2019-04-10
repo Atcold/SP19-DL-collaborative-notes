@@ -1,0 +1,67 @@
+
+\chapter{Optimization in Deep Learning}
+% Authors: Yash Goel, Dae Young Kim, Marvin Singson Mananghaya
+% Lecture date: 3/25/2019
+
+Optimization is one of the important aspects of deep learning. In this chapter, we talk about the basics of parameter updating and the step size. Choosing a right step size can greatly reduce the training time. 
+
+\section{Gradient Descent in 1-Dimension}
+% Authors: Yash Goel, Dae Young Kim, Marvin Singson Mananghaya
+% Lecture date: 3/25/2019
+Gradient descent is one of the most popular optimization algorithms used in Deep Learning. We initialize weights randomly and update in the direction in which the value of the loss function $E$ descends the steepest in order to find the minimizer $w$. This direction can be found by taking the negative of the gradient. This process can be represented as:
+$$ w = w - \eta\frac{\partial E}{\partial w}$$
+where
+\begin{eqnarray*}
+w &=& \text{weight}\\
+\eta &=& \text{learning rate}\\
+\frac{\partial E}{\partial W} &=& \text{gradient of loss function with respect to the weight}
+\end{eqnarray*}
+The time until convergence by the algorithm is related to (but not limited to) the learning rate, as given by the formula. For instance, we consider a quadratic loss function to optimize. This function is convex and there exists a unique minimizer. The figure below represents the different scenarios for different step sizes.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=100mm]{lectures/07-a/quadratic_function_to_optimise.png}
+\caption{Various scenarios of tuning the learning rate.}
+\end{figure}
+
+\begin{itemize}
+    \item For $\eta < \eta_{\textrm{opt}}$, the update takes small steps and longer time to the minimum.
+    \item For $\eta=\eta_{\textrm{opt}}$, we have a convergence to the minimizer in one step.
+    \item For $\eta > \eta_{\textrm{opt}}$, it bounces off the wall but still converges.
+    \item For $\eta > 2 \eta_{\textrm{opt}}$, the update overshoots and we do not have convergence.
+    
+\end{itemize}
+
+The question arises: "What's the optimal value for the learning rate $\eta$?" The optimal step size is given by computing the second derivative of the loss function.
+$$ \eta_{opt} = (\frac{\partial^2 E}{\partial w^2})^{-1} $$
+Therefore the weight update rule in this case is given by:
+$$ w_{t+1} = w_t - (\frac{\partial^2 E}{\partial w_{t}^2})^{-1}\frac{\partial E}{\partial w_t}  $$
+This is given by Newton's algorithm for optimization\footnote{https://en.wikipedia.org/wiki/Newton\%27s\_method\_in\_optimization}. Above example is for 1-Dimensional case, but it can also be generalized to multiple dimensions.
+
+
+\section{Gradient Descent in n-Dimension}
+% Authors: Yash Goel, Dae Young Kim, Marvin Singson Mananghaya
+% Lecture date: 3/25/2019
+
+In this section, we observe the gradient descent in multiple dimensions. Let $m$ be the dimension of input space and let us consider a single linear unit with $m$-dimensional inputs.
+\begin{figure}[t]
+\centering
+\includegraphics[width=50mm]{lectures/07-a/su.png}
+\caption{A single linear unit with 2-dimensional input.}
+\end{figure}
+The quadratic loss function is given as follows: 
+$$ E(\vect{W})= \frac{1}{p}\sum_{p}(Y_{p} - \vect{W}\vect{X}_{p})^2$$
+where $p$ refers to the index of the training data. We want to compute the gradient and the second derivative.
+
+\begin{align*}
+E(\vect{W}) &=\frac{1}{p}\sum_{p}(Y_{p} - \vect{W}\vect{X}_{p})(Y_{p} - \vect{W}\vect{X}_{p})\\
+&= \frac{1}{p}\sum_{p}Y_{p}^2 - 2Y_{p}\vect{W}\vect{X}_{p} + \vect{W}\vect{X}_{p} \vect{X}_p^{\top}\vect{W}^\top
+\end{align*}
+Taking the first and second derivative of $E(\vect{W})$ with respect to $\vect{W}$ gives us:
+\begin{eqnarray*}
+\frac{\partial E}{\partial \vect{W}} &=& -\frac{2}{p}\sum_{p}(Y_{p} - \vect{W}\vect{X}_{p}) \vect{X}_{p}^\top\\
+\frac{\partial^2 E}{\partial \vect{W}^2} &=&  \frac{2}{p}\sum_{p}\vect{X}_{p}\vect{X}_{p}^\top
+\end{eqnarray*}
+The second derivative turns out to be a covariance matrix of the input vectors, shaped as a symmetric matrix with $m \times m$ dimension. This matrix is also called as the Hessian Matrix, represented by $\matr{H}$. Therefore the update rule is now given by:
+$$ \vect{W}_{t+1} = \vect{W}_t - \matr{H}^{-1}\frac{\partial E}{\partial \vect{W}_t}^{\top} $$
+The main takeaways are as follows. With the right learning rate, the gradient doesn't paddle left or right, and this also leads to the convergence to the global minimizer. Another thing to note is that when we tune the learning rate, it affects the speed of training but it is usually hard to find the optimal learning rate beforehand.
