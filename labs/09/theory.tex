@@ -1,0 +1,69 @@
+\chapter{ Autoencoder }
+% Authors: Bixing Yan (by783),  , Apr 10, 2019.
+\section{ Introduction }
+\\
+Autoencoder is a an unsupervised learning of efficient data coding. With neural network layers as encoder and decoder, the aim of an autoencoder is to restore its input data at the output.  Traditionally, autoencoders are used for dimensionality reduction; while recently, this concept are more widely used for learning the generative model of data.
+\\
+The schematic illustration is shown as below:
+\\
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.6\textwidth]{labs/09/images/Schematic_Illustration_of_Autoencoder.png}
+    \caption{Schematic Illustration of Autoencoder}
+    \label{fig:Schematic_Illustration_of_Autoencoder}
+\end{figure}
+\\
+From the above figure, we can know, typically, an autoencoder consists two parts: the encoder and the decoder. The encoder will map the input data to a target space ($f_h: x\rightarrow h$), while the decoder will project the data from the target space back to the original input space ($f_x: h\rightarrow \hat{x}$).
+\\
+The performance of an autoencoder is evaluated by how similar the encoder can restore the data after it is coded by the encoder. Thus, the loss an autoencoder is inversely correlated with the similarity between the input $x$ and the output $\hat{x}$. 
+$$ L=\frac{1}{m}\sum_{j=1}^m l(x^j,\hat{x}^j) $$
+For example, for the binary output, the entropy loss is usually used as the evaluation metric:
+$$ l(x,\hat{x}) = -\sum_{i=1}^n[x_i\log(\hat{x}_i) + (1-x_i)\log(1-\hat{x}_i) ]$$
+And, for the real value output, the performance of an autoencoder is usually evaluated with the Euclid distance:
+$$ l(x,\hat{x}) = \frac{1}{2} \| x-\hat{x} \|^2 $$
+By reducing the loss, we can train the autoencoder.
+\\
+Depending on the dimension of the coded space (hidden layer), the autoencoder can be described as under-complete or over-complete, as the figure shown below:
+\\
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.6\textwidth]{labs/09/images/Under_(over)_complete_Autoencoder.png}
+    \caption{Under-complete (left) and over-complete (right) Autoencoder}
+    \label{fig:Under_(over)_complete_Autoencoder}
+\end{figure}
+\\
+As its name, the size of the hiddden layer of an under-complete autoencoder will be smaller than the input size; while that of an over-complete one will be large than the input size. The under-complete auto encoder is usually applied to perform dimension reduction, while the over-complete autoencoder is utilized to learn features.
+\\
+\subsection{Denoising Autoencoder}
+\\
+Denoising autoencoders take a partially corrupted input whilst training to recover the original undistorted input. The denoising autoencoder mainly fouses on robust representations of inputs and extracting features that are useful for representation of the input distribution.
+\\
+As the description above, to train the autoencoder, we need to corrupt the data with small noise ($x \rightarrow x'$). The distribution of the noise will be comparable to our observation in reality, so that the denoising autoencoder can robustly recover the real data.
+\\One thing need to note here is, because the ideal output $\bar{x}$ are expected to be the clean data $x$ rather than the noised input $x'$, the loss is a function of $x$ and $\bar{x}$, i.e., $l(x,\bar{x})$ rather than $l(x',\bar{x})$.
+\\
+A schematic illustration of the corruption and denoising process is shown below:
+\\
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.6\textwidth]{labs/09/images/Corrpution_and_Denoising.png}
+    \caption{Corruption and Denoising Process for Denoising Autoencoder}
+    \label{fig:Corrpution_and_Denoising}
+\end{figure}
+
+\subsection{Contractive Autoencoder}
+
+A contractive autoencoder makes this encoding less sensitive to small variations in its training dataset. This is acheived by adding explicit regularizer in the objective function to force the model to learn a function that is robust to slight variations of input values. The loss function includes a term that penalize insensitivity to the reconstruction direction and a term that penalize sensitivity to all directions:
+
+$$l(x,\bar{x}) = l_{\text{reconstruction}} + \lambda \| \nabla_x h \|^2$$
+
+A schematic illustration of this concept is shown below: 
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.6\textwidth]{labs/09/images/Contractive_AutoEncoder.png}
+    \caption{Illustration of Penalization on Different Directions}
+    \label{fig:Contractive_AutoEncoder}
+\end{figure}
+\\
+
+
