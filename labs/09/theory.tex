@@ -1,6 +1,8 @@
 \chapter{ Autoencoder }
-% Authors: Bixing Yan (by783), Chengze Zuo (cz1565) , Apr 10, 2019.
+% Authors: Bixing Yan (by783), Chengze Zuo (cz1565) , Yavuz Sunor (ys3226) Apr 14, 2019.
 \section{ Introduction }
+\\
+Autoencoders are one of two(the other is Generative Adversarial Networks) most commonly used and efficient Generative models approaches. Generative models are unsupervised(semi) learning algorithms aiming at learning the true data distributions of the training set so as to generate new data points with some variations. They are widely used in image processing to create super resolutions when zooming into low pixel images and also in inpainting and image captioning.
 \\
 Autoencoder is a an unsupervised learning of efficient data coding. With neural network layers as encoder and decoder, the aim of an autoencoder is to restore its input data at the output. Traditionally, autoencoders are used for dimensionality reduction; while recently, this concept are more widely used for learning the generative model of data.
 \\
@@ -15,7 +17,7 @@ The schematic illustration is shown as below:
 \\
 From the above figure, we can know, typically, an autoencoder consists two parts: the encoder and the decoder. The encoder will map the input data to a target space (or some would refer as hidden space) ($f_h: x\rightarrow h$), while the decoder will project the data from the target space back to the original input space ($f_x: h\rightarrow \hat{x}$).
 \\
-The performance of an autoencoder is evaluated by how similar the decoder can restore the data after it is coded by the encoder. Thus, the loss an autoencoder is inversely correlated with the similarity between the input $x$ and the output $\hat{x}$ (or we might call it as the reconstruction loss). 
+The performance of an autoencoder is evaluated by how similar the decoder can restore the data after it is coded by the encoder. Thus, the loss of an autoencoder is inversely correlated with the similarity between the input $x$ and the output $\hat{x}$ (or we might call it as the reconstruction loss). 
 $$ L=\frac{1}{m}\sum_{j=1}^m l(x^j,\hat{x}^j) $$
 For example, for the binary output, the entropy loss is usually used as the evaluation metric:
 $$ l(x,\hat{x}) = -\sum_{i=1}^n[x_i\log(\hat{x}_i) + (1-x_i)\log(1-\hat{x}_i) ]$$
@@ -34,9 +36,9 @@ Depending on the dimension of the coded space (hidden layer), the autoencoder ca
 \\
 As its name, the size of the hidden layer of an under-complete autoencoder will be smaller than the input size; while that of an over-complete one will be large than the input size. The under-complete auto encoder is usually applied to perform dimension reduction, while the over-complete autoencoder is utilized to learn features.
 
-More specific, for an under-complete autoencoder, the dimension of the hidden layer would be smaller than the instrinsic dimension of data manifold (The point here is to learn the feature. If you have same number of neurons, you can just simply copy). So this type of autoencoder will encode features that are important for reconstructing (usually will introduce constraints from previous layers). 
+More specific, for an under-complete autoencoder, the dimension of the hidden layer would be smaller than the instrinsic dimension of data manifold (The point here is to learn the feature. If you have same number of neurons, you can just simply copy). So this type of autoencoder will encode features that are important for reconstructing (usually will introduce constraints from previous layers). In other words, by training an under-complete representation, we force the autoencoder to learn the most salient features of the training data. That's why, an under-complete autoencoder will work good when reconstructing samples similar to training samples, but bad with other types of inputs.  
 
-As for over-complete autoencoders, in the hidden layers more hidden units would allow the network to learn more/better feautres (higher dimension is better).
+As for over-complete autoencoders, more units in the hidden layer would basically not guarantee that the hidden units will extract meaningful structure,but most likely copy the input element by element. However, if we are interested in a linear classifier, more dimension allows the network to learn more/better features (higher dimension is better). So, for example, this kind of autoencoders wont do well with MNIST dataset which requires non-linearity to learn seperable patterns. Two ways to deal with this problem and extract meaningful features are using denoising and contractive autoencoders.
 \\
 \subsection{Denoising Autoencoder}
 \\
@@ -56,7 +58,7 @@ A schematic illustration of the corruption and denoising process is shown below:
 
 \subsection{Contractive Autoencoder}
 
-A contractive autoencoder makes this encoding less sensitive to small variations in its training dataset. This is acheived by adding an explicit regularizer in the objective function to force the model to learn a function that is robust to slight variations of input values. The loss function includes a term that penalize insensitivity to the reconstruction direction and a term that penalize sensitivity to all directions:
+A contractive autoencoder makes this encoding less sensitive to small variations in its training dataset. This is achieved by adding an explicit regularizer in the objective function to force the model to learn a function that is robust to slight variations of input values. The loss function includes a term that penalize insensitivity to the reconstruction direction and a term that penalize sensitivity to all directions:
 
 $$l(x,\bar{x}) = l_{\text{reconstruction}} + \lambda \| \nabla_x h \|^2$$
 \\
