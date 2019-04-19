@@ -1,9 +1,9 @@
 \chapter{Latent Variable Models}
-% Authors: Yash Goel, Urwa Muaz, Soham R Mody
+% Authors: Yash Goel, Urwa Muaz, Soham Mody
 % Lecture date: 4/1/2019
 
 \section{Latent Variable Models: Face Detection}
-% Authors: Yash Goel, Urwa Muaz, Soham R Mody
+% Authors: Yash Goel, Urwa Muaz, Soham Mody
 % Lecture date: 4/1/2019
 
 In this section, we take a look at an example of latent variable models in object detection. Consider the following figure. Say we want to train the system for face detection. In this model, \\
@@ -26,7 +26,7 @@ Our goal is to find the combination of Z and Y that minimises the energy. T This
 Generally there are two methods involved which are minimizing energy with respect to Z and marginalize energy with respect to Z. The integral for marginalization often requires a lot of approximations.
 
 \section{Latent Variable Models: Integrated training with sequence alignment}
-% Authors: Yash Goel, Urwa Muaz, Soham R Mody
+% Authors: Yash Goel, Urwa Muaz, Soham Mody
 % Lecture date: 4/1/2019
 
 Let's look at another example of latent variable models. Say we want to detect a few keywords - Alexa, Hey Google and so on.
@@ -42,7 +42,7 @@ We create a template for each keyword and follow this process:\\
 4. We do this for every template and then output the template that has the lowest energy.\\
 
 \section{What can latent variables represent?}
-% Authors: Yash Goel, Urwa Muaz, Soham R Mody
+% Authors: Yash Goel, Urwa Muaz, Soham Mody
 % Lecture date: 4/1/2019
 
 1. Face recognition: Gender, orientation of the face. \\
@@ -53,7 +53,7 @@ We create a template for each keyword and follow this process:\\
 6. Parts of speech tagging: Segmentation of sentence into syntactic units.\\
 
 \section{Loss Function}
-% Authors: Yash Goel, Urwa Muaz, Soham R Mody
+% Authors: Yash Goel, Urwa Muaz, Soham Mody
 % Lecture date: 4/1/2019
 
 We design a loss function in such a way that the model gives low energy to the inputs that we want and high energy(i.e. cost) to the inputs that we don’t want. We essentially aim to push down on the energy of the correct answer and pull up on the energies of the incorrect answers.
@@ -70,13 +70,13 @@ Note: A simple energy loss function faces a "collapse" problem. This is somethin
 As long as the energy of the incorrect answers is very large as compared to the right answer, the collapse problem won't be there. More specifically, if the energy of the “best wrong answer” is higher than the energy of the correct answer, then the model should work. For e.g. Square Square loss (Figure \ref{fig:sqloss})
 \begin{figure}[ht]
 \centering
-\includegraphics[width=100mm,height=4cm]{lectures/08-b/Square_Square.png}
+\includegraphics[width=100mm,height=5cm]{lectures/08-b/Square_Square.png}
 \caption{Square-Square Loss}
 \label{fig:sqloss}
 \end{figure}
 
 \section{Approach for EBM models}
-% Authors: Yash Goel, Urwa Muaz, Soham R Mody
+% Authors: Yash Goel, Urwa Muaz, Soham Mody
 % Lecture date: 4/1/2019
 These are the steps: \\
 1. Design an architecture choosing a particular form of energy function E(W,y,X) \\
@@ -111,11 +111,10 @@ But even then, as long as  the energy of the most offensive incorrect answer is 
 \caption{Examples of Generalized Marginal Losses}
 \label{fig:image2}
 \end{figure}
-
-The table below shows various good and bad loss functions.
-\begin{figure}[h]
+\pagebreak The table below shows various good and bad loss functions.
+\begin{figure}[ht]
 \centering
-\includegraphics[width=100mm]{lectures/08-b/Good_Bad_Loss.png}
+\includegraphics[width=150mm,height=7cm]{lectures/08-b/Good_Bad_Loss.png}
 \caption{Good and bad Loss functions}
 \end{figure}
  
