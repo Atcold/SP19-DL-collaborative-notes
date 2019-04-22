@@ -34,7 +34,7 @@ There is a analogy of machine learning and the cake: almost everything we learn 
 
 \begin{figure}[ht]
 \centering
-\includegraphics[height=7cm]{lectures/08-a/cake.png}
+\includegraphics[height=7cm]{lectures/10-a/cake.png}
 \caption{Cake Analogy}
 \label{fig:label}
 \end{figure}
@@ -47,7 +47,7 @@ So there is a problem: if I ask you to predict the future of a video with given 
 
 \section{Energy-based Unsupervised Learning}
 
-\subsection{Invariant Prediction}
+\subsection{Introduction}
 
 The way to make multiple predictions, or to build a model makes multiple predictions is through the latent variable. Imagine that for a predictor we are going to train, the $x$ are the frames of the video tape, $y$ is the feature of that particular video tape, and we will have an extra input $z$ to the function. What we would like to have is training the system in such a way that, when the latent variable varies over a particular set, the output varies over the set of all plausible predictions. For a particular $z$, the predicted next frame $y^\prime$ and the actual $y$ observed, by tweaking the latent variable, the model is to predict the actually observed $y$.
 
@@ -72,12 +72,12 @@ Making energy low on the training samples is easy, which can be achieved just by
     \begin{figure}[htb]
     \centering
     \begin{subfigure}[b]{0.4\textwidth}
-        \includegraphics[height=\textwidth]{lectures/08-a/energy-based-1.png}
+        \includegraphics[height=\textwidth]{lectures/10-a/energy-based-1.png}
         \caption{Principal Component Analysis}
         \label{fig:unsupervised-energy-1}
     \end{subfigure}
     \begin{subfigure}[b]{0.4\textwidth}
-        \includegraphics[height=\textwidth]{lectures/08-a/energy-based-2.png}
+        \includegraphics[height=\textwidth]{lectures/10-a/energy-based-2.png}
         \caption{Denoising Autoencoder}
         \label{fig:unsupervised-energy-2}
     \end{subfigure}
