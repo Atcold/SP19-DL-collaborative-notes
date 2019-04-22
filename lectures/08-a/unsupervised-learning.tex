@@ -15,9 +15,9 @@ There are some examples where supervised learning is not suitable and we can use
 \begin{itemize}
     \item \textbf{Machine translation for any given language pair}: There are about 5k-7k languages, and we cannot do a supervised problem of learning $n^2$ language-to-language pair translators. A unsupervised learning way to do this is using a encoder-decoder structure we encode any language into a intermediate representation space ($n$ encoder) and decode from this internal representation to the chosen language ($n$ decoder).
 
-    \item \textbf{Learning with very small amount of data}: train a system to detect rare diseases in medical images or train the automatic driving systems where you cannot to exhaust every cases.
+    \item \textbf{Learning with very small amount of data}: There is a lot of situation that we don't have a lot of labeled data. People want to detect rare occurrences of things. Train a system to detect rare diseases in medical images or train the automatic driving systems where you cannot to exhaust every cases.
 
-    \item \textbf{Combining deep learning with reasoning}: in some case we need to train systems to reason, not just perceive. Human have a pretty good model that predicts what may happen. So we can know the result without trying it. This model is acquired by observing which is a form of unsupervised learning.
+    \item \textbf{Combining deep learning with reasoning}: In some case we need to train systems to reason, not just perceive. Human have a pretty good model that predicts what may happen. So we can know the result without trying it. This model is acquired by observing which is a form of unsupervised learning.
 \end{itemize}
 
 Today’s AI technologies can easily classify images and recognize voices, but cannot perform tasks such as reasoning the relationship between different objects or predicting humans’ movements. That is where unsupervised learning can fill the blanks. The reason we need unsupervised learning is the fact that the number of the amount of the data we ask machine to predict is sort of different. These different paradigms of learning are very different.
@@ -35,7 +35,7 @@ There is a analogy of machine learning and the cake: almost everything we learn 
 \begin{figure}[ht]
 \centering
 \includegraphics[height=7cm]{lectures/08-a/cake.png}
-\caption{Cake analogy}
+\caption{Cake Analogy}
 \label{fig:label}
 \end{figure}
 
@@ -45,7 +45,9 @@ Prediction is kind of a reconstruction. For example, you can train a system to p
 
 So there is a problem: if I ask you to predict the future of a video with given video clips, many plausible things can happen. There is no single correct answer for this. The energy based learning will be useful. We need to construct a predictor that can predict multiple things, not just one single future prediction. The world is not entirely predictable. There is a lot of uncertainty. The question is, how do construct machine to predict things. The immediate answer is we can predict a distribution instead of predicting a single point.(e.g. Put a pen on table and let it go. The pen falls in a different direction every time. The directions is in a distribution) If you want to predict a frame of video, there is a distribution of images. You will have to parameterize the distribution of images. The basic possible to parameterize the distribution. We don't have density models or condition models of natural images. The main issue is that we don't know how to represent normalized distributions. Giving a quality of goodness or badness to a particular image is maybe possible, but training this into a distribution is very hard. That is one reason for introducing energy based models.
 
-\section{Invariant Prediction}
+\section{Energy-based Unsupervised Learning}
+
+\subsection{Invariant Prediction}
 
 The way to make multiple predictions, or to build a model makes multiple predictions is through the latent variable. Imagine that for a predictor we are going to train, the $x$ are the frames of the video tape, $y$ is the feature of that particular video tape, and we will have an extra input $z$ to the function. What we would like to have is training the system in such a way that, when the latent variable varies over a particular set, the output varies over the set of all plausible predictions. For a particular $z$, the predicted next frame $y^\prime$ and the actual $y$ observed, by tweaking the latent variable, the model is to predict the actually observed $y$.
 
@@ -53,13 +55,11 @@ The idea of latent variable model is that, we have a latent variable of which va
 
 What to do here is to measure the distance, try to figure out what is the value $z$ within the set, that would minimize the distance between the prediction $y^\prime$ and the $y$ observed. It may not actually be equal, so you will train the network to make these two as closet as possible, for the particular $z$.
 
-\subsection{Energy-based Unsupervised Learning}
+\subsection{Shape the Energy Function}
 
 The energy-based unsupervised learning is identical to energy-based models, except here are $Y_1$ and $Y_2$ instead of $X$ and $Y$. We train the network to figure out the structure of $Y$, where the energy function will takes low values of the data points nearby and higher values that aside. Capturing those dependencies through the energy function allows you to predict any subset of variables from any other subset of variables.
 
-Making energy low on the training samples is easy, which can be achieved just by showing the training data and tweaking the parameters to make energy low on them. The most tricky part is how to ensure the energy is higher outside the training data.
-
-\subsection{Shape the Energy Function}
+Making energy low on the training samples is easy, which can be achieved just by showing the training data and tweaking the parameters to make energy low on them. The most tricky part is how to ensure the energy is higher outside the training data. There are several ways to do that as shown below.
 
 \begin{enumerate}
     \item \textbf{Constant and Constraint}: The volume of the space that your energy function can give low values to is limited or constant. For example, normalized probability model satisfy this condition, because if at one point the probability goes up, there would be another point that goes down to maintain the normalized distribution. Since the whole volume of probability is constant which equal to $1$, the volume of low energy stuff is constant as well.
