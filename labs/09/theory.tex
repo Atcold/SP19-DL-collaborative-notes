@@ -14,7 +14,7 @@ Intuitions for regularisation and overfitting can be seen in Figure \ref{fig:reg
 
 \begin{figure}
     \centering
-    \includegraphics[scale=0.5]{labs/08/images/regularisation_and_overfitting.PNG}
+    \includegraphics[scale=0.5]{labs/09/images/regularisation_and_overfitting.PNG}
     \caption{Regularisation and overfitting}
     \label{fig:reg_n_overfitting}
 \end{figure}
@@ -23,8 +23,7 @@ Intuitions for regularisation and overfitting can be seen in Figure \ref{fig:reg
 % Authors: Liangzhi Li (editor), Lekha Iyengar, Subhadarshi Panda, 04/02/19.
 The following are the regularisation techniques used in neural networks. 
 These techniques also reduce overfitting.
-\begin{itemize}
-    \item[(1)] \textbf{Xavier initialization:} Random initialization of weights of a neural network before start of training can potentially lead to issues of vanishing gradients or exploding gradients. 
+    \subsection{Xavier initialization} Random initialization of weights of a neural network before start of training can potentially lead to issues of vanishing gradients or exploding gradients. 
     This in turn can cause the network to learn specific patterns instead of generalizing. This can be avoided using Xavier initialization.
     
     In Xavier initialization, the weights of the network are initialized based on some distribution. 
@@ -39,7 +38,7 @@ These techniques also reduce overfitting.
     
     \begin{figure}
         \centering
-        \includegraphics[scale=0.5]{labs/08/images/normal_distribution.png}
+        \includegraphics[scale=0.5]{labs/09/images/normal_distribution.png}
         \caption{Normal distribution with zero mean}
         \label{fig:normal_distribution}
     \end{figure}
@@ -50,7 +49,8 @@ These techniques also reduce overfitting.
         \item[(b)] Uniform distribution: \texttt{torch.nn.init.xavier\_uniform\_(tensor, gain=1)}
     \end{itemize}
     
-    \item[(2)] \textbf{L2}: L2 regularisation can be implemented by penalizing the squared magnitude of all parameters directly in the objective function.
+    \subsection{L2 Regularization}
+    L2 regularisation can be implemented by penalizing the squared magnitude of all parameters directly in the objective function.
     That is, for every weight $w$ in the network, we add the term $\frac{1}{2}\lambda w^2$ to the objective function, where $\lambda$ is the regularization strength.
     A factor of $\frac{1}{2}$ is used because then the gradient of this term with respect to the parameter $w$ is simply $\lambda w$ instead of $2\lambda w$.
     The L2 regularization has the intuitive interpretation of heavily penalizing peaky weight vectors and preferring diffuse weight vectors. 
@@ -59,7 +59,7 @@ These techniques also reduce overfitting.
     
     \begin{figure}
         \centering
-        \includegraphics[scale=0.5]{labs/08/images/L2}
+        \includegraphics[scale=0.5]{labs/09/images/L2}
         \caption{Gradient descent parameter update using L2 regularisation}
         \label{fig:L2}
     \end{figure}
@@ -73,13 +73,14 @@ These techniques also reduce overfitting.
     
     In PyTorch, L2 regularisation can be applied using the \texttt{torch.optim} module.
     
-    \item[(3)] \textbf{L1}: In L1 regularisation, for each weight $w$ in the network we add the term $\lambda |w|$ to the objective function.
+    \subsection{L1 Regularization}
+    In L1 regularisation, for each weight $w$ in the network we add the term $\lambda |w|$ to the objective function.
     Neurons with L1 regularization end up using only a sparse subset of their most important inputs and become nearly invariant to the noisy inputs.
     Figure \ref{fig:L1} shows the intuition for the gradient descent parameter update using the L1 regularization. The blue unit vectors are L1 vectors and the grey vectors are the corresponding L2 vectors.
     
     \begin{figure}
         \centering
-        \includegraphics[scale=0.5]{labs/08/images/L1}
+        \includegraphics[scale=0.5]{labs/09/images/L1}
         \caption{Gradient descent parameter update using L1 regularisation}
         \label{fig:L1}
     \end{figure}
@@ -93,7 +94,7 @@ These techniques also reduce overfitting.
         
     In PyTorch, L1 regularisation can be applied using the \texttt{torch.optim} module.
     
-    \item[(4)] \textbf{Dropout}: Dropout is a regularization technique which is used to prevent overfitting. The technique involves temporarily dropping nodes (hidden and input) along with all its incoming and outgoing connections. During training, dropout removes a unit from the network with probability p(Figure \ref{fig:dropout}). For the input nodes, however, the optimal probability of retention is usually closer to 1. At test time, the node is always present and the weights are multiplied by p.
+    \subsection{Dropout}: Dropout is a regularization technique which is used to prevent overfitting. The technique involves temporarily dropping nodes (hidden and input) along with all its incoming and outgoing connections. During training, dropout removes a unit from the network with probability p(Figure \ref{fig:dropout}). For the input nodes, however, the optimal probability of retention is usually closer to 1. At test time, the node is always present and the weights are multiplied by p.
     This is important because the neurons must have the same output as they had during training time (in expectation).
     $p$ can be considered to be a hyperparameter.
 
@@ -103,7 +104,7 @@ These techniques also reduce overfitting.
     
     \begin{figure}
         \centering
-        \includegraphics[scale=0.65]{labs/08/images/dropout.png}
+        \includegraphics[scale=0.65]{labs/09/images/dropout.png}
         \caption{Dropout Regularization}
         \label{fig:Dropout Regularization}
     \end{figure}
@@ -117,10 +118,10 @@ These techniques also reduce overfitting.
         \item[(c)] \texttt{torch.nn.AlphaDropout(rate=0.5)}
     \end{itemize}
     
-    \item[(5)] \textbf{Early stopping} :  
+    \subsection{Early stopping} :  
     \begin{figure}
         \centering
-        \includegraphics[scale=0.23]{labs/08/images/Early_Stopping.png}
+        \includegraphics[scale=0.23]{labs/09/images/Early_Stopping.png}
         \caption{Early Stopping}
         \label{fig:Early Stopping}
     \end{figure}
@@ -133,7 +134,7 @@ These techniques also reduce overfitting.
     In each epoch, we check if the validation loss is decreasing; if it is, we save the updated model parameters. 
     At the point where it starts increasing we stop training.
 
-    \item[(6)] \textbf{Batch normalization} : Batch normalization reduces the dependence of gradients on the scale of the parameters or on their initial values (reduces internal covariate shift) by fixing the means and variances of layer inputs.
+    \subsection{Batch normalization} : Batch normalization reduces the dependence of gradients on the scale of the parameters or on their initial values (reduces internal covariate shift) by fixing the means and variances of layer inputs.
     It also allows each layer to learn independently of other layers. 
     In addition to this, it also acts as a regularizer which helps reduce overfitting.
     This is explained by the authors as - 
@@ -146,7 +147,7 @@ These techniques also reduce overfitting.
         \item[(b)] \texttt{torch.nn.BatchNorm2d(num\_features)}
         \item[(c)] \texttt{torch.nn.BatchNorm3d(num\_features)}
     \end{itemize}
-    \item[(7)] \textbf{Data augmentation} : Another way to fight overfitting is to increase the size of dataset by generating synthetic data. 
+    \subsection{Data augmentation} : Another way to fight overfitting is to increase the size of dataset by generating synthetic data. 
     We do this by augmenting the images in dataset using techniques like changing the brightness, cropping, rotating, flipping, scaling and shifting. 
     This helps increase the amount of relevant data and also helps the network generalize better. 
     Adding these synthetically generated images to our training data makes the network robust and invariant to changes. This technique is quite effective in tasks like object detection and speech recognition.
@@ -165,7 +166,7 @@ These techniques also reduce overfitting.
         \item \texttt{torchvision.transforms.RandomRotation(degrees)}
     \end{itemize}
 
-    \item[(8)] \textbf{Transfer learning (TL) and Fine Tuning (FT)}:
+    \subsection{Transfer learning (TL) and Fine Tuning (FT)}:
     "Transfer learning and domain adaptation refer to the situation where what has been learned in one setting (i.e., distribution P 1 ) is exploited to improve generalization in another setting (say distribution P2)." (\cite{Goodfellow-et-al-2016})
     Without transfer learning we would not be able to train networks for tasks with very few examples. 
     We use a model pre-trained on some other related task(Task 1) and use it's knowledge of Task 1 to improve generalization on Task 2. 
@@ -182,4 +183,3 @@ These techniques also reduce overfitting.
         We just use the pretrained weights to initialize the network and then train the entire network.
     \end{itemize}
     While doing fine tuning we can use diversified learning rates where we train the classifier on top but the other layers don't change much.
-\end{itemize}
