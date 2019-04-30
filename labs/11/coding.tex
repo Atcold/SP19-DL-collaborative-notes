@@ -115,7 +115,7 @@ def loss_function(x_hat, x, mu, logvar):
     
 # Training and testing the VAE
 
-epochs = 10
+epochs = 11
 for epoch in range(1, epochs + 1):
     # Training
     model.train()
@@ -161,7 +161,7 @@ display_images(None, sample, N // 4, count=True)
 \end{minted}
 
 
-\includegraphics[scale=0.3]{"labs/10/images/random+decoder".png}
+\includegraphics[scale=0.3]{"labs/11/images/random+decoder".png}
 
 
 Above is an example of generating something given samples drawn in the latent space with normal distribution instead of using encoder. In the above case 8 was generated starting from random sample in normal distribution. The third picture already looks like an 8.
@@ -178,7 +178,7 @@ sample = model.decoder(code)
 display_images(None, sample, N // 4, count=True)
 \end{minted}
 
-\includegraphics[width=8cm]{"labs/10/images/interpolation".png}
+\includegraphics[width=8cm]{"labs/11/images/interpolation".png}
 
 Above we present a smooth interpolation from an 8 to a 3, in 16 steps.
 
