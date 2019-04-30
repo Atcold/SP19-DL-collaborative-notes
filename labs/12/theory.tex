@@ -7,7 +7,7 @@ Most of modern neural network models produce point estimation, even though at la
 
 \section{Motivation of caring about uncertainty}
 
-Given several pictures of cats and dogs, then being asked to classify a new cat photo, we should return a prediction with rather high confidence. But if we are given a photo of an ostrich and force our hand to decide if it is a cat or dog, we should return a prediction with very low confidence. It is quite important to say whether we are confident about our estimation or not. Another example is predicting physics simulator. In physics, you may have simulators for predicting the trajectory of some particles or accelerators. But, then this simulation takes forever. In this case, you can use neural networks to speed up computations and getting approximate values. The network is trained over many iterations using data provided by simulators. However, if inputs are far from trained data, a prediction is made with higher uncertainty. Furthermore, this sort of information lies at the foundations of artificial intelligence as well. For example, a Roomba vacuum needs to learn about its environment (e.g. living room) based on its actions (rolling around in different directions). It can decide to go forward and might bump into a wall. One should enable reward mechanism to encourage it when it learns to avoid the wall or penalize it when it crahses into a sofa. This setting is known as reinforcement learning. The Roomba is requried to explore its environment looking for these rewards, and that's where uncertainty comes into play. The Roomba will try to minimise its uncertainty about different actions - and trade-off between this exploration, and exploitation of what it already knows. You can trace to Karpathy's (https://cs.stanford.edu/people/karpathy/convnetjs/demo/rldemo.html) interactive demo to learn into this Roomba play. 
+Given several pictures of cats and dogs, then being asked to classify a new cat photo, we should return a prediction with rather high confidence. But if we are given a photo of an ostrich and force our hand to decide if it is a cat or dog, we should return a prediction with very low confidence. It is quite important to say whether we are confident about our estimation or not. Another example is predicting physics simulator. In physics, you may have simulators for predicting the trajectory of some particles or accelerators. But, then this simulation takes forever. In this case, you can use neural networks to speed up computations and getting approximate values. The network is trained over many iterations using data provided by simulators. However, if inputs are far from trained data, a prediction is made with higher uncertainty. Furthermore, this sort of information lies at the foundations of artificial intelligence as well. For example, a Roomba vacuum needs to learn about its environment (e.g. living room) based on its actions (rolling around in different directions). It can decide to go forward and might bump into a wall. One should enable reward mechanism to encourage it when it learns to avoid the wall or penalize it when it crahses into a sofa. This setting is known as reinforcement learning. The Roomba is requried to explore its environment looking for these rewards, and that's where uncertainty comes into play. The Roomba will try to minimise its uncertainty about different actions - and trade-off between this exploration, and exploitation of what it already knows. You can trace to \href{https://cs.stanford.edu/people/karpathy/convnetjs/demo/rldemo.html}{Karpathy's} interactive demo to learn into this Roomba play. 
 
 \section{Get predictive distribution using dropout}
 
@@ -23,12 +23,16 @@ First, define a prior length-scale $l$. This captures our belief over the functi
 Eq. 17.1 was introduced as model averaging and it was explained that scaling the weights at test time without dropout gives a reasonable approximation to this equation. Eq. 17.2 is simply the sample variance of $T$ forward passes through the network plus the inverse model precision. Note that the vectors above are row vectors and that the products are outer-products.
 \\
 Implementation in python code to get the predictive mean and uncertainty is easy:
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{labs/12/images/python code of getting mean and var.PNG}
-    \caption{Python code to obtain predictive mean and uncertainty from dropout}
-    \label{fig:visual_caption}
-\end{figure}
+
+\begin{minted}{python}
+Probs = []
+for _ in range(T):
+    probs += [model.output_probs(input_x)]
+predictive_mean = numpy.mean(prob, axis=0)
+predictive_variance = numpy.var(prob, axis=0)
+tau = 1**2*(1 - model.p)/ (2*N*model.weight_decay)
+predictive_variance += tau**-1
+\end{minted}
 
 \section{Understanding MC dropout Models}
 \subsection{Regression}
