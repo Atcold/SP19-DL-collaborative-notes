@@ -4,7 +4,7 @@
 \section{Poincaré Embeddings}
 
 % Writer 1: Huiyu Sun, Writer 2: Manrique Vargas, Editor: Aakriti Gupta
-% Part 2
+% Lecture 11 - Part 2
 % Lecture date: 4/22/2019
 
 \subsection{Introduction}
@@ -40,12 +40,12 @@ This gives us an exponential volume growth to model our distance.
 \begin{figure}[htb]
     \centering
     \begin{subfigure}[b]{0.3\textwidth}
-    \includegraphics[width=\textwidth]{lectures/10-b/Images/1-1-1.png}
+    \includegraphics[width=\textwidth]{lectures/11-b/Images/1-1-1.png}
         \caption{Geodesics of the Poincaré disk}
         \label{fig:poincaredisk}
     \end{subfigure}
     \begin{subfigure}[b]{0.29\textwidth}
-        \includegraphics[width=\textwidth]{lectures/10-b/Images/1-2.png}
+        \includegraphics[width=\textwidth]{lectures/11-b/Images/1-2.png}
         \caption{Growth of Poincaré distance}       
         \label{fig:poincaregrowthdist}
     \end{subfigure}
@@ -91,7 +91,7 @@ WORDNET is a lexical database that amongst others, captures hypernymy relations,
 Assuming that the latent hierarchy is embedded, we can recover the latent hierarchy from indirect obfuscated graph. This way we recover the expected taxonomies and materialize the relationships. See ~\ref{fig:wn-nouns} for an illustration.
 \begin{figure}[htb]
   \centering
-    \includegraphics[width=\textwidth]{lectures/10-b/Images/wn-nouns2.jpg}
+    \includegraphics[width=\textwidth]{lectures/11-b/Images/wn-nouns2.jpg}
     \caption{Embedding Latent Taxonomies}
     \label{fig:wn-nouns}
 \end{figure}
@@ -102,13 +102,13 @@ Historical linguistics refer to the study of languages relations and origins. Co
     \centering
     \begin{adjustbox}{minipage=\linewidth,scale=0.7}
     \begin{subfigure}[b]{\columnwidth}
-        \includegraphics[width=\textwidth]{lectures/10-b/Images/1-4.png}
+        \includegraphics[width=\textwidth]{lectures/11-b/Images/1-4.png}
             \caption{Intermediate embedding after 20 epochs}
             \label{fig:linguistics1}
         \vspace{0.7cm}
         \end{subfigure}
         \begin{subfigure}[b]{\columnwidth}
-            \includegraphics[width=\textwidth]{lectures/10-b/Images/1-5.png}
+            \includegraphics[width=\textwidth]{lectures/11-b/Images/1-5.png}
             \caption{Embedding after convergence}       
             \label{fig:linguistics2}
         \end{subfigure}
@@ -129,7 +129,7 @@ Embeddings based on the Poincaré distance are compared with two distance functi
 
 \begin{table}[htb]
   \centering
-    \includegraphics[width=\textwidth]{lectures/10-b/Images/1-3.png}
+    \includegraphics[width=\textwidth]{lectures/11-b/Images/1-3.png}
     \caption{Experimental results on the transitive closure of the WORDNET noun hierarchy. Highlighted cells indicate the best Euclidean embeddings as well as the Poincaré embeddings which achieve equal or better results. Bold numbers indicate absolute best results}
     \label{table:table-comparisons}
 \end{table}
@@ -203,16 +203,16 @@ In Euclidean space, we have a bunch of tools to do optimization really efficient
     \theta_{t+1} = EXP_{\theta_t} (−\eta_t \nabla_R \mathcal{L}(\theta_t))
 \end{equation}
 
-But the problem with this is that the optimization is sometimes tricky to get right so people often resort to using small batch sizes, which results in slow convergence and the model will get stuck in local minima. One way to improve these tools is to develop optimization methods in many manifolds that work significantly better than what we have now.
-
-The Lorentz model in figure (~\ref{fig:1-Lorentz}) proposed by (Nickel et al, 2018) showed good improvements over the Poincare disk. And advanced methods such as the RSVRG proposed by (Zhang et al, 2016) didn't show significant gains for embeddings.  
-
 \begin{figure}[htb]
   \centering
-    \includegraphics[width=\textwidth]{lectures/10-b/Images/1-Lorentz.png}
+    \includegraphics[width=0.4\textwidth]{lectures/11-b/Images/1-Lorentz.png}
     \caption{Lorentz model of hyperbolic geometry}
     \label{fig:1-Lorentz}
 \end{figure}
+
+But the problem with this is that the optimization is sometimes tricky to get right so people often resort to using small batch sizes, which results in slow convergence and the model will get stuck in local minima. One way to improve these tools is to develop optimization methods in many manifolds that work significantly better than what we have now.
+
+The Lorentz model in figure (~\ref{fig:1-Lorentz}) proposed by (Nickel et al, 2018) showed good improvements over the Poincare disk. And advanced methods such as the RSVRG proposed by (Zhang et al, 2016) didn't show significant gains for embeddings.  
 
 \subsection{Methods}
 
@@ -222,7 +222,7 @@ Researchers have found that using Riemannian manifolds in latent spaces for gene
 
 \begin{figure}[htb]
   \centering
-    \includegraphics[width=\textwidth]{lectures/10-b/Images/2-Davidson.png}
+    \includegraphics[width=0.2\textwidth]{lectures/11-b/Images/2-Davidson.png}
     \caption{Riemannian manifolds for generative models is very promising}
     \label{fig:2-Davidson}
 \end{figure}
@@ -239,14 +239,16 @@ This means that we won't be able to embed these similarity judgements properly. 
 
 \begin{figure}[htb]
   \centering
-    \includegraphics[width=\textwidth]{lectures/10-b/Images/3-cog.png}
+    \includegraphics[width=0.8\textwidth]{lectures/11-b/Images/3-cog.png}
     \caption{The human similarity judgement experiment in cognitive science}
     \label{fig:3-cog}
 \end{figure}
 
 \subsection{Tools}
 
-Hype is an open source library to embed graphs into hyperbolic space. It can be used to play with these models. It is a Pytorch-based embeddings framework and supports Hyperbolic, Euclidean and Spherical manifolds. It is available on github via the following link: http://github.com/facebookresearch/poincare-embeddings.
+Hype is an open source library to embed graphs into hyperbolic space. It can be used to play with these models. It is a Pytorch-based embeddings framework and supports Hyperbolic, Euclidean and Spherical manifolds. It is available on github via the following link:
+
+http://github.com/facebookresearch/poincare-embeddings.
 
 
 \section{Summary}
