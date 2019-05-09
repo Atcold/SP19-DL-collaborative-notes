@@ -8,7 +8,7 @@
     \caption{Architecture of Variational Autoencoder}
     \label{fig:vae}
 \end{figure}
- 
+
 There are two types of Auto-Encoders: Over-complete and Under-complete. A type of constraint that can be applied which is information bottleneck is reduction in the size of intermediate layer which leads to under-complete auto-encoder. In over-complete auto-encoder there is larger intermediate layer so we can extract better meaningful features. Variational autoencoders (VAE) inherit the architecture of the traditional autoencoders -- they also consist of two main components: encoder and decoder. However, there is a key difference between them -- while encoder in vanilla AE outputs a hidden representation $h$ of the input $x$, VAE encoder produces two vectors -- expectation $E(z)$ and variance $V(z)$ over latent variable $z$ (Figure \ref{fig:vae}). This property allows us to produce stochastic representations of the input. This is achieved by sampling a vector from the standard normal distribution with zero mean and unit variance and shifting and rescaling vector elements according to estimated $E(z)$ and $V(z)$ respectively:
 \begin{align*}
     \vect{z'} &= \mathop{\mathbb{E}}(\vect{z}) + \vect{\epsilon} \odot \sqrt{\mathop{\mathbb{V}}(\vect{z})} \\
@@ -24,7 +24,7 @@ After that, sampled representation $z'$ is decoded into output $\hat{x}$. In ord
     \label{fig:vae_expl}
 \end{figure}
 
-However, as there is no limit on the values of $E(z)$ and $V(z)$, the encoder can learn to push different training samples very far apart in the latent space (Figure \ref{fig:bubbles_rec}), effectively reconstructing the training data. In order to avoid this, we introduce a constraint by adding KL-divergence component to the loss function. 
+However, as there is no limit on the values of $E(z)$ and $V(z)$, the encoder can learn to push different training samples very far apart in the latent space (Figure \ref{fig:bubbles_rec}), effectively reconstructing the training data. In order to avoid this, we introduce a constraint by adding KL-divergence component to the loss function.
 \begin{align*}
     \ell(x, \hat{x}) = \ell_{rec} + \beta \ell_{KL} (z, \mathcal{N}(0, \mathcal{I}_d)) \simeq \ell_{rec} + \beta\sum_{i=1}^d (\mathop{\mathbb{V}}(\vect{z}) - \log{\mathop{\mathbb{V}}(\vect{z})} - 1 + \mathop{\mathbb{E}}(\vect{z})^2)_i
 \end{align*}
@@ -51,12 +51,12 @@ Intuitively, this new term forces learned representations of the training sample
     \centering
     \includegraphics[width=0.7\textwidth]{"labs/11/images/VAE and GAN".png}
     \caption{Architecture of GAN}
-    \label{fig:my_label}
+    \label{fig:gan_arch}
 \end{figure}
 
 As we can see in the figure. The GAN model is similar to the VAE model.
 
-Consider a guy who makes fake money. The $\hat{x}$ produced by sampler+generator can be thought as the fake money he makes. Then he sends the money to someone(the discriminator) who wants to tell apart fake money from the genuine one ($x$). If the fake money is not 'good' enough, the discriminator will sends some feedback(sent through backpropagation) and the guy can improve his skills(gradient descent), until the discriminator can not tell apart the fake one from the genuine one. 
+Consider a guy who makes fake money. The $\hat{x}$ produced by sampler+generator can be thought as the fake money he makes. Then he sends the money to someone(the discriminator) who wants to tell apart fake money from the genuine one ($x$). If the fake money is not 'good' enough, the discriminator will sends some feedback(sent through backpropagation) and the guy can improve his skills(gradient descent), until the discriminator can not tell apart the fake one from the genuine one.
 
 From the sampler we come up with some noise. On top of the sampler we have the generator which tries to create authentic data, similar to the decoder to VAE, both of which are generative networks. From the generator we get our estimate $\hat{x}$on the manifold. The estimate, together with our real $x$, is sent to a discriminator which tries to tell apart $x$ from $\hat{x}$ that is difference between fake and actual values. We can optimize the generator depending on what fools and does not fool the discriminator
 
@@ -70,10 +70,10 @@ For discriminator, we go from the original input ($x$) or the crafted input ($\h
     \centering
     \includegraphics[width=0.7\textwidth]{"labs/11/images/GAN illustration".png}
     \caption{Visualization of encoding and decoding process}
-    \label{fig:my_label}
+    \label{fig:enc_dec_process}
 \end{figure}
 
-We start from a random variable in the hidden space. Then we get our $\hat{x}$ from the generator. Note that in the GAN setting, we do not know our data manifold, so there will be no way trying to proximate $\hat{x}$ to data manifold. We apply our discriminator on both the crafted data and real data. We train our discriminator so that it can tell apart the two. On the other hand, we get the gradient, so that we can make the generated data as close to the real data manifold as possible. \\ 
+We start from a random variable in the hidden space. Then we get our $\hat{x}$ from the generator. Note that in the GAN setting, we do not know our data manifold, so there will be no way trying to proximate $\hat{x}$ to data manifold. We apply our discriminator on both the crafted data and real data. We train our discriminator so that it can tell apart the two. On the other hand, we get the gradient, so that we can make the generated data as close to the real data manifold as possible. \\
 
 
 When training GAN, we don't use a so called loss function because we not not trying to minimizing it. Instead, we use the following value function.
