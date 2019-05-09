@@ -1,16 +1,15 @@
 \chapter{ Autoencoder }
 % Authors: Bixing Yan (by783), Chengze Zuo (cz1565) , Yavuz Sunor (ys3226) Apr 14, 2019.
 \section{ Introduction }
-\\
 Autoencoders are one of two(the other is Generative Adversarial Networks) most commonly used and efficient Generative models approaches. Generative models are unsupervised(semi) learning algorithms aiming at learning the true data distributions of the training set so as to generate new data points with some variations. They are widely used in image processing to create super resolutions when zooming into low pixel images and also in inpainting and image captioning.
-\\
+
 Autoencoder is a an unsupervised learning of efficient data coding. With neural network layers as encoder and decoder, the aim of an autoencoder is to restore its input data at the output. Traditionally, autoencoders are used for dimensionality reduction; while recently, this concept are more widely used for learning the generative model of data.
 \\
 The schematic illustration is shown as below:
 \\
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.6\textwidth]{labs/09/images/Schematic_Illustration_of_Autoencoder.png}
+    \includegraphics[width=0.6\textwidth]{labs/10/images/Schematic_Illustration_of_Autoencoder.png}
     \caption{Schematic Illustration of Autoencoder}
     \label{fig:Schematic_Illustration_of_Autoencoder}
 \end{figure}
@@ -29,7 +28,7 @@ Depending on the dimension of the coded space (hidden layer), the autoencoder ca
 \\
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.6\textwidth]{labs/09/images/Under_(over)_complete_Autoencoder.png}
+    \includegraphics[width=0.6\textwidth]{labs/10/images/Under_(over)_complete_Autoencoder.png}
     \caption{Under-complete (left) and over-complete (right) Autoencoder}
     \label{fig:Under_(over)_complete_Autoencoder}
 \end{figure}
@@ -41,7 +40,7 @@ More specific, for an under-complete autoencoder, the dimension of the hidden la
 As for over-complete autoencoders, more units in the hidden layer would basically not guarantee that the hidden units will extract meaningful structure,but most likely copy the input element by element. However, if we are interested in a linear classifier, more dimension allows the network to learn more/better features (higher dimension is better). So, for example, this kind of autoencoders wont do well with MNIST dataset which requires non-linearity to learn seperable patterns. Two ways to deal with this problem and extract meaningful features are using denoising and contractive autoencoders.
 \\
 \subsection{Denoising Autoencoder}
-\\
+
 Denoising autoencoders take a partially corrupted input whilst training to recover the original undistorted input. The denoising autoencoder mainly focuses on robust representations of inputs and extracting features that are useful for representation of the input distribution.
 \\
 As the description above, to train the autoencoder, we need to corrupt the data with small noise ($x \rightarrow x'$). The distribution of the noise will be comparable to our observation in reality, so that the denoising autoencoder can robustly recover the real data.
@@ -51,7 +50,7 @@ A schematic illustration of the corruption and denoising process is shown below:
 \\
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.6\textwidth]{labs/09/images/Corrpution_and_Denoising.png}
+    \includegraphics[width=0.6\textwidth]{labs/10/images/Corrpution_and_Denoising.png}
     \caption{Corruption and Denoising Process for Denoising Autoencoder}
     \label{fig:Corrpution_and_Denoising}
 \end{figure}
@@ -66,7 +65,7 @@ A schematic illustration of this concept is shown below:
 \\
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{labs/09/images/Contractive_AutoEncoder.png}
+    \includegraphics[width=0.6\textwidth]{labs/10/images/Contractive_AutoEncoder.png}
     \caption{Illustration of Penalization on Different Directions}
     \label{fig:Contractive_AutoEncoder}
 \end{figure}
@@ -77,7 +76,7 @@ Converting data points from data manifold to latent space \textbf{Z} requires kn
 \\
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.6\textwidth]{labs/09/images/Data_manifold.png}
+    \includegraphics[width=0.6\textwidth]{labs/10/images/Data_manifold.png}
     \caption{Illustration on unwarping data manifold}
     \label{fig:Data_manifold}
 \end{figure}
