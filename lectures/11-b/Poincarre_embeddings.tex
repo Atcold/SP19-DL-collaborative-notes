@@ -191,3 +191,73 @@ Meanwhile, the nearest neighbor in hyperbolic space has more semantic structure 
 \end{itemize}
 
 It can be observed that the hyperbolic space captures the semantics of taxonomies much better.
+
+
+\section{Challenges}
+
+\subsection{Riemannian Optimization}
+
+In Euclidean space, we have a bunch of tools to do optimization really efficiently, ranging from Stochastic Gradient Descent (SGD) to second order optimization. However, in Riemannian manifolds, optimization tools are much less developed than in Euclidean space. There are many challenges involved. The main tool in use that works is the Riemannian Stochastic Gradient Descent proposed by Bonnabel in 2013. Parameter updates are given by the following equation:
+
+\begin{equation} \label{eq:RSGD}
+    \theta_{t+1} = EXP_{\theta_t} (−\eta_t \nabla_R \mathcal{L}(\theta_t))
+\end{equation}
+
+But the problem with this is that the optimization is sometimes tricky to get right so people often resort to using small batch sizes, which results in slow convergence and the model will get stuck in local minima. One way to improve these tools is to develop optimization methods in many manifolds that work significantly better than what we have now.
+
+The Lorentz model in figure (~\ref{fig:1-Lorentz}) proposed by (Nickel et al, 2018) showed good improvements over the Poincare disk. And advanced methods such as the RSVRG proposed by (Zhang et al, 2016) didn't show significant gains for embeddings.  
+
+\begin{figure}[htb]
+  \centering
+    \includegraphics[width=\textwidth]{lectures/10-b/Images/1-Lorentz.png}
+    \caption{Lorentz model of hyperbolic geometry}
+    \label{fig:1-Lorentz}
+\end{figure}
+
+\subsection{Methods}
+
+Another important thing to think about conceptually is that if we switch the geometry, we now can not use easily our standard machine learning to do the task. A lot of benefits that we typically have from embedding is that they are intrinsic to relation-learning. Take word embeddings for example. The problem is that the standard machine learning, especially deep learning frameworks they all make this assumption. So you can't expect to just put the embeddings in and expect them to do something. So how can we make these embeddings usable? Is there some kind of translation we can adapt.
+
+Researchers have found that using Riemannian manifolds in latent spaces for generative models is very promising as explored by Davidson et al., 2018, as shown in figure (~\ref{fig:2-Davidson}). However, they have also been widely used in natural language understanding in downstream tasks. But a majority of machine learning and deep learning makes the Euclidean assumption.
+
+\begin{figure}[htb]
+  \centering
+    \includegraphics[width=\textwidth]{lectures/10-b/Images/2-Davidson.png}
+    \caption{Riemannian manifolds for generative models is very promising}
+    \label{fig:2-Davidson}
+\end{figure}
+
+\subsection{Embeddings and Cognitive Science}
+
+In cognitive science, the human similarity judgements are often non-metric. The classic example is that if you ask a human whether a man is similar to a centaur as depicted in figure (~\ref{fig:3-cog}), they will say yes. And if ask a human whether a centaur is similar to a horse, they will also say yes. However, if we ask a human whether a horse is similar to a man, they will say no. And it is a very strongly no. The problem with this is that if we have a very strong disagreement in these similarity judgements, it conflicts with the triangle inequality, which says: 
+
+\begin{equation} \label{eq:triangleIne}
+    d(u,v) \leq d(u, w) + d(w, v)
+\end{equation}
+
+This means that we won't be able to embed these similarity judgements properly. In this case, we need to think about non-metric measures. But this opens another can of worms.
+
+\begin{figure}[htb]
+  \centering
+    \includegraphics[width=\textwidth]{lectures/10-b/Images/3-cog.png}
+    \caption{The human similarity judgement experiment in cognitive science}
+    \label{fig:3-cog}
+\end{figure}
+
+\subsection{Tools}
+
+Hype is an open source library to embed graphs into hyperbolic space. It can be used to play with these models. It is a Pytorch-based embeddings framework and supports Hyperbolic, Euclidean and Spherical manifolds. It is available on github via the following link: http://github.com/facebookresearch/poincare-embeddings.
+
+
+\section{Summary}
+
+To summarize, 
+
+\begin{itemize}
+    \item Relational embeddings provide high-quality models of large-scale relational data with minimal prior knowledge
+    \item Graph neural networks allow to learn inductive models of graph-structured data
+    \item Geomtry of the embedding space acts as an important prior on the structure of similarity relations
+    \item Hyperbolic embeddings are excellent for capturing similarity and hierarchy of symbolic data
+\end{itemize}
+
+Best described by the quote from Christopher Strachey in a letter to Alan Turing in 1954: "I am convinced that the crux of the problem of learning is recognizing relationships and being able to use them ". This can be broken down into that Logical reasoning, Analogies, Taxonomies and Knowledge bases lead to relational data as well as artificial intelligence.
