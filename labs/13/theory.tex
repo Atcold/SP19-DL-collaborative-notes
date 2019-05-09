@@ -65,7 +65,7 @@ Here the $\theta_c$ is $\theta_0$, the $\theta_t$ is $\theta_1$
 
 
 
-\subsection{Two stage Learning}
+\subsection{Two stage Learning}\label{sec:truck-model}
 In the first stage of learning, the emulator is fed as input : states of the truck along with random steering actions and the actual state of the truck (according to the physics of the system) as output to learn. The emulator can then predict the next state of the truck given an initial state and the steering action.
 
 The second stage of learning involves unrolling the controller for the length of the actions of the episode and recursively applying the controller to the states produced by the action the controller takes. This produces a final state of the truck which is used to calculate the loss and used to update the parameters of the controller via back propagation through time.
