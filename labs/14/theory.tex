@@ -1,0 +1,126 @@
+\chapter{Graph Neural Networks}
+% Authors: Yu Cao 5/7/19.
+
+\section{Graph Neural Network}
+Images and texts can be formalized with graphs as they are connected grids with information contained in each node and edge. Graph contains vertexes and edges and the messages(information) associated. Deep learning on graph structure composes GNN. GNN learns embedding on graphs. 
+
+\begin{figure}[ht]
+\begin{center}
+% \fbox{\rule{0pt}{2in} \rule{0.9\linewidth}{0pt}}
+%   \includegraphics[width=0.9\linewidth]{imgs/PnL_Problem}
+  \includegraphics[width=3.38in]{images/Embedding_ConvNet.png}
+\end{center}
+   \caption{ConvNets: Learn embedding of an image}
+\label{fig:CV}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+% \fbox{\rule{0pt}{2in} \rule{0.9\linewidth}{0pt}}
+%   \includegraphics[width=0.9\linewidth]{imgs/PnL_Problem}
+  \includegraphics[width=3.38in]{images/Embedding_Graph.png}
+\end{center}
+   \caption{Graph Neural Network: Learn embedding on graphs}
+\label{fig:CV}
+\end{figure}
+
+It is widely applied in the tasks of Natural Language Processing. Medical Computation as well as Computer Vision as shown on figures 3, 4 and 5 below.. 
+\begin{figure}[ht]
+\begin{center}
+% \fbox{\rule{0pt}{2in} \rule{0.9\linewidth}{0pt}}
+%   \includegraphics[width=0.9\linewidth]{imgs/PnL_Problem}
+  \includegraphics[width=3.38in]{images/NLP.png}
+\end{center}
+   \caption{Application in NLP}
+\label{fig:CV}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+% \fbox{\rule{0pt}{2in} \rule{0.9\linewidth}{0pt}}
+%   \includegraphics[width=0.9\linewidth]{imgs/PnL_Problem}
+  \includegraphics[width=3.38in]{images/Biology.png}
+\end{center}
+   \caption{Application in Biology}
+\label{fig:CV}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+% \fbox{\rule{0pt}{2in} \rule{0.9\linewidth}{0pt}}
+%   \includegraphics[width=0.9\linewidth]{imgs/PnL_Problem}
+  \includegraphics[width=3.38in]{images/Computer_Vision.png}
+\end{center}
+   \caption{Application in Computer Vision}
+\label{fig:CV}
+\end{figure}
+
+
+Graph neural network has been an emerging topic of research as shown in the graph below
+
+\begin{figure}[ht]
+\begin{center}
+% \fbox{\rule{0pt}{2in} \rule{0.9\linewidth}{0pt}}
+%   \includegraphics[width=0.9\linewidth]{imgs/PnL_Problem}
+  \includegraphics[width=3.38in]{images/GNN Papers Published.png}
+\end{center}
+   \caption{GNN papers published}
+\label{fig:CV}
+\end{figure}
+
+Today we have a tutorial focused on a useful tool to help understand the GNN structure.
+
+\section{Deep Graph Library}
+\href{www.dgl.ai}{DGL} is designed to bring machine learning closer to graph-structured data. It is developed by NYU System team. Specifically DGL enables trouble-free implementation of graph neural network (GNN) model family. Unlike PyTorch or TensorFlow, DGL provides friendly APIs to perform the fundamental operations in GNNs such as message passing and reduction. Through DGL, we hope to benefit both researchers trying out new ideas and engineers in production.
+
+In this tutorial, the basics of DGL are demonstrated including:
+\begin{itemize}
+\item How to create a graph?
+\item How to manipulate node/edge features on a graph?
+\item How to convert a graph to/from other formats?
+\end{itemize}
+
+Although this tutorial uses \href{https://pytorch.org}{Pytorch} as backend for tensor-related computations (thus some familiarity with PyTorch is preferred), DGL is designed to be platform-agnostic and can be seamlessly integrated into other frameworks like \href{https://mxnet.apache.org/}{MXNet} and \href{https://www.tensorflow.org/}{TensorFlow}, and the team are actively working on this.
+
+\section{Message passing on graph}
+ In this section, we will focus on how to perform computation on graph structures following Message Passing paradigm. Many graph neural networks follows the \textit{message passing} computation model \href{https://arxiv.org/abs/1704.01212}{Gilmer et al, 2017}:
+\begin{itemize}
+    \item Each node receives and aggregates messages from its neighbors  
+\begin{gather}
+$$m_v^{t+1} = \sum\limits_{w\in \mathcal{N}(v)}M_t(h_v^t, h_w^t, e_{vw}^t)$$
+\end{gather}
+where $\mathcal{N}(v)$ is the neighbor set of node $v$.
+
+\item Each node update its own embedding using aggregated messages.
+\end{itemize}
+% [(a)]
+% \item
+% Each node receives and aggregates messages from its neighbors  
+% % \begin{gather}
+% $$m_v^{t+1} = \sum\limits_{w\in \mathcal{N}(v)}M_t(h_v^t, h_w^t, e_{vw}^t)$$
+% % \end{gather}
+% where $\mathcal{N}(v)$ is the neighbor set of node $v$.
+
+% \item
+% Each node update its own embedding using aggregated messages
+% $$h_v^{t+1} = U_t(h_v^t, m_v^{t+1})$$
+
+% \end{enumerate}
+
+We will go through the basic mechanism of message passing using a toy task:
+
+Suppose the karate club president (node 33) is sending out an invitation of their annual karate match. The president also asks the club members to broadcast the news to, of course, their friends in the club. We use a scalar to represent whether the member has received the invitation or not (1 for invited, 0 for not invited). Initially, everyone is 0 except node 33.
+
+\section{Graph Convolutional Network}
+
+Graph convolutional network (GCN) is a popular model proposed by \href{https://arxiv.org/abs/1609.02907}{Kipf & Welling} to encode graph structure by message passing. The high-level idea is similar to our toy task: node features are updated by aggregating the messages from the neighbors. Here is its message passing equation:
+
+$$
+h_{v_i}^{(l+1)} = \sigma \left(\sum_{j\in\mathcal{N}(i)}\frac{1}{c_{ij}}h_{v_j}^{(l)}W^{(l)} \right),
+$$
+
+where $v_i$ is any node in the graph; $h_{v_i}$ is the feature of node $v_i$; $\mathcal{N}(i)$ denotes the neighborhood of $v_i$; $c_{ij}$ is the normalization constant related to node degrees; $W$ is the parameter and $\sigma$ is a non-linear activation function.
+
+
+
+
