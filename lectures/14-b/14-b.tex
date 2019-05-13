@@ -3,6 +3,109 @@
 
 \chapter{Self-supervised learning in computer vision}
 
+\section{Super-size self-supervised learning}
+
+For ImageNet we have 1 million images and 1000 classes. The total information is 1 Million * log2(1000). However, when we use self-supervised methods, we will only get log2(B) bits of information for each image, where B < 1000. The total information will I Million * log2(B). Therefore, we can aim to scale the number of total images, or increase B to gain more information.
+
+There are three popular way to scale. Scale along the models axis, data size axis, or problem complexity axis.
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/complexity.png}
+\label{fig:complexity}
+\caption{Scale along the axes}
+\end{figure}
+
+We will use the Jigsaw puzzles and Colorization to address there methods.
+
+For Jigsaw Puzzles
+
+If we scale along the Data Size axis, we will see the performance as shown below.
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/jigsaw1.png}
+\label{fig:jigsaw1}
+\caption{Scale along the data axis to tackle Jigsaw. AlexNet seems to saturate very quickly, and the gain is marginal. But for ResNet, the gain is quite noticeable}
+\end{figure}
+
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/colorization1.png}
+\label{fig:colorization1}
+\caption{Scale along the data axis to tackle Colorization. We observe similar result, ResNet seems improve better than than AlexNet}
+\end{figure}
+
+Next, we examine the Problem Complexity Axis. Similarly, the performance is shown below.
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/jigsaw2.png}
+\label{fig:jigsaw2}
+\caption{We fixed data size to 1M. In the Jigsaw problem, the performance of ResNet increases faster than AlexNet}
+\end{figure}
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/colorization2.png}
+\label{fig:colorization2}
+\caption{We increased the problem complexity, so that the networks need to predict more colors. The transfer performance does not seem to improve for both models. Only hypothesis to this phenomenon is that asking the networks to predict more fine grain colors does not beneficial for the networks to better distinguish one object from the other. Whereas in Jigsaw, increasing problem complexity can give the networks more spatial information that can be helpful to differentiate objects}
+\end{figure}
+
+Finally, we combine all three axes to solve Jigsaw problem, and the performance  is shown below.
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/combined.png}
+\label{fig:combined}
+\caption{for ResNet, the performance increase is noticeable, but not so for AlexNet. The reason is that AlexNet does not enough parameters to to absorb more information}
+\end{figure}
+
+To evaluate, we performed 4 tasks to see how scalable these methods are, using both fine-tuning and linear classifier evaluation methods.
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/evaluation.png}
+\label{fig:combined}
+\caption{Evaluation tasks.}
+\end{figure}
+
+For Object Detection, self-supervised neural networks scored very closely to traditionally trained networks. The result is promising.
+
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/od.png}
+\label{fig:od}
+\caption{Result for fine-tune all layers.}
+\end{figure}
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/od1.png}
+\label{fig:od1}
+\caption{Result for fine-tune only last layer.}
+\end{figure}
+
+Next, we evaluated the performance on 3D understanding.
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/3dunderstanding.png}
+\label{fig:3dunderstanding}
+\caption{We see a 8 points increase in the self-supervised neural network.}
+\end{figure}
+
+Lastly, we tested visual navigation in Gibson environment.
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/gibson.png}
+\label{fig:gibson}
+\caption{the major takeaway is that Jigsaw ImageNet-22k and ImageNet-1k Supervised are fairly competitive.}
+\end{figure}
+
 \section{Few-shot learning}
 
 Also known as $k$-shot learning, as you are given $k$ labeled examples per class and the goal is to extract feature representation using either a supervised network or a jig-saw network and then placing a linear classifier on top of it. Some popular datasets include VOC’07 and Places 205.
