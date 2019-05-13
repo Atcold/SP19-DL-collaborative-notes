@@ -1,0 +1,61 @@
+\chapter{Long term vs short term memory}
+
+\section{Why Is RNN Useful, And What Are The Drawbacks?}
+%Authors: Sarthak Agarwal, Raghav Jajodia, Ieshan Vaidya
+%2019-03-31
+
+In lab8 we saw that RNN is useful to learn dependencies over time, and hence can model time dependent sequences effectively.
+This means RNN can store context/history at any given time t, which can be used along with the input to predict the output. 
+More details about RNN can be found in \hyperref[sec:SimpleRecNet]{Section 13.1}.
+
+
+However, practically we observe that as the sequence length grows over time, RNN is not able to learn long term dependencies.
+This is because of the \textbf{vanishing/exploding gradient} during \textbf{back-propagation through time}.
+Back-propagation through time is the method of calculating gradients by unfolding the network in time and then applying normal back-propagation to the unfolded network.
+If the the length of input sequence is large, then network is unfolded many number of times.
+The consequence of this is that during back-propagation, gradient is multiplied many times (more the sequence length, more the number of multiplications). 
+
+
+This causes the, gradient to either explode or vanish, which is undesirable.
+To solve the issue of exploding gradient, we generally "clip" the gradient to avoid growing it bigger than a threshold value.
+However RNN performs poorly for large length sequences because of vanishing gradient problem.
+
+\section{Why Is LSTM Useful?}
+%Authors: Sarthak Agarwal, Raghav Jajodia, Ieshan Vaidya
+%2019-03-31
+Vanishing gradient problem can be solved efficiently by using LSTMs.
+LSTM stands for Long Short term Memory and it has been proven effective to model long term dependencies more effectively than RNN, meaning that LSTM has greater memory than RNN.
+The reason for this is that LSTMs maintain a cell state which runs straight down the entire chain, with only some minor linear interactions.
+They have the ability to either add or remove information to this cell state using gates namely the forget, input  and output gates.
+More details about LSTM can be found \hyperref[sec:long-short-term-memory]{here}
+
+
+The reason why vanishing gradient is handled better in case of LSTM is that gradient flows back effectively through the network because of the presence of relevant gates which makes it very easy for information to just flow along the cell state unchanged.
+
+
+\section{Lab 8 - Result Analysis}
+%Authors: Sarthak Agarwal, Raghav Jajodia, Ieshan Vaidya
+%2019-03-31
+In lab8, we try to classify a sequence of characters into categories Q,R,S,U. 
+This classification is done on the basis of two characters X,Y which can be present anywhere in the sequence. 
+In this experiment we compare the ability of RNN and LSTM to learn dependencies for different sequence lengths. The Difficulty and configurations of the experiment is explained in detail in \cref{sec:SeqClassification}. Here is the table of the test accuracies - 
+
+\begin{center}
+\begin{tabular}{ | p{3cm} | p{2cm} | p{2cm} | p{2cm} | p{2cm} | }
+ \hline
+   \textbf{DIFFICULTY} & \textbf{RNN (10 epochs)} & \textbf{LSTM (10 epochs)} & \textbf{RNN (100 epochs)} & \textbf{LSTM (100 epochs)} \\ 
+ \hline
+ \textbf{Easy} & 60.58\% & 79.33\% & 87.30\% & 87.50\% \\
+ \hline
+\textbf{Normal} & 24\% & 26\% & 71\% & 85\% \\ 
+ \hline
+ \textbf{Moderate} & 24.60\% & 28.43\% & 26.65\% & 84.37\% \\ 
+ \hline
+ \textbf{Hard} & 23.19\% & 25.10\% & 24.70\% & 25.30\% \\ 
+ \hline
+\end{tabular}
+
+\end{center}
+As we can see that LSTM outperforms RNN in almost all the cases.
+We also observe that RNN and LSTM are not able to learn the sequence when ran for 10 epochs in case of MODERATE, NORMAL and HARD LEVEL.
+When ran for 100 epochs, RNN and LSTM are not able to learn for HARD level, whereas they are able to learn other configurations. 
