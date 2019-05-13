@@ -9,9 +9,9 @@ For ImageNet we have 1 million images and 1000 classes. The total information is
 
 There are three popular way to scale. Scale along the models axis, data size axis, or problem complexity axis.
 
-\begin{figure}[htb!]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/complexity.png}
+\includegraphics[width=0.7\linewidth]{lectures/14-b/graphics/complexity.png}
 \label{fig:complexity}
 \caption{Scale along the axes}
 \end{figure}
@@ -22,7 +22,7 @@ For Jigsaw Puzzles
 
 If we scale along the Data Size axis, we will see the performance as shown below.
 
-\begin{figure}[htb!]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/jigsaw1.png}
 \label{fig:jigsaw1}
@@ -30,7 +30,7 @@ If we scale along the Data Size axis, we will see the performance as shown below
 \end{figure}
 
 
-\begin{figure}[htb!]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/colorization1.png}
 \label{fig:colorization1}
@@ -39,23 +39,23 @@ If we scale along the Data Size axis, we will see the performance as shown below
 
 Next, we examine the Problem Complexity Axis. Similarly, the performance is shown below.
 
-\begin{figure}[htb!]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/jigsaw2.png}
 \label{fig:jigsaw2}
 \caption{We fixed data size to 1M. In the Jigsaw problem, the performance of ResNet increases faster than AlexNet}
 \end{figure}
 
-\begin{figure}[htb!]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/colorization2.png}
+\includegraphics[width=0.6\linewidth]{lectures/14-b/graphics/colorization2.png}
 \label{fig:colorization2}
 \caption{We increased the problem complexity, so that the networks need to predict more colors. The transfer performance does not seem to improve for both models. Only hypothesis to this phenomenon is that asking the networks to predict more fine grain colors does not beneficial for the networks to better distinguish one object from the other. Whereas in Jigsaw, increasing problem complexity can give the networks more spatial information that can be helpful to differentiate objects}
 \end{figure}
 
 Finally, we combine all three axes to solve Jigsaw problem, and the performance  is shown below.
 
-\begin{figure}[htb!]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/combined.png}
 \label{fig:combined}
@@ -64,24 +64,24 @@ Finally, we combine all three axes to solve Jigsaw problem, and the performance 
 
 To evaluate, we performed 4 tasks to see how scalable these methods are, using both fine-tuning and linear classifier evaluation methods.
 
-\begin{figure}[htb!]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/evaluation.png}
-\label{fig:combined}
+\label{fig:evaluation}
 \caption{Evaluation tasks.}
 \end{figure}
 
 For Object Detection, self-supervised neural networks scored very closely to traditionally trained networks. The result is promising.
 
 
-\begin{figure}[htb!]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/od.png}
 \label{fig:od}
 \caption{Result for fine-tune all layers.}
 \end{figure}
 
-\begin{figure}[htb!]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/od1.png}
 \label{fig:od1}
@@ -90,7 +90,7 @@ For Object Detection, self-supervised neural networks scored very closely to tra
 
 Next, we evaluated the performance on 3D understanding.
 
-\begin{figure}[htb!]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/3dunderstanding.png}
 \label{fig:3dunderstanding}
@@ -99,7 +99,7 @@ Next, we evaluated the performance on 3D understanding.
 
 Lastly, we tested visual navigation in Gibson environment.
 
-\begin{figure}[htb!]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/gibson.png}
 \label{fig:gibson}
@@ -110,11 +110,10 @@ Lastly, we tested visual navigation in Gibson environment.
 
 Also known as $k$-shot learning, as you are given $k$ labeled examples per class and the goal is to extract feature representation using either a supervised network or a jig-saw network and then placing a linear classifier on top of it. Some popular datasets include VOC’07 and Places 205.
 
-\begin{figure}[htb!]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/Self_supervised.png}
-\label{fig:Self_supervised}
-\caption{Self-supervised representations are not as sample efficient}
+\caption{Self-supervised representations are not as sample efficient}\label{fig:Self_supervised}
 \end{figure}
 
 
@@ -123,20 +122,18 @@ On \ref{fig:Self_supervised} the number $k$ is represented on the $x$-axis and p
 
 On the case of the ImageNet task, which was designed for disambiguating fine-grained classes, it forces the supervised network to learn very specific details (on Imagenet there might be 50 classes for different breeds of dog, so it learns for each class the type of fur, nose, eye, etc), so it forces the network to learn localization, which is important for any vision task. A self-supervised approach has learned the task of how to classify into classes, but not about localization.
 
-\begin{figure}[htb!]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/VOC07.png}
-\label{fig:VOC07}
-\caption{Few shot learning, VOC07}
+\caption{Few shot learning, VOC07}\label{fig:VOC07}
 \end{figure}
-\begin{figure}[htb!]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/places205.png}
-\label{fig:places205}
-\caption{Few shot learning, places205}
+\caption{Few shot learning, places205}\label{fig:places205}
 \end{figure}
 
-On \ref{VOC07} and \ref{places205}, conv1 is the closest to the input and conv5 is closest to the output. On conv1, conv2 and conv3, self-supervised representation is very competitive to supervised approaches, even with different valuesof $k$. At conv4 the gap starts to increase and at conv5 the gap is the largest. At the higher layer, the network doesn't seem to be learning a semantic meaningful representation. This is not surprising, given that in the jigsaw case, in the last layer it has concatenated all the features and its predicting one of thousands permutations. This task has little to do with classification. At the last layer the feature is misaligned as all its providing is intermediate supervision to provide good low level or mid level representation. Which is the reason why at conv1 to conv3 performance is comparable. This same problem holds for all the previous methods described on this lecture. 
+On \ref{fig:VOC07} and \ref{fig:places205}, conv1 is the closest to the input and conv5 is closest to the output. On conv1, conv2 and conv3, self-supervised representation is very competitive to supervised approaches, even with different valuesof $k$. At conv4 the gap starts to increase and at conv5 the gap is the largest. At the higher layer, the network doesn't seem to be learning a semantic meaningful representation. This is not surprising, given that in the jigsaw case, in the last layer it has concatenated all the features and its predicting one of thousands permutations. This task has little to do with classification. At the last layer the feature is misaligned as all its providing is intermediate supervision to provide good low level or mid level representation. Which is the reason why at conv1 to conv3 performance is comparable. This same problem holds for all the previous methods described on this lecture. 
 
 This is one of the challenge of self-supervised learning in computer vision. The last layer is always doing worse than the intermediate layer. This is telling, even though we are designing this creative tasks of training a convolutional network, it’s not really teaching us a lot about the end task. I’ts not giving a lot of semantic signal.
 
@@ -144,14 +141,14 @@ This is not the case with natural language processing. Models like word2vec, Ber
 
 \section{Image classification}
 
-\begin{figure}[htb!]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/VOC2007_SVM_classification.png}
 \label{fig:VOC2007_SVM_classification}
 \caption{VOC2007 SVM classification. ResNet 50}
 \end{figure}
 
-\begin{figure}[htb!]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\linewidth]{lectures/14-b/graphics/Places205_linear_classification.png}
 \label{fig:Places205_linear_classification}
