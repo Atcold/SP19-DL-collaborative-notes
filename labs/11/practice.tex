@@ -70,7 +70,7 @@ For discriminator, we go from the original input ($x$) or the crafted input ($\h
     \centering
     \includegraphics[width=0.7\textwidth]{"labs/11/images/GAN illustration".png}
     \caption{Visualization of encoding and decoding process}
-    \label{fig:gan encoding-decoding}
+    \label{fig:gan encoding-decoding process}
 \end{figure}
 
 We start from a random variable in the hidden space. Then we get our $\hat{x}$ from the generator. Note that in the GAN setting, we do not know our data manifold, so there will be no way trying to proximate $\hat{x}$ to data manifold. We apply our discriminator on both the crafted data and real data. We train our discriminator so that it can tell apart the two. On the other hand, we get the gradient, so that we can make the generated data as close to the real data manifold as possible. \\ 
