@@ -110,7 +110,6 @@ For under-complete autoencoders (d = 30), the decoding images are shown:
     \caption{Reconstructed images by the autoencoder}
     \label{fig:Autoencoder}
 \end{figure}
-\\
 
 The learned kernels for the first layer are shown:
 
@@ -120,7 +119,6 @@ The learned kernels for the first layer are shown:
     \caption{Learned kernels for the autoencoder (d=30)}
     \label{fig:AE kernels}
 \end{figure}
-\\
 
 For denoising autoencoders (d = 500), the decoding images are shown:
 
@@ -130,7 +128,6 @@ For denoising autoencoders (d = 500), the decoding images are shown:
     \caption{Reconstructed images by the denoising autoencoder}
     \label{fig:Denosing Autoencoder}
 \end{figure}
-\\
 
 As shown from the picture, the denosing AE perform much better than the under-complete AE in terms of image reconstruction, especially a some specific images.
 
@@ -142,7 +139,6 @@ The learned kernels for the first layer are shown:
     \caption{Reconstructed images by the denoising autoencoder}
     \label{fig:Denoising AE kernels}
 \end{figure}
-\\
 
 where some of the kernels learned from the denoising AE have much more clearer "edges" compared to the kernels learned from the under-complete AE. Note that some kernels are really "noisy" because of the randomness introduced by dropout, cause some neurons and weights are shut down and unlearned.
 
