@@ -83,7 +83,7 @@ Common sense requires a model of the world. In order to take actions that incorp
 
 One of the ways that this can be implemented in a machine learning context is using an actor-critic model. A world simulation serves as a playground for the actor to experiment with various actions. The critic observes the state of this simulation and the state of the actor to determine the predicted cost of a particular action.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.4]{lectures/12-b/agent1.PNG}
 \caption{Actor-Critic Model with World Simulator}
@@ -108,7 +108,7 @@ There are several reasons why we cannot have a perfect model of the world.
 
 One example of this uncertainty can be observed by setting a pen upright on a desk and releasing it to see where it falls. There is uncertainty inherent in this prediction because the pen can fall in any direction. However, it is possible to predict that the pen will fall outwards from the starting point (See Figure 2). In this case, the training samples are merely representatives of a whole set of possible outputs, which is called invariant prediction. 
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.4]{lectures/12-b/Pen.PNG}
 \caption{Invariant Prediction of a Pen}
@@ -125,7 +125,7 @@ This can be applied to the problem of controlling a car in a highway of other ca
 
 The model formulation starts with a predictor network that generates a representation of the state of the environment. This state is then combined with some action taken by the controller. The decoder network then generates a prediction of what will happen given the current state and action. In order to prevent the "blurry" results described above, we need to augment the input to the model with some latent variable ($z$) as a predictor. $z$ represents the uncertainty of the future. Changing $z$ will result in different representations for the environment, effectively selecting different scenarios for our model to learn. $z$ is generated using an "encoder" network which uses information from the past (input) and the future (target). Noise and "dropout" functionality are added to limit the amount of information from the target that is provided to our model. This encourages the model the learn the ideal action without relying to heavily on the target information.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.4]{lectures/12-b/Model.PNG}
 \caption{The predictor and decoder act as a deterministic model to generate a prediction (Bottom). The decoder and encoder act as a variational autoencoder to generate the latent variable $z$ (Right).
