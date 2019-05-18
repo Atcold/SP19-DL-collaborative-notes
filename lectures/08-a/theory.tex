@@ -6,25 +6,27 @@
 % Authors: Diksha Meghwal
 % Lecture date: 04/01/2019
 
-A quick recap, energy based models(EBMs) are functions that take an input and product a scalar output as a result of some optimization. Eg:
+A quick recap, energy based models(EBMs) are functions that take an input and product a scalar output as a result of some optimization.
+Eg:
 
-\begin{figure}[htb]
-    \centering
-    \begin{subfigure}[b]{0.25\textwidth}
-        \includegraphics[width=\textwidth]{lectures/08-a/images/conditional_EBM.png}
-        \caption{Conditional model}
-        \label{fig:conditional}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.25\textwidth}
-        \includegraphics[width=\textwidth]{lectures/08-a/images/unconditional_EBM.png}
-        \caption{Unconditional}
-        \label{fig:unconditional}
-    \end{subfigure}
-    \caption{Two forms of Energy-Based Models}\label{fig:EBM}
-\end{figure}
+\begin{figure}[htb]	
+    \centering	
+    \begin{subfigure}[b]{0.25\textwidth}	
+        \includegraphics[width=\textwidth]{lectures/08-a/images/conditional_EBM.png}	
+        \caption{Conditional model}	
+        \label{fig:8a_conditional}	
+    \end{subfigure}	
+    \begin{subfigure}[b]{0.25\textwidth}	
+        \includegraphics[width=\textwidth]{lectures/08-a/images/unconditional_EBM.png}	
+        \caption{Unconditional}	
+        \label{fig:8a_unconditional}	
+    \end{subfigure}	
+    \caption{Two forms of Energy-Based Models}\label{fig:EBM}	
+\end{figure}	
 
-In case of unconditional models, you simply need to detect given a $Y$ whether it is trained or not. Eg: image restoration. \\
+In case of unconditional models, you simply need to detect given a $Y$ whether it is trained or not. Eg: image restoration.
 In case of conditional models, the model accepts a conditional input $X$ along with $Y$ where $Y$ is the variable you model. Eg: image classification given an image and a label.\\
+
 The energy based models are trained in such a way that they provide low energy for samples in the training data and produce high energy for samples outside the data.
 \begin{figure}[!h]
     \centering
