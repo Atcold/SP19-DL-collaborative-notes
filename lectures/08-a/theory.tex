@@ -6,27 +6,29 @@
 % Authors: Diksha Meghwal
 % Lecture date: 04/01/2019
 
-A quick recap, energy based models(EBMs) are functions that take an input and product a scalar output as a result of some optimization. Eg:
+A quick recap, energy based models(EBMs) are functions that take an input and product a scalar output as a result of some optimization.
+Eg:
 
-\begin{figure}[htb]
-    \centering
-    \begin{subfigure}[b]{0.25\textwidth}
-        \includegraphics[width=\textwidth]{lectures/08-a/images/conditional_EBM.png}
-        \caption{Conditional model}
-        \label{fig:conditional}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.25\textwidth}
-        \includegraphics[width=\textwidth]{lectures/08-a/images/unconditional_EBM.png}
-        \caption{Unconditional}
-        \label{fig:unconditional}
-    \end{subfigure}
-    \caption{Two forms of Energy-Based Models}\label{fig:EBM}
-\end{figure}
+\begin{figure}[!htb]	
+    \centering	
+    \begin{subfigure}[b]{0.25\textwidth}	
+        \includegraphics[width=\textwidth]{lectures/08-a/images/conditional_EBM.png}	
+        \caption{Conditional model}	
+        \label{fig:8a_conditional}	
+    \end{subfigure}	
+    \begin{subfigure}[b]{0.25\textwidth}	
+        \includegraphics[width=\textwidth]{lectures/08-a/images/unconditional_EBM.png}	
+        \caption{Unconditional}	
+        \label{fig:8a_unconditional}	
+    \end{subfigure}	
+    \caption{Two forms of Energy-Based Models}\label{fig:EBM}	
+\end{figure}	
 
-In case of unconditional models, you simply need to detect given a $Y$ whether it is trained or not. Eg: image restoration. \\
+In case of unconditional models, you simply need to detect given a $Y$ whether it is trained or not. Eg: image restoration.
 In case of conditional models, the model accepts a conditional input $X$ along with $Y$ where $Y$ is the variable you model. Eg: image classification given an image and a label.\\
+
 The energy based models are trained in such a way that they provide low energy for samples in the training data and produce high energy for samples outside the data.
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=0.4\linewidth]{lectures/08-a/images/EBM_function.png}
     \caption{EBM function}
@@ -38,7 +40,7 @@ Often energy based models involve a third variable apart from the observed input
     F_{w}(Y) = min_{w} E(Y, Z)
 \end{equation}
 where $Z$ is not given.
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=0.4\linewidth]{lectures/08-a/images/latent_EBM_architecture.png}
     \caption{latent EBM model}
@@ -74,7 +76,7 @@ Speech recognition is also a classic exmaple of energy based models where the in
 
 \subsubsection{Keyword Recognition}
 Keyword recognition involves detecting limited set of keywords from speech at a very fast rate. We model the problem that given a sequence of voice data, we try to determine the most likely word from the given small corpus. 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=0.4\linewidth]{lectures/08-a/images/keyword model.png}
     \caption{keyword model with the cost for each choice marked on the edge}
@@ -128,7 +130,7 @@ when we minimize the loss functions with respect to the parameters W,
 the effect is that the energy function will give low energy to correct outputs 
 and high energy to incorrect outputs.\\
 
-\begin{figure}[h]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=300pt]{lectures/08-a/images/ebm_train.png}
     \caption{The effect of training on energy based models}
@@ -252,7 +254,7 @@ Now we give several examples for generalized marginal loss.
 \end{itemize}
 
 Here is a table that summarize some of the loss functions for energy based models.
-\begin{figure}[h]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=300pt]{lectures/08-a/images/loss_zoo.png}
     \caption{Different loss functions}
