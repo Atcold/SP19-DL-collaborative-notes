@@ -1,6 +1,6 @@
-% Lecture date: 05/06/2019, part one and two
-% Authors: Ambuj Ojha, Kuixian Zhu, Yang Stelmach
-% Time interval: entire class
+% Lecture date: 05/06/2019, part one
+% Authors: Ambuj Ojha, Kuixian Zhu, Hormet Yiltiz, Yang Stelmach
+% Time interval: first half
 \chapter{Self-Supervised Learning}
 
 \section{Introduction and Why Self-supervised Learning}
@@ -41,19 +41,15 @@ Images always have an underlying spatial structure. This regularity is also the 
 
 \begin{itemize}
     
-\item One of the first successful applications of self-supervised learning using images is in the task of finding the relative position of patches. The idea is to sample two patches in an image, for example - in the image of the cat in Fig.\ref{fig:1} one (blue patch) is the nose of the cat and the other (red patch) is on the eye of the cat. 
+\item One of the first successful applications of self-supervised learning using images is in the task of finding the relative position of patches. The idea is to sample two patches in an image, for example - in the image of the cat in Fig.\ref{fig:relpatch} one (blue patch) is the nose of the cat and the other (red patch) is on the eye of the cat. 
 
-\begin{figure}[h!]
-<<<<<<< HEAD
-  \includegraphics[width=\linewidth]{RelativePosition.jpg}
-=======
-  \includegraphics[width=\linewidth]{lectures/13/RelativePosition.jpg}
->>>>>>> 98592940dcd527f65ba1d436b405705a0cb861a8
-  \caption{Relative Position of patches}
-  \label{fig:1}
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{lectures/13-a/RelativePosition.jpg}
+  \caption{Neural Network to Classify the Position of One Patch Relative to Another Patch in an Image}
+  \label{fig:relpatch}
 \end{figure}
 
-The first patch is fed in one CNN and the second patch is fed in another CNN. We then put a classifier on top to predict the relative spatial location of the two patches. Depending on where the blue patch is, we get 8 different classes (see Fig.\ref{fig:1} This is automatically generated supervision since we train the CNN to perform this task on a bunch of images without any human supervision.
+The first patch is fed in one CNN and the second patch is fed in another CNN. We then put a classifier on top to predict the relative spatial location of the two patches. Depending on where the blue patch is, we get 8 different classes (see Fig.\ref{fig:relpatch} This is automatically generated supervision since we train the CNN to perform this task on a bunch of images without any human supervision.
 
 In order for the network to be able to predict the relative position of patches, it needs to understand the spatial structure of the object. Essentially this task is training the network to encode spatial structure based on two glimpses.
 
@@ -66,6 +62,61 @@ In order to evaluate the representation, feature representation was computed for
 \item Another curious example of a task is predicting rotations in an image. Given an image, rotated in 4 different ways (either 90 deg, 180 deg, 270 deg or 0 deg), feed forward the image and ask the network to perform a four way classification to predict which particular rotation was applied to the image. Essentially just by doing this, the network learns to captures a very natural bias about the structure of the visual world.
 \end{itemize}{}
 
-\subsection{Evaluating self-supervision tasks}
+\subsubsection{Evaluating self-supervision tasks}
 Standard methodology for evaluation is treating self-supervised learning as a pre-training task. We have a bunch of images that is our pre-training data and we pre-train a CNN using either of the tasks discussed before (e.g. image colorization) and the CNN learns a visual representation. We can now fine-tune this representation on an end task where we have semantic supervision (e.g. image classification). One problem with this is that the fine-tuning step trains the full representation on the end task. So it tests both the initialization capabilities of the self-supervised pre-training as well as how good the representation is. In some way it conflates optimization with representational power.
+
+\subsection{Using video}
+For videos, in addition to the spatial structures present in each frame as images, there is also temporal structure across frames.
+We can try to learn this temporal continuity of the visual world and make predictions. 
+Some examples of the tasks that can be used for learning temporal structure:
+
+\begin{itemize}
+\item predict the order of the frames,
+\item fill in the blanks (predict middle frame given the previous and next frames),
+\item track objects and predict their location (motion trajectory).
+\end{itemize}
+
+There are several methods to train the network in these tasks.
+We can train a network in a binary classification task where a few frames of a video in the correct order is labeled with positive labels and shuffle the temporal order of these frames to create cases with negative labels (see Fig.\ref{fig:shuffle-learn}). 
+
+
+\begin{figure}[H]
+% \begin{center}
+  \includegraphics[width=\linewidth]{lectures/13-a/shuffle-learn.png}
+    \caption{To learn the temporal structure of a video, we can train a network with binary classifications. 
+    Frames in the correct order is labeled as 1 while frames in random order is labeled as 0.
+  With the true labels accessible, we can train this network with cross-entropy loss.}
+% \end{center}
+  \label{fig:shuffle-learn}
+\end{figure}
+
+We can evaluate the network performance by checking the nearest-neighbour representation.
+This network will need to learn how objects move across frames, to correctly segregate foreground from background, to estimate local image structure such as estimating human pose based on joints, and to find out discontinuity in the images ("odd one out" tasks, illustrated in Fig. \ref{fig:odd-one}) to be able to learn the correct order.
+The performance of this shuffle and learn procedure is fairly comparable to a supervised learning procedure (Minsra, Zitnick and Hebert, ECCV 2016). 
+\begin{figure}[H]
+% \begin{center}
+  \includegraphics[width=\linewidth]{lectures/13-a/odd-one-out-network.png}
+    \caption{By learning the correct order, the network learns the temporal structure intrinsic to the video, and thus can perform inference such as motion prediction, foreground-background segmentation, key-point estimation etc.}
+% \end{center}
+  \label{fig:odd-one}
+\end{figure}
+
+
+\subsection{Using video and sound}
+
+Both videos and sounds have local and temporal structure. One of the key problems in this domain is whether a video clip and a sound clip correspond to each other. 
+Following a similar method as described in the previous section, we can label any sound that does not occur during that video as negative then train a network with binary classification (see Fig. \ref{fig:audio-video}). 
+
+\begin{figure}[H]
+% \begin{center}
+  \includegraphics[width=\linewidth]{lectures/13-a/audio-video.png}
+    \caption{Audio-video co-supervision learning. 
+    Two separate ConvNets for audio and video inputs trained with a binary classification.}
+% \end{center}
+  \label{fig:audio-video}
+\end{figure}
+
+This method is quite powerful. 
+It can learn good visual and auditory embedding representations. 
+Simply performing nearest-neighbour search in the respective network (e.g. video) without input into the other network (e.g. audio) can do fairly complex tasks such as localizing objects that produce sounds or aligning an audio clip to a larger video clip, in addition to learning local and temporal structure in the video and audio as described earlier.
 
