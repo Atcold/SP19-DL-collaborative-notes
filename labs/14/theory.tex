@@ -2,7 +2,7 @@
 % Authors: Yu Cao 5/7/19.
 
 \section{Graph Neural Network}
-Images and texts can be formalized with graphs as they are connected grids with information contained in each node and edge. Graph contains vertexes and edges and the messages(information) associated. Deep learning on graph structure composes GNN. GNN learns embedding on graphs. 
+Graph contains vertexes and edges and the messages(information) associated, and can be used to formalize Images and texts. Deep learning on graph structure composes GNN. GNN learns embedding on graphs. 
 
 \begin{figure}[ht]
 \begin{center}
@@ -68,20 +68,6 @@ Graph neural network has been an emerging topic of research as shown in the grap
 \label{fig:CV}
 \end{figure}
 
-Today we have a tutorial focused on a useful tool to help understand the GNN structure.
-
-\section{Deep Graph Library}
-\href{www.dgl.ai}{DGL} is designed to bring machine learning closer to graph-structured data. It is developed by NYU System team. Specifically DGL enables trouble-free implementation of graph neural network (GNN) model family. Unlike PyTorch or TensorFlow, DGL provides friendly APIs to perform the fundamental operations in GNNs such as message passing and reduction. Through DGL, we hope to benefit both researchers trying out new ideas and engineers in production.
-
-In this tutorial, the basics of DGL are demonstrated including:
-\begin{itemize}
-\item How to create a graph?
-\item How to manipulate node/edge features on a graph?
-\item How to convert a graph to/from other formats?
-\end{itemize}
-
-Although this tutorial uses \href{https://pytorch.org}{Pytorch} as backend for tensor-related computations (thus some familiarity with PyTorch is preferred), DGL is designed to be platform-agnostic and can be seamlessly integrated into other frameworks like \href{https://mxnet.apache.org/}{MXNet} and \href{https://www.tensorflow.org/}{TensorFlow}, and the team are actively working on this.
-
 \section{Message passing on graph}
  In this section, we will focus on how to perform computation on graph structures following Message Passing paradigm. Many graph neural networks follows the \textit{message passing} computation model \href{https://arxiv.org/abs/1704.01212}{Gilmer et al, 2017}:
 \begin{itemize}
@@ -107,9 +93,6 @@ where $\mathcal{N}(v)$ is the neighbor set of node $v$.
 
 % \end{enumerate}
 
-We will go through the basic mechanism of message passing using a toy task:
-
-Suppose the karate club president (node 33) is sending out an invitation of their annual karate match. The president also asks the club members to broadcast the news to, of course, their friends in the club. We use a scalar to represent whether the member has received the invitation or not (1 for invited, 0 for not invited). Initially, everyone is 0 except node 33.
 
 \section{Graph Convolutional Network}
 
