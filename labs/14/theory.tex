@@ -73,9 +73,9 @@ Graph neural network has been an emerging topic of research as shown in the grap
 \begin{itemize}
     \item Each node receives and aggregates messages from its neighbors  
 \begin{gather}
-$$m_v^{t+1} = \sum\limits_{w\in \mathcal{N}(v)}M_t(h_v^t, h_w^t, e_{vw}^t)$$
+m_v^{t+1} = \sum\limits_{w\in \mathcal{N}(v)}M_t(h_v^t, h_w^t, e_{vw}^t)
 \end{gather}
-where $\mathcal{N}(v)$ is the neighbor set of node $v$.
+where $\mathcal{N}(v)$ is the neighbour set of node $v$.
 
 \item Each node update its own embedding using aggregated messages.
 \end{itemize}
@@ -96,7 +96,7 @@ where $\mathcal{N}(v)$ is the neighbor set of node $v$.
 
 \section{Graph Convolutional Network}
 
-Graph convolutional network (GCN) is a popular model proposed by \href{https://arxiv.org/abs/1609.02907}{Kipf & Welling} to encode graph structure by message passing. The high-level idea is similar to our toy task: node features are updated by aggregating the messages from the neighbors. Here is its message passing equation:
+Graph convolutional network (GCN) is a popular model proposed by \href{https://arxiv.org/abs/1609.02907}{Kipf \& Welling} to encode graph structure by message passing. The high-level idea is similar to our toy task: node features are updated by aggregating the messages from the neighbors. Here is its message passing equation:
 
 $$
 h_{v_i}^{(l+1)} = \sigma \left(\sum_{j\in\mathcal{N}(i)}\frac{1}{c_{ij}}h_{v_j}^{(l)}W^{(l)} \right),
