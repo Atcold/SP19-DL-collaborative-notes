@@ -4,7 +4,7 @@
 % Authors: Yu Cao, Evgenii Nikitin, Aishwarya Budhkar (editor), 4/16/2019
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{labs/11/images/vae.png}
+    \includegraphics[width=0.7\textwidth]{figs/vae.png}
     \caption{Architecture of Variational Autoencoder}
     \label{fig:vae}
 \end{figure}
@@ -19,7 +19,7 @@ After that, sampled representation $z'$ is decoded into output $\hat{x}$. In ord
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{labs/11/images/vae_expl.png}
+    \includegraphics[width=0.7\textwidth]{figs/vae_expl.png}
     \caption{Visualization of encoding and decoding processes}
     \label{fig:vae_expl}
 \end{figure}
@@ -34,11 +34,11 @@ Intuitively, this new term forces learned representations of the training sample
 \begin{figure}[H]
     \centering
     \begin{subfigure}[b]{.45\linewidth}
-    \includegraphics[width=\linewidth]{labs/11/images/bubbles_rec.png}
+    \includegraphics[width=\linewidth]{figs/bubbles_rec.png}
     \caption{Samples get pulled apart by reconstruction loss}\label{fig:bubbles_rec}
     \end{subfigure}
     \begin{subfigure}[b]{.45\linewidth}
-    \includegraphics[width=\linewidth]{labs/11/images/bubbles_kl.png}
+    \includegraphics[width=\linewidth]{figs/bubbles_kl.png}
     \caption{Samples get pushed towards zero by KL-divergence loss}\label{fig:bubbles_kl}
     \end{subfigure}
     \caption{Effects of the different loss components}
@@ -49,7 +49,7 @@ Intuitively, this new term forces learned representations of the training sample
 \subsection{Introduction}
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\textwidth]{"labs/11/images/VAE and GAN".png}
+    \includegraphics[width=0.7\textwidth]{"figs/VAE and GAN".png}
     \caption{Architecture of GAN}
     \label{fig:gan_arch}
 \end{figure}
@@ -68,7 +68,7 @@ For discriminator, we go from the original input ($x$) or the crafted input ($\h
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\textwidth]{"labs/11/images/GAN illustration".png}
+    \includegraphics[width=0.7\textwidth]{"figs/GAN illustration".png}
     \caption{Visualization of encoding and decoding process}
     \label{fig:enc_dec_process}
 \end{figure}
