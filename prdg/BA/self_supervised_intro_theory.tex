@@ -44,7 +44,7 @@ Images always have an underlying spatial structure. This regularity is also the 
 \item One of the first successful applications of self-supervised learning using images is in the task of finding the relative position of patches. The idea is to sample two patches in an image, for example - in the image of the cat in Fig.\ref{fig:relpatch} one (blue patch) is the nose of the cat and the other (red patch) is on the eye of the cat. 
 
 \begin{figure}[H]
-  \includegraphics[width=\linewidth]{lectures/13-a/RelativePosition.jpg}
+  \includegraphics[width=\linewidth]{figs/RelativePosition.jpg}
   \caption{Neural Network to Classify the Position of One Patch Relative to Another Patch in an Image}
   \label{fig:relpatch}
 \end{figure}
@@ -82,7 +82,7 @@ We can train a network in a binary classification task where a few frames of a v
 
 \begin{figure}[H]
 % \begin{center}
-  \includegraphics[width=\linewidth]{lectures/13-a/shuffle-learn.png}
+  \includegraphics[width=\linewidth]{figs/shuffle-learn.png}
     \caption{To learn the temporal structure of a video, we can train a network with binary classifications. 
     Frames in the correct order is labeled as 1 while frames in random order is labeled as 0.
   With the true labels accessible, we can train this network with cross-entropy loss.}
@@ -95,7 +95,7 @@ This network will need to learn how objects move across frames, to correctly seg
 The performance of this shuffle and learn procedure is fairly comparable to a supervised learning procedure (Minsra, Zitnick and Hebert, ECCV 2016). 
 \begin{figure}[H]
 % \begin{center}
-  \includegraphics[width=\linewidth]{lectures/13-a/odd-one-out-network.png}
+  \includegraphics[width=\linewidth]{figs/odd-one-out-network.png}
     \caption{By learning the correct order, the network learns the temporal structure intrinsic to the video, and thus can perform inference such as motion prediction, foreground-background segmentation, key-point estimation etc.}
 % \end{center}
   \label{fig:odd-one}
@@ -109,7 +109,7 @@ Following a similar method as described in the previous section, we can label an
 
 \begin{figure}[H]
 % \begin{center}
-  \includegraphics[width=\linewidth]{lectures/13-a/audio-video.png}
+  \includegraphics[width=\linewidth]{figs/audio-video.png}
     \caption{Audio-video co-supervision learning. 
     Two separate ConvNets for audio and video inputs trained with a binary classification.}
 % \end{center}
