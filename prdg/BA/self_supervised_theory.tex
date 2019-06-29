@@ -11,7 +11,7 @@ There are three popular way to scale. Scale along the models axis, data size axi
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\linewidth]{lectures/13-b/graphics/complexity.png}
+\includegraphics[width=0.7\linewidth]{figs/complexity.png}
 \label{fig:complexity}
 \caption{Scale along the axes}
 \end{figure}
@@ -24,7 +24,7 @@ If we scale along the Data Size axis, we will see the performance as shown below
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\linewidth]{lectures/13-b/graphics/jigsaw1.png}
+\includegraphics[width=0.8\linewidth]{figs/jigsaw1.png}
 \label{fig:jigsaw1}
 \caption{Scale along the data axis to tackle Jigsaw. AlexNet seems to saturate very quickly, and the gain is marginal. But for ResNet, the gain is quite noticeable}
 \end{figure}
@@ -32,7 +32,7 @@ If we scale along the Data Size axis, we will see the performance as shown below
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\linewidth]{lectures/13-b/graphics/colorization1.png}
+\includegraphics[width=0.8\linewidth]{figs/colorization1.png}
 \label{fig:colorization1}
 \caption{Scale along the data axis to tackle Colorization. We observe similar result, ResNet seems improve better than than AlexNet}
 \end{figure}
@@ -41,14 +41,14 @@ Next, we examine the Problem Complexity Axis. Similarly, the performance is show
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\linewidth]{lectures/13-b/graphics/jigsaw2.png}
+\includegraphics[width=0.8\linewidth]{figs/jigsaw2.png}
 \label{fig:jigsaw2}
 \caption{We fixed data size to 1M. In the Jigsaw problem, the performance of ResNet increases faster than AlexNet}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.6\linewidth]{lectures/13-b/graphics/colorization2.png}
+\includegraphics[width=0.6\linewidth]{figs/colorization2.png}
 \label{fig:colorization2}
 \caption{We increased the problem complexity, so that the networks need to predict more colors. The transfer performance does not seem to improve for both models. Only hypothesis to this phenomenon is that asking the networks to predict more fine grain colors does not beneficial for the networks to better distinguish one object from the other. Whereas in Jigsaw, increasing problem complexity can give the networks more spatial information that can be helpful to differentiate objects}
 \end{figure}
@@ -57,7 +57,7 @@ Finally, we combine all three axes to solve Jigsaw problem, and the performance 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\linewidth]{lectures/13-b/graphics/combined.png}
+\includegraphics[width=0.8\linewidth]{figs/combined.png}
 \label{fig:combined}
 \caption{for ResNet, the performance increase is noticeable, but not so for AlexNet. The reason is that AlexNet does not enough parameters to to absorb more information}
 \end{figure}
@@ -66,7 +66,7 @@ To evaluate, we performed 4 tasks to see how scalable these methods are, using b
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\linewidth]{lectures/13-b/graphics/evaluation.png}
+\includegraphics[width=0.8\linewidth]{figs/evaluation.png}
 \label{fig:evaluation}
 \caption{Evaluation tasks.}
 \end{figure}
@@ -76,14 +76,14 @@ For Object Detection, self-supervised neural networks scored very closely to tra
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\linewidth]{lectures/13-b/graphics/od.png}
+\includegraphics[width=0.8\linewidth]{figs/od.png}
 \label{fig:od}
 \caption{Result for fine-tune all layers.}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\linewidth]{lectures/13-b/graphics/od1.png}
+\includegraphics[width=0.8\linewidth]{figs/od1.png}
 \label{fig:od1}
 \caption{Result for fine-tune only last layer.}
 \end{figure}
@@ -92,7 +92,7 @@ Next, we evaluated the performance on 3D understanding.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\linewidth]{lectures/13-b/graphics/3dunderstanding.png}
+\includegraphics[width=0.8\linewidth]{figs/3dunderstanding.png}
 \label{fig:3dunderstanding}
 \caption{We see a 8 points increase in the self-supervised neural network.}
 \end{figure}
@@ -101,7 +101,7 @@ Lastly, we tested visual navigation in Gibson environment.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\linewidth]{lectures/13-b/graphics/gibson.png}
+\includegraphics[width=0.8\linewidth]{figs/gibson.png}
 \label{fig:gibson}
 \caption{the major takeaway is that Jigsaw ImageNet-22k and ImageNet-1k Supervised are fairly competitive.}
 \end{figure}
@@ -112,7 +112,7 @@ Also known as $k$-shot learning, as you are given $k$ labeled examples per class
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\linewidth]{lectures/13-b/graphics/Self_supervised.png}
+\includegraphics[width=0.8\linewidth]{figs/Self_supervised.png}
 \caption{Self-supervised representations are not as sample efficient}\label{fig:Self_supervised}
 \end{figure}
 
@@ -124,12 +124,12 @@ On the case of the ImageNet task, which was designed for disambiguating fine-gra
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\linewidth]{lectures/13-b/graphics/VOC07.png}
+\includegraphics[width=0.8\linewidth]{figs/VOC07.png}
 \caption{Few shot learning, VOC07}\label{fig:VOC07}
 \end{figure}
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\linewidth]{lectures/13-b/graphics/places205.png}
+\includegraphics[width=0.8\linewidth]{figs/places205.png}
 \caption{Few shot learning, places205}\label{fig:places205}
 \end{figure}
 
@@ -143,14 +143,14 @@ This is not the case with natural language processing. Models like word2vec, Ber
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\linewidth]{lectures/13-b/graphics/VOC2007_SVM_classification.png}
+\includegraphics[width=0.8\linewidth]{figs/VOC2007_SVM_classification.png}
 \label{fig:VOC2007_SVM_classification}
 \caption{VOC2007 SVM classification. ResNet 50}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\linewidth]{lectures/13-b/graphics/Places205_linear_classification.png}
+\includegraphics[width=0.8\linewidth]{figs/Places205_linear_classification.png}
 \label{fig:Places205_linear_classification}
 \caption{Places205 linear classification. ResNet 50}
 \end{figure}
