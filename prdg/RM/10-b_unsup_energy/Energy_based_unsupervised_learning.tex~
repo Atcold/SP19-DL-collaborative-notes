@@ -19,7 +19,7 @@ Lower energy values should be assigned to more likely or plausible configuration
 \end{equation}
 \begin{figure}[H]
         \centering
-        \includegraphics[width=\textwidth]{figs/pic2.png}
+        \includegraphics[width=\textwidth]{lectures/10-b/image/pic2.png}
         \caption{Example: The samples live in the manifold}
         \label{figure1}
     \end{figure}
@@ -49,7 +49,7 @@ By changing $z$, we are selecting the column of $w$ that is closest to $y$ by do
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.35\textwidth]{figs/pic7.png}
+    \includegraphics[width=0.35\textwidth]{lectures/10-b/image/pic7.png}
     \caption{The architecture of PCA}
     \label{figure2}
 \end{figure}
@@ -61,7 +61,7 @@ The only points that are reconstructed with zero energy are the prototypes. Ever
 
  \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{figs/pic9.png}
+    \includegraphics[width=0.5\textwidth]{lectures/10-b/image/pic9.png}
     \caption{Energy function of k-means}
     \label{figure3}
 \end{figure}
@@ -83,7 +83,7 @@ E(Y) =  min_z \sum_i\norm{Y-W_iZ_i}^2
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figs/pic1.png}
+    \includegraphics[width=\textwidth]{lectures/10-b/image/pic1.png}
     \caption{Left: PCA and Right: K-Means}
     \label{figure4}
 \end{figure}
@@ -139,7 +139,7 @@ This idea is \textit{"cute but impractical"}, except for very simple models.
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.35\textwidth]{figs/pic8.png}
+    \includegraphics[width=0.35\textwidth]{lectures/10-b/image/pic8.png}
     \caption{Energy Function}
     \label{figure8}
 \end{figure}
@@ -168,7 +168,7 @@ Two slight problems remain:
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.35\textwidth]{figs/PIC6.PNG}
+    \includegraphics[width=0.35\textwidth]{lectures/10-b/image/PIC6.PNG}
     \caption{The architecture of denoising auto-encoder}
     \label{figure6}
 \end{figure}
@@ -182,7 +182,7 @@ Contracting auto-encoder comes from Yoshua Bengio's lab. Basically, it's still i
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.35\textwidth]{figs/PIC5.PNG}
+    \includegraphics[width=0.35\textwidth]{lectures/10-b/image/PIC5.PNG}
     \caption{The architecture of auto-encoder}
     \label{figure5}
 \end{figure}
