@@ -7,6 +7,7 @@
 \usepackage{tikz}
 \usepackage{dsfont}
 
+
 \hypersetup{
   linkcolor  = Magenta,
   citecolor  = Aquamarine,
@@ -25,6 +26,8 @@
 
 \usepackage{mathtools}
 \usepackage{verbatim}
+\usepackage[export]{adjustbox}
+
 
 \makeatletter
 \newcommand\RedeclareMathOperator{%
@@ -58,3 +61,7 @@
 
 \usepackage[nameinlink,noabbrev]{cleveref}
 \newcommand*{\fullref}[1]{\hyperref[{#1}]{\Cref*{#1} -- \nameref*{#1}}}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\newcommand{\corr}[1]{\rho{\left(#1\right)}} % Correlation

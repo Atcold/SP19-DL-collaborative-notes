@@ -1,0 +1,136 @@
+\chapter{Graph Neural Networks}
+% Authors: Yu Cao, 5/7/19.
+\section{DGL}
+In this section, we try to utilize Deep Graph Library to implement graph neural networks.
+
+\subsection{Basics}
+We start by creating the well-known \textbf{Zachary's karate club} social network. The network captures 34 members of a karate club, documenting pairwise links between members who interacted outside the club. The club later splits into two communities led by the instructor (node 0) and club president (node 33). You could read more about the story in the \href{https://en.wikipedia.org/wiki/Zachary\%27s_karate_club}{wiki page}. 
+
+\begin{minted}{python}
+import dgl
+G = dgl.DGLGraph()
+G.add_nodes(34)
+G.add_edge(1, 0)
+print('Now we have %d edges!' % G.number_of_edges())
+# add two edges 2->0 and 2->1 using list
+G.add_edges([2, 2], [0, 1])
+
+# add three edges 3->0, 3->1 and 3->2 using torch tensor
+src = torch.tensor([3, 3, 3])
+dst = torch.tensor([0, 1, 2])
+G.add_edges(src, dst)
+
+print('Now we have %d edges!' % G.number_of_edges())
+
+# add two edges 4->0, 5->0 using list
+G.add_edges([4, 5], 0)
+
+# add three edges 6->0 6->4 6->5 using torch tensor
+G.add_edges(6, torch.tensor([0, 4, 5]))
+
+print('Now we have %d edges!' % G.number_of_edges())
+
+edge_list = [(7, 0), (7, 1), (7, 2), (7, 3), (8, 0), (8, 2), (9, 2), (10, 0), (10, 4), (10, 5),
+             (11, 0), (12, 0), (12, 3), (13, 0), (13, 1), (13, 2), (13, 3), (16, 5), (16, 6),
+             (17, 0), (17, 1), (19, 0), (19, 1), (21, 0), (21, 1), (25, 23), (25, 24), (27, 2),
+             (27, 23), (27, 24), (28, 2), (29, 23), (29, 26), (30, 1), (30, 8), (31, 0), (31, 24),
+             (31, 25), (31, 28), (32, 2), (32, 8), (32, 14), (32, 15), (32, 18), (32, 20), (32, 22),
+             (32, 23), (32, 29), (32, 30), (32, 31), (33, 8), (33, 9), (33, 13), (33, 14), (33, 15),
+             (33, 18), (33, 19), (33, 20), (33, 22), (33, 23), (33, 26), (33, 27), (33, 28),
+             (33, 29), (33, 30), (33, 31), (33, 32)]
+
+src, dst = zip(*edge_list)
+G.add_edges(src, dst)
+
+# We should have 78 edges now!
+print('Now we have %d edges!' % G.number_of_edges())
+\end{minted}
+
+\subsection{Message passing on graph}
+Suppose the karate club president (node 33) is sending out an invitation of their annual karate match. The president also asks the club members to broadcast the news to, of course, their friends in the club. We use a scalar to represent whether the member has received the invitation or not (1 for invited, 0 for not invited). Initially, everyone is 0 except node 33.
+\begin{minted}{python}
+# We first convert the uni-directional edges to bi-directional so messages can
+#   be sent in both direction.
+src, dst = G.edges()
+G.add_edges(dst, src)
+# add self loop for each nodes for convenience
+v = G.nodes()
+G.add_edges(v, v)
+print('We now have %d edges!' % G.number_of_edges())
+
+# init the state
+G.ndata['invited'] = torch.zeros((34,))
+G.nodes[33].data['invited'] = torch.tensor([1.])
+print(G.ndata['invited'])
+\end{minted}
+
+We then define the function that computes the messages. In DGL, the message function is an \textbf{Edge UDF} that takes in a single argument `edges`. It has three members `src`, `dst`, and `data` for accessing source node features, destination node features, and edge features respectively.
+\begin{minted}{python}
+def message_func(edges):
+    # The message is simply the 'invited' state of the source nodes.
+    return {'msg' : edges.src['invited']}
+\end{minted}
+
+
+Next, we define the reduce function which accumulates and consume the messages to update the node features. In DGL, the reduce function is a \textbf{Node UDF} that takes in a single argument `nodes`, which has two members `data` and `mailbox`. `data` contains the node features while `mailbox` contains all incoming message features, stacked along the second dimension (hence the `dim=1` argument).
+
+\begin{minted}{python}
+def reduce_func(nodes):
+    # The reduce function sets the 'invited' state to be one if the node has already
+    #   been invited or any of the received messages contains an invitation (is one).
+    #   This can be done using sum and clamp operations as follows.
+    accum = nodes.mailbox['msg'].sum(dim=1)  # note that messages are stacked on dim=1
+    return {'invited' : accum.clamp(max=1)}
+\end{minted}
+
+To trigger the message and reduce function, one can use the `send` and `recv` APIs. Following codes send out the messages from node 33. We then call `recv` on the receiver nodes to trigger the reduce function.
+
+\begin{minted}{python}
+G.send((33, G.successors(33)), message_func)
+G.recv(G.successors(33), reduce_func)
+\end{minted}
+
+\subsection{Graph Convolutional Network}
+The steps to implement GCN in DGL is also similar to the toy task (\verb|2_MessagePassing.ipynb|):
+
+\begin{itemize}
+    \item Define the message function.
+\item Define the reduce function.
+\item Define how they are triggered using `send` and `recv`.
+\end{itemize}
+
+\begin{minted}{python}
+# A bit of setup, just ignore this cell
+import matplotlib.pyplot as plt
+
+# for auto-reloading external modules
+%load_ext autoreload
+%autoreload 2
+
+%matplotlib inline
+plt.rcParams['figure.figsize'] = (8.0, 6.0) # set default size of plots
+plt.rcParams['image.interpolation'] = 'nearest'
+plt.rcParams['image.cmap'] = 'gray'
+plt.rcParams['animation.html'] = 'html5'
+import torch.nn as nn
+import torch.nn.functional as F
+
+# Define the GCN module
+class GCN(nn.Module):
+    def __init__(self, in_feats, out_feats):
+        super(GCN, self).__init__()
+        self.linear = nn.Linear(in_feats, out_feats)
+    
+    def forward(self, g, inputs):
+        # g is the graph and the inputs is the input node features
+        # first perform linear transformation
+        h = self.linear(inputs)
+        # set the node features
+        g.ndata['h'] = h
+        # trigger message passing, gcn_message and gcn_reduce will be defined later
+        g.send(g.edges(), gcn_message)
+        g.recv(g.nodes(), gcn_reduce)
+        # get the result node features
+        h = g.ndata.pop('h')
+        return h
+\end{minted}

@@ -17,8 +17,8 @@ produced by the neuron and decide if the neuron is fired or not.
 \item The step function is a threshold based activation function Activation function. 
 \begin{equation}
     f(x)=\begin{cases}
-            activated, & Y > threshold\\
-            deactivated, & Y < threshold
+            \text{activated}, & Y > \text{threshold} \\
+            \text{deactivated}, & Y < \text{threshold}
         \end{cases}
 \end{equation}
 
@@ -64,12 +64,12 @@ However its gradient characteristics hinders our ability to train deeper neural 
 where x is the input to a neuron giving an output x if x is positive and 0 otherwise. 
 This promotes a reduced likelihood of encountering vanishing gradient problems. When $a > 0$, the gradient has a constant value. 
 In contrast, the gradient of sigmoids becomes increasingly small as the absolute value of x increases.
-The constant gradient of ReLUs results in faster learning.\\
+The constant gradient of ReLUs results in faster learning.
 
 ReLU also helps with increasing the sparsity of the network which arises when $a ≤ 0$. 
 As the number of such units increase in a layer, it leads to a sparse representation. 
 Sigmoids on the other hand are always likely to generate some non-zero value resulting in dense representations. 
-The range of values can also be infinite.\\
+The range of values can also be infinite.
 
 ReLU is analogous to half-wave rectification in electrical engineering and has been the most popular activation function to this day.
 
@@ -100,7 +100,7 @@ It is defined as,
 H(y, p)=-\sum_i y_i \log(p_i)
 \end{equation}
 we calculate a separate loss for each class label per observation and sum the result. 
-Cross entropy measure is a widely used alternative of squared error.\\
+Cross entropy measure is a widely used alternative of squared error.
 
 Log softmax is a special case of cross entropy loss where only one value in the output array is $1$ and the others are $0$. 
 The more general form calculates the cross-entropy between two discrete distributions which log-softmax doesn’t compute. 
@@ -142,29 +142,29 @@ Generally each parameter update in SGD is computed w.r.t a few training examples
 We do forward and backward propagation on a small group of samples, compute their average gradients which are then used to update the model parameters. 
 We then take the next group of samples and repeat this process. The two limit cases are when the size of the batch is one or the size of the batch is the entire training set. 
 It is inefficient to use the entire training set to compute the gradient as there might be many redundant samples in the training set. 
-For instance, if a training set contains one million samples which are just repetition of ten-thousand images hundred times, then by using the full batch gradient-descent we will be using hundred times the number of resources computing the gradient than we should. \\
+For instance, if a training set contains one million samples which are just repetition of ten-thousand images hundred times, then by using the full batch gradient-descent we will be using hundred times the number of resources computing the gradient than we should. 
 
 We do not have such training sets in real life. However, we often have a lot of samples that are very redundant. 
 For instance, while doing character recognition on MNIST dataset, we will have a lot of ones very very similar to each other (with very minor variations). 
 Similarly, ImageNet has many pictures where samples within the same category are very similar to each other. 
 On large datasets, SGD can converge faster than batch training because it performs updates more frequently.
 We can get away with this because the data often contains redundant information, so the gradient can be reasonably approximated without using the full dataset. 
-If there were no redundancy we wouldn’t be able to learn any generalizable information.\\
+If there were no redundancy we wouldn’t be able to learn any generalizable information.
 
 However, in the presence of redundancy if we calculate the gradient on the entire training set we will be doing more computation than necessary. 
 There has been some research done on the optimal size of a batch. 
-There is an argument that small batch sizes put a lot of noise in the gradients, which in turn changes the weights more and produces a  regularization effect that leads to better generalization error.\\
+There is an argument that small batch sizes put a lot of noise in the gradients, which in turn changes the weights more and produces a  regularization effect that leads to better generalization error.
 
 Another factor in determining the batch size is how well we can saturate the current hardware.
 Generally, the calculation in a neural net is not limited by the speed of the processor but is limited by how fast you can shuffle data in and out of the processor to and from the memory. 
 Minibatch training can be faster than training on single data points because it can take advantage of vectorized operations to process the entire minibatch at once. 
 How we organize the calculation within a GPU allows us to take advantage of their cache. 
-One good way to optimize memory bandwidth is to use matrix multiplication at the lowest level (matrix multiplication is an operation that has a large number of operations per memory access thus we organize data in such a way that for every piece of data we load from memory we do a lot of operations with them).\\
+One good way to optimize memory bandwidth is to use matrix multiplication at the lowest level (matrix multiplication is an operation that has a large number of operations per memory access thus we organize data in such a way that for every piece of data we load from memory we do a lot of operations with them).
 
 In general, we use the smallest batch size that will saturate the hardware. 
 Another factor that comes into consideration is parallelization. 
 The simplest way to parallelize the training of a neural net is to take a large batch,  divide it into chunks and give each chunk to a separate GPU. 
-Their gradients will then be averaged and used for updating the model parameters, which are then distributed to each of the workers (synchronous distributed SGD).\\
+Their gradients will then be averaged and used for updating the model parameters, which are then distributed to each of the workers (synchronous distributed SGD).
 
 {\centering\fbox{\begin{minipage}{30em}
 \centering\textbf{Stochastic Learning with minibatches}
@@ -185,13 +185,13 @@ In this example, the model might ignore all the inputs first and learn to output
 Then it will do the same for ones etc. It can be seen that this process would not update the input weights very often. 
 It is, therefore, best to create diverse mini batches with our shuffling procedure. 
 One way of accomplishing this would be taking an equal number of samples for each class while constructing the mini-batches. 
-There is some research suggesting that the optimal size of a batch is somewhat related to the number of categories for classification problems.\\
+There is some research suggesting that the optimal size of a batch is somewhat related to the number of categories for classification problems.
 
 One other concern is that if a type of input is underrepresented in the training data, the model would not be incentivized to learn them well. 
 Often we have different categories that have different frequencies in the dataset. 
 For instance, if we train the facial recognition model where the training data has a racial distribution that reflects the racial distribution of the United States, it would result in some races to be underrepresented. 
 This would hinder the model’s performance on these types of inputs as it will focus on learning the dominant types of inputs. 
-Eventually, it will not learn the relevant properties/features to represent those underrepresented races and would not work well for such samples.\\
+Eventually, it will not learn the relevant properties/features to represent those underrepresented races and would not work well for such samples.
 
 If there is an unbalanced set of classes, one strategy that people sometimes use is downsampling. 
 This should be avoided and we must try to make use of all available data. 
@@ -203,7 +203,7 @@ This would equalize the frequency in a simple way while still making us able to 
 However, it will also cause the model to assign similar probabilities to all categories however rare they may be.  
 To overcome this, we can do one more pass using the real distribution of the data and re-train with real frequencies which will affect the last few layers, changing their bias and adjusting to accommodate for the real percentages. 
 This is similar to what softmax does. One other strategy that one can encounter is modifying the loss function to have different weights for samples from different categories. 
-However this will result in using a bigger step size for smaller underrepresented classes (that have larger multipliers) which tends to break the dynamics of the stochastic gradient descent.\\
+However this will result in using a bigger step size for smaller underrepresented classes (that have larger multipliers) which tends to break the dynamics of the stochastic gradient descent.
 
 {\centering\fbox{\begin{minipage}{30em}
 \centering\textbf{Shuffling Training Samples}
@@ -220,7 +220,7 @@ However this will result in using a bigger step size for smaller underrepresente
 It is important for inputs to be normalized (having mean zero and standard deviation of one) so to make sure that the optimization well behaves and converges at a fast rate.
 A shift of the average input away from zero creates a bias in the updates in a particular direction, which slows down learning. 
 Because of this reason it is advisable to have a zero mean over the training set. 
-Having nonzero means, create large eigenvalues. This causes the cost surface to be steep in some directions and shallow in others, which in turn would slows the convergence. \\
+Having nonzero means, create large eigenvalues. This causes the cost surface to be steep in some directions and shallow in others, which in turn would slows the convergence. 
 
 \begin{figure}[ht]
 \centering
@@ -231,7 +231,7 @@ Having nonzero means, create large eigenvalues. This causes the cost surface to 
 
 Another factor influencing the convergence rate is the scaling of the input variables such that they have the same covariance, as inputs that have large variations in spread along different directions of the input space do also slow down the learning. 
 This speeds up learning as it helps to balance out the rate at which the weights connected to input nodes learn. 
-By normalizing each layer, we are introducing a level of orthogonality between layers - which generally makes it easier for the learning process.\\
+By normalizing each layer, we are introducing a level of orthogonality between layers - which generally makes it easier for the learning process.
 
 \begin{figure}[ht]
 \centering
@@ -262,12 +262,12 @@ Using these values, we can normalize the vectors $z[l]$ as follows.
 \begin{equation}
     Z_norm^(i) = \dfrac{z(i) - \mu}{\sqrt{\sigma^2+\varepsilon}}
 \end{equation}
-We add a very small number ϵ to prevent the chance of a divide by zero error.\\
+We add a very small number ϵ to prevent the chance of a divide by zero error.
 
 Batch norm is the most popular however is not that great as it depends on the batch size and we need to maintain a running average of mean and standard deviation which can not be done when running on test cases and we need an equivalent operation for that time. 
-In goodnorm, on the other hand, we do the same operation in both testing and training. \\
+In goodnorm, on the other hand, we do the same operation in both testing and training. 
 
-As a result of introducing orthogonality between layers such that we avoid shifting distributions in activations as the parameters in earlier layers are updated, we can build deeper networks using normalization.\\
+As a result of introducing orthogonality between layers such that we avoid shifting distributions in activations as the parameters in earlier layers are updated, we can build deeper networks using normalization.
 
 {\centering\fbox{\begin{minipage}{30em}
 \centering\textbf{Normalize Input Variables}
@@ -293,7 +293,7 @@ This will keep the model parameters from increasing and will increase the bias t
 It will also help to remove some of the parameters if we use L1 regularization. 
 Weight regularization also help the weights to spread around. 
 That has some advantages for generalization as it tends to regularize the solution so that it is more general. 
-It is best to start regularization after a couple of epochs and crank it up as loss decreases so that the solution does not collapse in the beginning with all weights becoming zero.\\
+It is best to start regularization after a couple of epochs and crank it up as loss decreases so that the solution does not collapse in the beginning with all weights becoming zero.
 
 {\centering\fbox{\begin{minipage}{30em}
 \centering\textbf{Use a bit of L1 and L2 regularization on the weights}
@@ -307,7 +307,7 @@ It is best to start regularization after a couple of epochs and crank it up as l
 % Lecture date: 2.4.19
 \section{Use “dropout” for Regularization}
 Dropout is a way of regularization that makes neural nets more robust and prevents overfitting. 
-It is a layer that randomly masks out some percentage of the units in the layer and “ignores” them during a particular forward or backward pass.\\
+It is a layer that randomly masks out some percentage of the units in the layer and “ignores” them during a particular forward or backward pass.
 
 \begin{figure}[ht]
 \centering
@@ -321,14 +321,14 @@ It helps to spread the evidence to multiple features and prevents the network fr
 It also provides a cheap way of ensembling multiple networks. 
 Dropout also helps reduce interdependent learning amongst the neurons and limits the networks ability to memorize very specific conditions during the training. 
 As we turn-off some of the hidden units (with some probability), the hidden units are less inclined to learn every redundant detail of instances in training set. 
-The subsequent layers will have access to lesser details of the input instance, they increase their efficiency learning to find patterns for unseen data, which gives a boost in generalization.\\
+The subsequent layers will have access to lesser details of the input instance, they increase their efficiency learning to find patterns for unseen data, which gives a boost in generalization.
 
 Dropout may be implemented on any or all hidden layers in the network as well as the visible or input layer. It is not used on the output layer. 
 A new hyperparameter is introduced that specifies the probability at which outputs of the layer are dropped out, or inversely, the probability at which outputs of the layer are retained. 
 Dropout is not used after training when making a prediction with the fit network. 
 The weights of the network will be larger than normal because of dropout. 
 Therefore, before finalizing the network, the weights are first scaled by the chosen dropout rate. 
-The network can then be used as per normal to make predictions.\\
+The network can then be used as per normal to make predictions.
 
 {\centering\fbox{\begin{minipage}{30em}
 \centering\textbf{Use “dropout” for Regularization}
@@ -383,7 +383,7 @@ This, however, does not guarantee a better test loss, as the loss function that 
 Even if it has the same shape, it might be shifted by a bit. 
 Such a shift would affect the loss value more if we are in a steeper minima point. 
 One intuition is that we might have a regularization effect when the system wants to choose wider minima as it has a better chance of generalizing properly. 
-Another intuition is that regardless of which minima you are in, if you want to get to it quickly, a large learning rate might help the system approach the minima but may not let it go inside the minima because of the large fluctuation and we need to decrease the learning rate so it can settle in the minima.\\
+Another intuition is that regardless of which minima you are in, if you want to get to it quickly, a large learning rate might help the system approach the minima but may not let it go inside the minima because of the large fluctuation and we need to decrease the learning rate so it can settle in the minima.
 
 {\centering\fbox{\begin{minipage}{30em}
 \centering\textbf{Schedule To Decrease Learning Rate}
