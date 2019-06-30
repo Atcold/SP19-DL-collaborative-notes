@@ -11,7 +11,7 @@ They can be outputs of other functions.
 
 \begin{figure}
     \centering
-    \includegraphics[width=150pt]{lectures/03-a/images/parameterize.png}
+    \includegraphics[width=150pt]{figs/parameterize.png}
     \caption{Re-parameterization of weight parameters U}
     \label{fig:param}
 \end{figure}
@@ -35,7 +35,7 @@ The nice thing is that if you use PyTorch, all of the gradients and backpropagat
 
 \begin{figure}
     \centering
-    \includegraphics[width=150pt]{lectures/03-a/images/weight_sharing.png}
+    \includegraphics[width=150pt]{figs/weight_sharing.png}
     \caption{Weight sharing of weights $w_{i}$}
     \label{fig:sharing}
 \end{figure}
@@ -60,7 +60,7 @@ Visually, we can see that this input would benefit from 3 separate classifiers t
 
 \begin{figure}
     \centering
-    \includegraphics[width=200pt]{lectures/03-a/images/mixture.png}
+    \includegraphics[width=200pt]{figs/mixture.png}
     \caption{Mixture of 3 separate classifiers}
     \label{fig:mixture}
 \end{figure}
@@ -94,7 +94,7 @@ Time-Delayed inputs are also heavily used in the financial markets.
 
 \begin{figure}
     \centering
-    \includegraphics[width=150pt]{lectures/03-a/images/td_inputs.png}
+    \includegraphics[width=150pt]{figs/td_inputs.png}
     \caption{Neural network for time-delayed inputs}
     \label{fig:td_inputs}
 \end{figure}
@@ -135,7 +135,7 @@ They are just the units at different time steps.
 
 \begin{figure}
     \centering
-    \includegraphics[width=200pt]{lectures/03-a/images/conv_net.png}
+    \includegraphics[width=200pt]{figs/conv_net.png}
     \caption{1D (temporal) ConvNet}
     \label{fig:2layer}
 \end{figure}
@@ -148,7 +148,7 @@ As you train a network like this many of the parameters are used to compute valu
 % Lecture date: 2/11/2019
 
 \begin{center}
-    \includegraphics[width=200pt]{lectures/03-a/images/conv.png}
+    \includegraphics[width=200pt]{figs/conv.png}
 \end{center}
 
 As you can see from the image above, that single filter has 9 weights. However, we slide that filter across the entire input grid. So, those 9 weights are shared to compute many different output values destination grid. When training a network with convolution like this, we need to keep track that each weight is being used multiple times and combine the gradients correctly. 
