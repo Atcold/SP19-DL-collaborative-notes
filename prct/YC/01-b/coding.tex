@@ -1,0 +1,80 @@
+\chapter{Multimodule Systems}
+% Authors: Hongyu (Florence) Lu, Michael Gold, Erica Dominic.
+% Lecture date: 1.28.19
+
+\section{Multi-layer Neural Network}\label{sec: Multilayer Neural Network}
+% Authors: Hongyu (Florence) Lu, Michael Gold, Erica Dominic.
+% Lecture date: 1.28.19
+
+In \cref{sec: Systems with Multiple Modules}, we discussed a forward multimodule system.
+The following code includes three different ways of building a two-layer neural network.
+
+\begin{minted}{python}
+    import torch 
+    from torch import nn
+    
+    image = torch.randn(3, 10, 20)
+    in_size = image.nelement()
+    h_size = 60
+    out_size = 6
+    
+    #### Functional paradigm 
+    m1 = nn.Linear(in_size, h_size)
+    m2 = nn.Linear(h_size, out_size)
+    # forward prop
+    hid = torch.relu(m1(image.view(-1)))
+    out = m2(hid)
+    
+    #### Using containers
+    model = nn.Sequential(m1, nn.relu(), m2)
+    # forward prop
+    out = model(image.view(-1))
+    
+    #### Using object oriented programming 
+    class Net(nn.Module):
+        def __init__(self, in_s, h_s, out_s):
+            super().__init__()
+            self.m1 = nn.Linear(in_s, h_s)
+            self.m2 = nn.Linear(h_s, out_s)
+            
+        def forward(self, x):
+            x = torch.relu(self.m1(x.view(-1)))
+            x = self.m2(x)
+            return x
+            
+    model = Net(in_size, h_size, out_size)
+    out = model(image)
+\end{minted}
+
+First, we import torch and the \texttt{nn} module from torch in Python.
+The \texttt{nn} module has several predefined modules.
+The input is a random matrix of size $3 \times 10 \times 20$.
+We can think of this matrix as an image with $3$ RGB components and is $10$ rows by $20$ columns.
+The total size is obtained by \texttt{image.nelement()}.
+Next, we build a neural network with two linear layers, which are multiplications by matrix.
+
+Using functional paradigm, we create the first module \texttt{m1} using \texttt{nn.Linear()} and give the sizes of the input \texttt{in\_size} and output \texttt{h\_size}.
+Similarly, the second module \texttt{m2}, which is also a linear module, is created with \texttt{nn.Linear()}.
+It takes the vector of the same size \texttt{h\_size} and produces the vector of the output size \texttt{out\_size}, which is $6$ (a $6$-way classification).
+Then, the forward propagation calls functions \texttt{m1} and \texttt{m2}.
+The variable \texttt{hid} first applies the module \texttt{m1} to \texttt{image.view($-1$)}, that is, it takes the \texttt{image} and uses \texttt{view.($-1$)} to turn a $3$-dimensional tensor into a single vector.
+Then, \texttt{hid} applies \texttt{ReLU} (Rectifier Linear Unit) to the single vector.
+Each component of the vector is passed through a halfway rectifier.
+Recall that the output of the \texttt{ReLU} function is the identity function if the argument is positive and $0$ if the argument is negative.
+Lastly, we obtain the result \texttt{out} by taking the result \texttt{hid} and applying the second module \texttt{m2} to it.
+
+Another way of building a neural network is to use containers that define certain predefined structures.
+Instead of writing functions individually for each module, variable \texttt{model} uses a container, \texttt{nn.Sequential()}, to build a graph and pass the signal in the order of the input modules \texttt{m1}, \texttt{nn.ReLU()}, and \texttt{m2}.
+Note that the list of modules is called a sequence.
+Then, the forward propagation obtains the result \texttt{out} by taking \texttt{model} and applying \texttt{image.view($-1$)} to it.
+
+Lastly, we can define a class using object oriented programming for this particular two-layer neural network.
+First, we initiate parameters \texttt{in\_s}, \texttt{h\_s}, and \texttt{out\_s} for input and output sizes.
+Then, we create two linear module \texttt{m1} and \texttt{m2} using \texttt{nn.Linear()}.
+Next, the forward function first takes the input \texttt{x} and turns it into a single vector.
+Then, the function applies \texttt{m1} module to the vector and applies \texttt{ReLU} to the result.
+The module \texttt{m2} is then applied to the result \texttt{x}.
+The variable \texttt{model} then calls the class \texttt{Net} and the variable \texttt{out} applies the \texttt{image} to the class to obtain the final result.
+Note that this method is already being implemented by PyTorch.
+
+When we run a feedforward neural network, PyTorch automatically calculates the gradient of the weight using backpropagation.

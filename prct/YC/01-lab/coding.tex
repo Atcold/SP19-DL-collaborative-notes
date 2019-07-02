@@ -1,0 +1,374 @@
+\chapter{Introduction to \emph{PyTorch} and \texttt{Tensor}s}
+% Authors: Dustin Godevais , Reuben Juste, Yi Li,. 2/5/18.
+    \section{What is \emph{PyTorch}?}\label{what-is-pytorch}
+    % Authors: Dustin Godevais , Reuben Juste, Yi Li,. 2/5/18.
+    \emph{PyTorch} is a Python based scientific computing package targeting on two sets of audiences:
+
+   
+\begin{itemize}
+% \tightlist
+\item
+  Tensorial library that uses the power of GPUs
+\item
+  A deep learning research platform that provides maximum flexibility
+  and speed
+\end{itemize}
+
+    
+     \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{torch}
+\end{Verbatim}
+
+    \section{Getting help in Jupyter}\label{getting-help-in-jupyter}
+    % Authors: Dustin Godevais , Reuben Juste, Yi Li,. 2/5/18.
+
+    
+%\subsection*{Jupyter Tips}
+    \href{https://jupyter.org/}{Jupyter Notebook} is a common Integrated Development Environment (IDE) for deep learning. There are a few commands specific to Jupyter Notebook that are helpful for coding.   
+        \subsection{Using tab}
+        Tab will list all available functions, while shift + tab will open the documentation.
+
+        \subsection{Using ?}
+        \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Open the documentation, same as \PYZlt{}shift\PYZgt{} + \PYZlt{}tab\PYZgt{} on \PYZsq{}torch.nn.Module()\PYZsq{}}
+         torch.nn.Module\PY{o}{?}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} See the source code of all functions being executed in the Module}
+         torch.nn.Module\PY{o}{??}
+\end{Verbatim}
+        
+\subsection{Dropping to Bash}
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} List all the files in the current directory}
+         \PY{o}{!}ls \PYZhy{}lh 
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Getting some general help}
+         \PY{o}{\PYZpc{}}\PY{k}{magic} 
+\end{Verbatim}
+
+\section{Tensors}\label{tensors}   
+% Authors: Dustin Godevais , Reuben Juste, Yi Li,. 2/5/18.
+A tensor is a n-dimensional array, \emph{PyTorch} provides functions for operating on Tensors like numpy does for arrays.
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Generate a tensor of size 2x3x4}
+         \PY{n}{t} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n+nb}{type}\PY{p}{(}\PY{n}{t}\PY{p}{)} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} torch.Tensor
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Get the size of the tensor}
+         \PY{n}{t}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} torch.Size([2, 3, 4])
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Get the dimension of the tensor, for example, 1 for vectors, 2 for matrices}
+         \PY{n}{t}\PY{o}{.}\PY{n}{dim}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} 3
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} Total number of elements in the tensor}
+         \PY{n}{t}\PY{o}{.}\PY{n}{numel}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} 24
+\end{Verbatim}
+ 
+Note: Mind the underscore! 
+Any operation that mutates a tensor in-place is post-fixed with an underscore. 
+The in-place replacement will change the object. It is encouraged to perform operations in-place to optimize usage of memory.
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} 
+         \PY{n}{t}\PY{o}{.}\PY{n}{random\PYZus{}}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} tensor([[[4., 6., 2., 4.],
+                  [8., 2., 6., 9.],
+                  [1., 4., 9., 9.]],
+         
+                 [[8., 5., 5., 5.],
+                  [4., 1., 1., 7.],
+                  [4., 4., 6., 9.]]])
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{r} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{n}{t}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} This resizes the tensor permanently}
+         \PY{n}{r}\PY{o}{.}\PY{n}{resize\PYZus{}}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}  
+         \PY{n}{r}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} tensor([[4., 6., 2., 4., 8., 2., 6., 9.],
+                 [1., 4., 9., 9., 8., 5., 5., 5.],
+                 [4., 1., 1., 7., 4., 4., 6., 9.]])
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Replace all element in r with 0\PYZsq{}s}
+         \PY{n}{r}\PY{o}{.}\PY{n}{zero\PYZus{}}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} tensor([[0., 0., 0., 0., 0., 0., 0., 0.],
+                 [0., 0., 0., 0., 0., 0., 0., 0.],
+                 [0., 0., 0., 0., 0., 0., 0., 0.]])
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{t}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} tensor([[[0., 0., 0., 0.],
+                  [0., 0., 0., 0.],
+                  [0., 0., 0., 0.]],
+         
+                 [[0., 0., 0., 0.],
+                  [0., 0., 0., 0.],
+                  [0., 0., 0., 0.]]])
+\end{Verbatim}
+         
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Make a copy of r rather than replace r. }
+         \PY{n}{s} \PY{o}{=} \PY{n}{r}\PY{o}{.}\PY{n}{clone}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+ Q: Why don\PYZsq{}t we always do this? \\
+ A: It's time-consuming due to memory allocation, especially when we are training a neural network.  
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} In\PYZhy{}place fill of 1\PYZsq{}s}
+         \PY{n}{s}\PY{o}{.}\PY{n}{fill\PYZus{}}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)} 
+         \PY{n}{s}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} tensor([[1., 1., 1., 1., 1., 1., 1., 1.],
+                 [1., 1., 1., 1., 1., 1., 1., 1.],
+                 [1., 1., 1., 1., 1., 1., 1., 1.]])
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} Because we cloned r, even though we did an in\PYZhy{}place operation, this doesn\PYZsq{}t affect r}
+         \PY{n}{r} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} tensor([[0., 0., 0., 0., 0., 0., 0., 0.],
+                 [0., 0., 0., 0., 0., 0., 0., 0.],
+                 [0., 0., 0., 0., 0., 0., 0., 0.]])
+\end{Verbatim}
+          
+
+\subsection{Vectors: 1D Tensor}
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{v} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+         \PY{n}{w} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Element\PYZhy{}wise multiplication}
+         \PY{n}{v} \PY{o}{*} \PY{n}{w} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} tensor([1., 0., 6., 0.])
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Scalar product: 1*1 + 2*0 + 3*2 + 4*0}
+         \PY{n}{v} \PY{o}{@} \PY{n}{w} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} tensor(7.)
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{x} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{.}\PY{n}{random\PYZus{}}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{x}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} tensor([6., 0., 5., 9., 7.])
+\end{Verbatim}
+            
+   
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} Extract sub\PYZhy{}Tensor [from:to)}
+         \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{2} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} tensor([0., 5.])
+\end{Verbatim}
+       
+Note: torch.arange gives only integers. Use torch.arange(1, 4 + 1, dtype = torch.float) to generate float numbers.      
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} Create a tensor with integers ranging from 1 to 5, excluding 5}
+         \PY{n}{v} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{4} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} 
+         \PY{n}{v} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} tensor([1, 2, 3, 4])
+\end{Verbatim}
+\subsection{Matrices: 2D Tensor}
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} Create a 2x4 tensor}
+         \PY{n}{m} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,}
+                           \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{]}\PY{p}{]}\PY{p}{)} 
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} Indexing column 0, row 2, it returns a 0\PYZhy{}dimensional tensor, which is a scalar. Or m[0,2]}
+          \PY{n}{m}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} tensor(3.)
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} Extract the single value in the scalar}
+          \PY{n}{m}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+Q: Why won't we extract value always? \\
+A: A tensor will remember who is the parent, so we need to use tensor rather than just the scalar number when we perform back propagation during training a neural network.
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} 3.0
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} Indexing column 1, all rows (returns size 2)}
+          \PY{n}{m}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} tensor([5., 2.])
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} Add one more bracket inside will add an extra dimension, now it\PYZsq{}s a 2 * 1 matrix }
+          \PY{n}{m}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} tensor([[5.],
+                  [2.]])
+\end{Verbatim}
+
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} Same as m.transpose(0, 1)}
+          \PY{n}{m}\PY{o}{.}\PY{n}{t}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+Note: We can specify dimensions dimensions we want to swap using m.transpose(c1,c2) when we have many dimensions.
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} tensor([[2., 4.],
+                  [5., 2.],
+                  [3., 1.],
+                  [7., 9.]])
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} Create tensor from 3 to 8, with each having a space of 1}
+          \PY{n}{torch}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mi}{8} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} tensor([3., 4., 5., 6., 7., 8.])
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} returns a 1D tensor of steps equally spaced points between start=3, end=8 and steps=20}
+          \PY{n}{torch}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} tensor([[3.0000, 3.2632, 3.5263, 3.7895, 4.0526, 4.3158, 4.5789, 4.8421, 5.1053,
+                   5.3684, 5.6316, 5.8947, 6.1579, 6.4211, 6.6842, 6.9474, 7.2105, 7.4737,
+                   7.7368, 8.0000]])
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} Create a tensor filled with 0\PYZsq{}s torch.ones() will create a tensor filled with 1\PYZsq{}s.}
+          \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} tensor([[0., 0., 0., 0., 0.],
+                  [0., 0., 0., 0., 0.],
+                  [0., 0., 0., 0., 0.]])
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} Create a tensor with the diagonal filled with 1}
+          \PY{n}{torch}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} tensor([[1., 0., 0.],
+                  [0., 1., 0.],
+                  [0., 0., 1.]])
+\end{Verbatim}
+\subsection{Images: 3D Tensor}
+Q: Why would we use 4D Tensors while training convolutional neural networks?\\
+A: Images are 3D Tensors with dimensions channels, height, and width. We will use a stack of multiple images to form a 4-dimensional tensor.
+
+
+\section{References}
+% Authors: Dustin Godevais , Reuben Juste, Yi Li,. 2/5/18.
+\begin{itemize}
+\tightlist
+\item
+\href{https://www.technologyuk.net/mathematics/algebra/matrices-as-transformations.shtml}{\texttt{matrices-as-transformations.shtml}}
+\item
+\href{https://github.com/Atcold/pytorch-Deep-Learning-Minicourse/blob/master/01-tensor_tutorial.ipynb}{\texttt{01-tensor\_tutorial.ipynb}}
+\item
+\href{https://github.com/Atcold/pytorch-Deep-Learning-Minicourse/blob/master/02-space_stretching.ipynb}{\texttt{02-space\_stretching.ipynb}}
+\end{itemize}
