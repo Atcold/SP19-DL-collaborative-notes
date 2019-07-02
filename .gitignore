@@ -1,1 +1,8 @@
 *~
+.idea/
+_minted-main/
+main.aux
+main.log
+main.out
+main.pdf
+main.toc
