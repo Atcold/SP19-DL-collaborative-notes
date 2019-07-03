@@ -9,7 +9,7 @@ Visual captioning \cite{DBLP:journals/corr/VinyalsTBE16} is another interesting 
 
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{labs/07/images/image_captioning.png}
+    \includegraphics[width=\textwidth]{figs/image_captioning.png}
     \caption{Vinyals et al. (2016) Show \& Tell: Lessons Learned from the 2015 MSCOCO Image Captioning Challenge}
     \label{fig:visual_caption}
 \end{figure}
@@ -18,7 +18,7 @@ Visual captioning \cite{DBLP:journals/corr/VinyalsTBE16} is another interesting 
 Explanation: input: a sequence of words; output: a scalar value or a vector (see Figure \ref{fig:seq_to_vec}).\\
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=200pt]{labs/07/images/seq_to_vec.png}
+    \includegraphics[width=200pt]{figs/seq_to_vec.png}
     \caption{A hand-drawn diagram showing the sequence to vector rationale in the neural networks. Red, green, blue circles are input,hidden,output nodes, respectively. A sequence of inputs are given to the network and there is only one output in the end.}
     \label{fig:seq_to_vec}
 \end{figure}
@@ -27,7 +27,7 @@ Example: learning to execute (Zaremba \& Sutskever, 2015)\\
 Neural network is trained to interpret several lines of python codes and report the result of the running code (see Figure \ref{fig:learning_to_execute}). \\
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=200pt]{labs/07/images/learning_to_execute.png}
+    \includegraphics[width=200pt]{figs/learning_to_execute.png}
     \caption{An example of sequence to vector rationale. A paragraph of Python code is given to the network as an input and the execution output of the Python code is supposed to be the output of the network.}
     \label{fig:learning_to_execute}
 \end{figure}
@@ -36,7 +36,7 @@ Neural network is trained to interpret several lines of python codes and report 
 Explanation: a sequence of words $\rightarrow$ hidden representations(vector) $\rightarrow$ output sequence (see Figure \ref{fig:seq_to_vec_to_seq}).\\
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=200pt]{labs/07/images/seq_to_vec_to_seq.png}
+    \includegraphics[width=200pt]{figs/seq_to_vec_to_seq.png}
     \caption{A hand-drawn diagram showing the sequence to vector to sequence rationale in the neural networks. Red, green, blue circles are input,hidden,output nodes, respectively. A sequence of inputs are given to the network and used to compute hidden state. Hidden state variable are  then used to generate a sequence of outputs. }
     \label{fig:seq_to_vec_to_seq}
 \end{figure}
@@ -45,7 +45,7 @@ Example: phrase representation clustering (Cho et al., 2014)\\
 Semantically close phrases are close to each other on the representation map (Figure \ref{fig:phrase_representaion})\\
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=200pt]{labs/07/images/phrase_representation.png}
+    \includegraphics[width=200pt]{figs/phrase_representation.png}
     \caption{An example of sequence to vector to sequence rationale. Words are clustered according to their semantics}
     \label{fig:phrase_representaion}
 \end{figure}
@@ -59,7 +59,7 @@ where h(X) is the hidden state of word 'X'. \\
 Explanation: a sequence of words $\rightarrow$ another sequence of words (see Figure \ref{fig:seq_to_seq}).\\
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=200pt]{labs/07/images/seq_to_seq.png}
+    \includegraphics[width=200pt]{figs/seq_to_seq.png}
     \caption{A hand-drawn diagram showing the sequence to sequence rationale in the neural networks. Red, green, blue circles are input, hidden, output nodes, respectively. A sequence of inputs are given to the network and used to compute hidden state. Hidden state variable are used to generate a sequence of outputs in real time.}
     \label{fig:seq_to_seq}
 \end{figure}
@@ -74,7 +74,7 @@ Visit \href{github.com/robinsloan/rnn-writer}{github.com/robinsloan/rnn-writer} 
 \subsection{BPTT: backpropagation through time}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=200pt]{labs/07/images/bptt.png}
+    \includegraphics[width=200pt]{figs/bptt.png}
     \caption{A diagram showing how the values are propagated in a RNN. At each time point t, y is calculated using h from the previous time step and current x.  g() is the transfer function, ReLu for example. h[t] is the value of hidden layer at time t. The initial state of h[t] is 0.}
     \label{fig:bptt}
 \end{figure}
@@ -93,7 +93,7 @@ Thus, we could rewrite equation 1 as
 $\hat{y}[t]$ could be calculated as shown in figure.\ref{fig:bptt_formula} and then we could use normal backpropagation algorithm except that we sum up the gradients at each time step.  
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=200pt]{labs/07/images/bptt_formula.png}
+    \includegraphics[width=200pt]{figs/bptt_formula.png}
     \caption{$\hat{y}[t]$ shares the same formula as traditional feedforward network. All we have to do is to use the chain rule and backpropagate the error to previous time step.}
     \label{fig:bptt_formula}
 \end{figure}
