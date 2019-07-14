@@ -40,14 +40,14 @@ To see what the uncertainty looks like where points are far away from training d
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=10cm]{labs/12/images/CO2 concentration.png}
+    \includegraphics[width=10cm]{figs/CO2 concentration.png}
     \caption{CO$_2$ dataset before pre-processing}
     \label{fig:co2_concentration}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=10cm]{labs/12/images/Regression without uncertainty.png}
+    \includegraphics[width=10cm]{figs/Regression without uncertainty.png}
     \caption{Standard dropout network without using uncertainty information}
     \label{fig:regression_without_uncertainty}
 \end{figure}
@@ -56,7 +56,7 @@ The point marked with a dashed red line is a point far away from the training da
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=10cm]{labs/12/images/Regression with uncertainty.png}
+    \includegraphics[width=10cm]{figs/Regression with uncertainty.png}
     \caption{Same dropout network performing predictions using uncertainty information}
     \label{fig:regression_with_uncertainty}
 \end{figure}
@@ -65,14 +65,14 @@ As can be seen, the model does capture a large amount of uncertainty information
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=10cm]{labs/12/images/Regression using Gaussian Process.png}
+    \includegraphics[width=10cm]{figs/Regression using Gaussian Process.png}
     \caption{Gaussian process with SE covariance function on the same dataset}
     \label{fig:regression_GP}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=10cm]{labs/12/images/Regression using TanH.png}
+    \includegraphics[width=10cm]{figs/Regression using TanH.png}
     \caption{Dropout network using uncertainty information and TanH non-linearity}
     \label{fig:regression_tanh}
 \end{figure}
@@ -86,7 +86,7 @@ If we take an idealized binary classification example (as shown in Fig. \ref{fig
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{labs/12/images/Classification_binary.png}
+    \includegraphics[width=\textwidth]{figs/Classification_binary.png}
     \caption{A sketch of softmax input and output for an idealized binary classification problem}
     \label{fig:classification_binary}
 \end{figure}
@@ -95,7 +95,7 @@ Then we can try passing the entire distribution through the softmax instead of t
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=10cm]{labs/12/images/Classification_input.png}
+    \includegraphics[width=10cm]{figs/Classification_input.png}
     \caption{Image inputs (a rotated digit) to the dropout LeNet network}
     \label{fig:classification_input}
 \end{figure}
@@ -104,7 +104,7 @@ These images correspond to the $X$ axis in the idealized depiction above. A hist
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{labs/12/images/Classification_multi.png}
+    \includegraphics[width=\textwidth]{figs/Classification_multi.png}
     \caption{A sketch of 100 forward passes of the softmax input and output for dropout LeNet}
     \label{fig:classification_multi}
 \end{figure}
