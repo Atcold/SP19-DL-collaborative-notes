@@ -1,4 +1,4 @@
-\chapter{Convolutions}
+\chapter{Convolutions in Practice}
     % Authors: Rafael Moraes, Jiachen Zhu, Kabir Singh; 2019-02-19
     \section{Natural Data Properties}
     % Authors: Rafael Moraes, Jiachen Zhu, Kabir Singh; 2019-02-19
@@ -9,7 +9,7 @@
         
         \begin{figure}[H]
         \begin{center}
-        \includegraphics[width=200pt]{labs/03/images/stationarity.png}
+        \includegraphics[width=200pt]{figs/stationarity.png}
         \end{center} 
         \captionsetup{justification=centering, margin=2cm}
         \caption{Example of stationarity - we can observe similar waveforms over different parts of one data set.}
@@ -21,7 +21,7 @@
         
         \begin{figure}[H]
         \begin{center}
-        \includegraphics[width=200pt]{labs/03/images/locality.png}
+        \includegraphics[width=200pt]{figs/locality.png}
         \end{center}
         \captionsetup{justification=centering, margin=2cm}
         \caption{Data points are more "relevant" to other data points nearby, less relevant as you move further away.}
@@ -47,7 +47,7 @@
             
             \begin{figure}[H]
             \begin{center}
-            \includegraphics[width=200pt]{labs/03/images/sparsity.png}
+            \includegraphics[width=200pt]{figs/sparsity.png}
             \end{center}
             \captionsetup{justification=centering, margin=2cm}
             \caption{Like receptive fields, we can restrict input connections from incoming layers, instead of being fully connected.}
@@ -62,7 +62,7 @@
               
             \begin{figure}[H]
             \begin{center}
-            \includegraphics[width=200pt]{labs/03/images/kernel.png}
+            \includegraphics[width=200pt]{figs/kernel.png}
             \end{center}
             \captionsetup{justification=centering, margin=2cm}
             \caption{Example of parameter sharing using kernels. Colored connections refer to kernel space}

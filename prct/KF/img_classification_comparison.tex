@@ -35,14 +35,14 @@ It is discovered that the resource utilization of AlexNet is strongly associated
 In the following graphs, we observe that the use of energy, memory, inference time remains the same for most of the Deep Neural Nets when we change the batch sizes. Nevertheless, for AlexNet, the inference time per image is less, and the net power consumption is more, when batch size is increased. The speedup is due to a weak optimization of AlexNet's fully connected layers with small batch size, which causes the poor system memory and power utilization. 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[scale=0.45]{labs/06/images/01.png}
+    \includegraphics[scale=0.45]{figs/ic_01.png}
     \caption{}
     \label{01}
 \end{figure}
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[scale=0.45]{labs/06/images/02.png}
+    \includegraphics[scale=0.45]{figs/ic_02.png}
     \caption{}
     \label{02}
 \end{figure}
@@ -50,14 +50,14 @@ In the following graphs, we observe that the use of energy, memory, inference ti
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[scale=0.55]{labs/06/images/04.png}
+    \includegraphics[scale=0.55]{figs/ic_04.png}
     \caption{}
     \label{04}
 \end{figure}
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[scale=0.55]{labs/06/images/03.png}
+    \includegraphics[scale=0.55]{figs/ic_03.png}
     \caption{}
     \label{03}
 \end{figure}
@@ -79,7 +79,7 @@ In general, the more hidden layers a neural network has, the more accurate predi
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[scale=0.3]{"labs/06/images/skip_connection".png}
+    \includegraphics[scale=0.3]{figs/skip_connection.png}
 \end{figure}
 
 One popular solution is to skip a few hidden layers at training time, as shown in the figure above. In the residual net, the residual layer tries to learn from residual $R(x)$ rather than the true output $H(x)$. Hence, it is called the \textit{residual block}.
@@ -88,7 +88,7 @@ In other words, we provide an alternate route to some of the hidden layers -- an
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[scale=0.3]{"labs/06/images/with_and_without_skip".png}
+    \includegraphics[scale=0.3]{figs/with_and_without_skip.png}
 \end{figure}
 
 The two graphs illustrate the loss surfaces obtained with and without skipping connections. Note that, by skipping a number of hidden layers, we end up with a much smoother loss surface compared to the one resulted from the absence of skip connections. Therefore, skip connection is an extremely useful practice in training a deep neural network.
