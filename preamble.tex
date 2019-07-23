@@ -48,11 +48,9 @@
 \@onlypreamble\RedeclareMathOperator
 \makeatother
 
-\DeclareMathOperator{\E}{\mathbb{E}}
 \DeclareMathOperator{\V}{\mathbb{V}}
 \RedeclareMathOperator{\Pr}{\mathbb{P}}
-\newcommand{\matr}[1]{\bm{#1}}     % ISO complying version
-\newcommand{\vect}[1]{\bm{#1}}     % ISO complying version
+
 
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
@@ -63,6 +61,51 @@
 \usepackage[nameinlink,noabbrev]{cleveref}
 \newcommand*{\fullref}[1]{\hyperref[{#1}]{\Cref*{#1} -- \nameref*{#1}}}
 
-\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 
+
+
+
+
+% Number sets
+\newcommand{\N}{\mathbb{N}} % Natural Numbers
+\newcommand{\Z}{\mathbb{Z}} % Integers
+\newcommand{\Q}{\mathbb{Q}} % Quotient
+\newcommand{\R}{\mathbb{R}}	% Real Numbers
+\newcommand{\C}{\mathbb{C}} % Complex Numbers 
+
+% Probability
+\newcommand{\freq}[1]{\text{Freq}\left(#1\right)} % Frequency
+\newcommand{\pr}[1]{\mathbb{P}\left(#1\right)} % Probability
+\newcommand{\expectation}[1]{\mathbb{E}_{#1}}
+\newcommand{\E}[2][]{\expectation{#1}\left[#2\right]} % Expectation
+\newcommand{\var}[1]{\mathbb{V}{\left(#1\right)}} % Variance
+\newcommand{\cov}[1]{\text{Cov}{\left(#1\right)}} % Covariance
 \newcommand{\corr}[1]{\rho{\left(#1\right)}} % Correlation
+
+% Probability Distributions
+\newcommand{\dber}[1]{\mathrm{Bern}(#1)} %Bernoulli
+\newcommand{\dbeta}[1]{\mathrm{Beta}(#1)} %Beta
+\newcommand{\dbin}[1]{\mathrm{Bin}(#1)} %Binomial
+\newcommand{\dpoi}[1]{\mathrm{Poi}(#1)} %Poisson
+\newcommand{\ddir}[1]{\mathrm{Dir}(#1)} %Dirichlet
+\newcommand{\dgamma}[1]{\mathrm{Gam}(#1)} %Gamma
+\newcommand{\dnorm}[1]{\mathcal{N}(#1)} %Normal/Gaussian
+\newcommand{\dst}[1]{\mathrm{St}(#1)} %Student t
+\newcommand{\duni}[1]{\mathrm{U}(#1)} %Uniform
+\newcommand{\dwis}[1]{\mathcal{W}(#1)} %Wishart
+
+% Linear Algebra
+\newcommand{\vect}[1]{\bm{#1}} % vectors
+\newcommand{\matr}[1]{\bm{#1}} % matrices and tensors
+\newcommand{\tr}[1]{#1^{\top}} % transpose
+\renewcommand{\sp}[2]{#1^{\top}#2}   %scalar product
+
+% Analysis
+\let\dbar\d \renewcommand{\d}{\mathrm{d}}
+\newcommand{\D}{\,\mathrm{d}} % differential
+\newcommand{\deriv}[2]{\frac{\d #1}{\d #2}} % derivative
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}} % partial derivative
+\newcommand{\set}[1]{\left\lbrace #1 \right\rbrace} % set
+\newcommand{\where}{\ \middle\vert\;} % where
+\newcommand{\abs}[1]{\left\vert #1 \right\vert} % absolute value
+\newcommand{\norm}[2][]{{\left\Vert #2 \right\Vert}_{#1}} % norm
