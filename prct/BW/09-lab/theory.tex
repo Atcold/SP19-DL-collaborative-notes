@@ -10,7 +10,7 @@
 \end{itemize}
 
 Definition (3) is commonly used in the context of machine learning (and deep learning).
-Intuitions for regularisation and overfitting can be seen in Figure \ref{fig:reg_n_overfitting}.
+Intuitions for regularisation and overfitting can be seen in Figure \cref{fig:reg_n_overfitting}.
 
 \begin{figure}
     \centering
@@ -27,7 +27,7 @@ These techniques also reduce overfitting.
     This in turn can cause the network to learn specific patterns instead of generalizing. This can be avoided using Xavier initialization.
     
     In Xavier initialization, the weights of the network are initialized based on some distribution. 
-    The distribution used is typically Gaussian (as in Figure \ref{fig:normal_distribution}) or uniform.
+    The distribution used is typically Gaussian (as in Figure \cref{fig:normal_distribution}) or uniform.
     The original paper \cite{glorot2010understanding} suggested to initialize the weights $W$ of a layer from a distribution with zero mean and variance given by
     
     \begin{align}
@@ -55,7 +55,7 @@ These techniques also reduce overfitting.
     A factor of $\frac{1}{2}$ is used because then the gradient of this term with respect to the parameter $w$ is simply $\lambda w$ instead of $2\lambda w$.
     The L2 regularization has the intuitive interpretation of heavily penalizing peaky weight vectors and preferring diffuse weight vectors. 
     This encourages the network to use all of its inputs a little rather than some of its inputs a lot.
-    Lastly, during gradient descent parameter update, using the L2 regularization means that every weight is decayed linearly towards zero, as shown in Figure \ref{fig:L2}.
+    Lastly, during gradient descent parameter update, using the L2 regularization means that every weight is decayed linearly towards zero, as shown in Figure \cref{fig:L2}.
     
     \begin{figure}
         \centering
@@ -76,7 +76,7 @@ These techniques also reduce overfitting.
     \subsection{L1 Regularization}
     In L1 regularisation, for each weight $w$ in the network we add the term $\lambda |w|$ to the objective function.
     Neurons with L1 regularization end up using only a sparse subset of their most important inputs and become nearly invariant to the noisy inputs.
-    Figure \ref{fig:L1} shows the intuition for the gradient descent parameter update using the L1 regularization. The blue unit vectors are L1 vectors and the grey vectors are the corresponding L2 vectors.
+    Figure \cref{fig:L1} shows the intuition for the gradient descent parameter update using the L1 regularization. The blue unit vectors are L1 vectors and the grey vectors are the corresponding L2 vectors.
     
     \begin{figure}
         \centering
@@ -94,7 +94,7 @@ These techniques also reduce overfitting.
         
     In PyTorch, L1 regularisation can be applied using the \texttt{torch.optim} module.
     
-    \subsection{Dropout}: Dropout is a regularization technique which is used to prevent overfitting. The technique involves temporarily dropping nodes (hidden and input) along with all its incoming and outgoing connections. During training, dropout removes a unit from the network with probability p(Figure \ref{fig:dropout}). For the input nodes, however, the optimal probability of retention is usually closer to 1. At test time, the node is always present and the weights are multiplied by p.
+    \subsection{Dropout}: Dropout is a regularization technique which is used to prevent overfitting. The technique involves temporarily dropping nodes (hidden and input) along with all its incoming and outgoing connections. During training, dropout removes a unit from the network with probability p(Figure \cref{fig:dropout}). For the input nodes, however, the optimal probability of retention is usually closer to 1. At test time, the node is always present and the weights are multiplied by p.
     This is important because the neurons must have the same output as they had during training time (in expectation).
     $p$ can be considered to be a hyperparameter.
 
@@ -129,7 +129,7 @@ These techniques also reduce overfitting.
     overfitting: While the network seems to get better and better, i.e., the error on the training set decreases, at some point during training it actually begins to get worse again, i.e., the error on unseen examples increases."\cite{early_stopping} 
     If we are using an iterative training algorithm such as gradient descent, we can use early stopping for fighting overfitting.
     The training loss and validation loss decrease with number of epochs in a neural network. 
-    However, at a certain point, the validation loss begins to increase while the training loss decreases (See Figure \ref{fig:Early Stopping}).
+    However, at a certain point, the validation loss begins to increase while the training loss decreases (See Figure \cref{fig:Early Stopping}).
     We need to stop training at this point as the network starts overfitting here. 
     In each epoch, we check if the validation loss is decreasing; if it is, we save the updated model parameters. 
     At the point where it starts increasing we stop training.
