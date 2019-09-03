@@ -6,14 +6,14 @@
 % Authors: Zach Tanenbaum, Taegyun Kim
 % Lecture date: 2/11/2019
 
-Traditionally, pattern recognition would have the features extractor determined by hand then run through a classifier.
-More modern approaches would use unsupervised learning to get more complex features than just hand picking.
-Motivation for neural networks or convolutional nets is that we want the feature extractor to be learned as well.
-As people are expensive and gradient descent has been shown to extract features better than the best engineers.
+Traditionally, pattern recognition would have the features extractor determined by hand and then run through a classifier.
+More modern approaches would use unsupervised learning to get more complex features than just by manual selection.
+Motivation for neural networks or convolutional nets is that we want the feature extractor to be as learned as possible.
+As manual selection are labor intensive and expensive, whereas gradient descent has been shown to extract features better than the best engineers.
 
-The idea is to stack multiple layers and have them learn to extract features layer by later.
+The idea is to stack multiple layers and have them learn to extract the features layer by layer.
 The visual world is a composition of different hierarchies of features.
-So, ideally, a model would be able to learn simple features at the earlier layers and more complex features 
+So, ideally, a model would be able to learn simple features at the earlier layers and increasingly more complex features 
 as more layers are introduced.
 This idea can be seen in Figure 1 where an image of a car has progressively more complex features extracted by different
 levels of a conceptual neural network.
@@ -25,23 +25,21 @@ levels of a conceptual neural network.
 Image taken from Professor LeCun's slides [Zeiler and Fergus].}
 \end{figure}
 
-This concept of learning progressively more complicated features is inspired from neurology and how the brain operates.
-Specifically inspired from the ventral pathway in the visual cortex.
-The area of the brain responsible for sight and sight processing.
+This concept of learning progressively more complicated features is inspired from neurology and how the brain operates, specifically inspired from the ventral pathway in the visual cortex: The area of the brain responsible for sight and sight processing.
 
-In the 50s and 60s many scientists were curious with how the ventral pathway functions. 
-It was shown that a specific neuron would `turn on', `fire', or `release neurotransmitter' when a straight edge was 
+In the 1950 and 60s, many scientists were curious with how the ventral pathway functions. 
+It was observed that a specific neuron would `turn on', `fire', or `release neurotransmitter' when a straight edge was 
 presented to the subject.
 As that edge was rotated, the original neuron would turn off and a nearby neuron would turn on.
 In addition, different neurons would turn on depending on the location of the edge in the input field.
 So, clusters of neurons would be responsible for detecting an edge, and its orientation, in a specific location of the visual field.
-These cells were designated with the term `simple cells' by Hubel and Wiesel.
-Simple cells take input directly from the retina and detect local features.
+These cells were designated with the term 'simple cells' by Hubel and Wiesel.
+These simple cells take inputs directly from the retina and detect local features in them.
 
-Additionally it was noticed that some cells would turn on and stay turned on based on the input from these simple cells.
-So, if an edge was placed in the visual field then moved some cells would continue to be turned on.
+Additionally, it was noticed that some cells would turn on and stay turned on based on the input from these simple cells.
+For example, if an edge was placed in the visual field and moved subsequently, certain cells would continue to be turned on.
 These cells were called complex cells by Hubel and Wiesel.
-Complex cells that `pool' the outputs of simple cells within a retinotopic neighborhood into a more complex shape.
+Complex cells that 'pool' the outputs of simple cells within a retinotopic neighborhood into a more complex shape.
 This pooling not only creates more complicated shapes it can also removes the locality of different features.
 
 Engineers and scientists who had the capability decided to produce models similar to the ventral pathway.
