@@ -213,14 +213,7 @@ Now let's consider the MODERATE difficulty. The models are trained for 100 epoch
     \label{fig:lstm_moderate_100}
 \end{figure}
 
-The RNN model performs poorly with a testing accuracy of $\approx 26\%$. 
-This is equivalent to randomly predicting one of the classes.
-The corresponding loss is $\approx 1.39$ which is around $-\ln(0.25)$ as expected.
-
-In comparsion, the LSTM model still achieves accuracy $\approx 84\%$ and thus exhibits long-term memory.
-
-Since LSTM has 4 times the parameters than RNN, this is not a fair comparison. 
-Despite this fact, it sheds light on the ability of LSTM to maintain long-term memory.
+The RNN model performs poorly with a testing accuracy of $\approx 26\%$. This is equivalent to randomly predicting one of the classes. The corresponding loss is $\approx 1.39$ which is around $-\ln(0.25)$ as expected. In comparsion, the LSTM model still achieves accuracy $\approx 84\%$ and thus exhibits long-term memory. Since LSTM has 4 times the parameters than RNN, this is not a fair comparison. Despite this fact, it sheds light on the ability of LSTM to maintain long-term memory.
 
 \section{Signal Echoing}
 In signal echoing, given an input sequence, the task is to regenerate the same sequence with a lag of $n$ steps. 
@@ -330,11 +323,7 @@ The important thing to note is the use of \texttt{hidden.detach\_()}.
 It is necessary to use this as we are reusing the hidden states obtained from one chunk into another chunk. 
 But we want the gradients to be back-propagated only over the sequences in the current chunk and not all the way back. \texttt{hidden.detach\_()} removes the hidden variable from computation graph and prevents the gradients to back-propagate through the variable.
 
-The loss function used is \texttt{BCEWithLogitsLoss}. 
-This loss combines a Sigmoid layer and the BCELoss in one single class where BCELoss measures the Binary Cross Entropy between the target and the output. 
-This is more numerically stable than using a Sigmoid followed by a BCELoss as we take advantage of the log-sum-exp trick for numerical stability.
-
-The model achieves training and test accuracy of 100\% after 5 epochs.
+The loss function used is \texttt{BCEWithLogitsLoss}. This loss combines a Sigmoid layer and the BCELoss in one single class where BCELoss measures the Binary Cross Entropy between the target and the output. This is more numerically stable than using a Sigmoid followed by a BCELoss as we take advantage of the log-sum-exp trick for numerical stability. The model achieves training and test accuracy of 100\% after 5 epochs.
 
 \subsection{Output Visualization}
 The trained model is used to echo a random sequence. 
