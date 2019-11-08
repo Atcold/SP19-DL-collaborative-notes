@@ -35,7 +35,7 @@ plt.ylim([-10, 5])
     \label{fig:training_data}
 \end{figure}
 
-We define 20 training data points from -5 to +5. Now, we are going to fit a network over the data points.
+We have defined 20 training data points from -5 to +5. Now, we are going to fit a network over the data points.
 
 \section{Experiments using Bayesian neural networks}
 \begin{minted}{python}
@@ -92,7 +92,7 @@ plt.ylim([-10, 5])
     \label{fig:fit_standardNN}
 \end{figure}
 
-We set to evaluation mode to turn-off the dropout. As we can see in Fig. \ref{fig:fit_standardNN}, it gives us a fine approximation. However, this standard neural network does not show any uncertainty. Standard neural networks only provide point estimates of $y$ values in different locations corresponding to $x$ values. Then, how do we extract uncertainty from the network? First, we start with setting the network to train mode. 
+We set the model to evaluation mode to turn-off the dropout. As we can see in Fig. \ref{fig:fit_standardNN}, it gives us a fine approximation. However, this standard neural network does not show any uncertainty. Standard neural networks only provide point estimates of $y$ values in different locations corresponding to $x$ values. Then, how do we extract uncertainty from the network? First, we start with setting the network to train mode. 
 
 \begin{minted}{python}
 # Multiple (100) runs for denser input
@@ -122,7 +122,7 @@ plt.ylim([-10, 5])
     \label{fig:fit_BayesianNN}
 \end{figure}
 
-Fig. \ref{fig:fit_BayesianNN} provides so much more information compared to the results in Fig. \ref{fig:fit_standardNN}. The red curve shows an average of 100 evaluations, and the purple curve is mean plus/minus one standard deviation over the predictions. Thus, this plot not only presents mean estimates but also shows variances that provide uncertainty of the results. 
+Fig. \ref{fig:fit_BayesianNN} provides so much more information compared to the results in Fig. \ref{fig:fit_standardNN}. The red curve shows an average of 100 evaluations, and the purple curve represents the mean $\pm$ one standard deviation of the predictions. Thus, this plot not only presents mean estimates but also shows variances that provide uncertainty of the results. 
 
 \begin{figure}[H]
     \centering

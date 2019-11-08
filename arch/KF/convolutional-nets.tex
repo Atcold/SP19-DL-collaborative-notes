@@ -67,13 +67,13 @@ Visually, we can see that this input would benefit from 3 separate classifiers t
 
 The goal is to turn non-linear problems into a mixture of multiple linear classifiers. 
 The mixture's sole job is to now decide where the regions are. 
-Often times each of the expert systems is a neural net itself and is combined using a neural net to decide optimal region splitting. 
+Often each of the expert systems is a neural net itself and is combined using a neural net to decide optimal region splitting. 
 Softmax is often used as the final layer of a neural network for classification. 
 These models can be trained with backpropagation just like what we have seen so far. 
 
 A good example of this is speech recognition. 
 Imagine I want a model to work on German, French, and English. 
-I don't want to create 3 different models. 
+I don't want to create three different models. 
 Instead I can let the model decide which language it is dealing with and then pass the sequence into different expert systems. 
 However, in reality, the input does in fact go through all of the systems, and so we use a ``Gater'' module to decide which expert to believe. 
 This is all done by how our weights are tuned and how they behave with certain types of inputs. 
@@ -119,7 +119,7 @@ Now for every 10 millisecond, you have a vector of scores for what sound is bein
 
 The idea we saw before of sliding the same network across different areas of the input leads to the idea of convolutions. 
 
-Image we have the 2-layer network as shown in \cref{fig:2layer}. 
+Imagine we have the 2-layer network as shown in \cref{fig:2layer}. 
 It is trying to recognize, classify or predict something from $x_{1,t}, x_{2,t}$ input sequences. 
 The first layer is a single linear layer. 
 Each of $C_{1}, C_{2}, C_{3}, C_{4}$ are shifted versions of the linear layer looking at different time steps of the inputs $x_{1,t}, x_{2,t}$. 
