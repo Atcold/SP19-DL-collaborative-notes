@@ -2,7 +2,7 @@
 % Authors: Yu Cao 5/7/19.
 
 \section{Graph Neural Network}
-Graph contains vertexes and edges and the messages(information) associated, and can be used to formalize Images and texts. Deep learning on graph structure composes GNN. GNN learns embedding on graphs. 
+Graph contains vertexes and edges and the messages (information) associated, and can be used to formalize Images and texts. Deep learning on graph structure composes GNN. GNN learns embedding on graphs. 
 
 \begin{figure}[ht]
 \begin{center}
@@ -103,7 +103,3 @@ h_{v_i}^{(l+1)} = \sigma \left(\sum_{j\in\mathcal{N}(i)}\frac{1}{c_{ij}}h_{v_j}^
 $$
 
 where $v_i$ is any node in the graph; $h_{v_i}$ is the feature of node $v_i$; $\mathcal{N}(i)$ denotes the neighborhood of $v_i$; $c_{ij}$ is the normalization constant related to node degrees; $W$ is the parameter and $\sigma$ is a non-linear activation function.
-
-
-
-

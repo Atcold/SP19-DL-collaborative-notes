@@ -23,8 +23,8 @@ y.backward(h)
 \end{minted}
 
 By default, explicitly constructed tensor \texttt{x}
-has \texttt{x.require\_grad=False}.
-The \texttt{require\_grad} attribute can be manually turned on or off for leaf nodes on the computation graph (they do not depend on another tensor).
+has \texttt{x.requires\_grad=False}.
+The \texttt{requires\_grad} attribute can be manually turned on or off for leaf nodes on the computation graph (they do not depend on another tensor).
 If it is desired to turn off a \texttt{requires\_grad} for an intermediate result, it must be copied and without reference.
 The \texttt{.detach()} method is handy for this purpose.
 \begin{minted}{python}
@@ -51,11 +51,11 @@ tensor([0.5213, 0.5213, 0.5213])
 % Authors: Joanna Bitton, Divyansh Khanna, Lind Xiao, 2/26/19.
 The dimensionality of data significantly impacts how well a machine learning model can generalize.
 Consider unit orthogonal vectors in space.
-With increasing dimensions, the number of orthogonal vectors increase exponentially (\href{https://www.cs.princeton.edu/courses/archive/fall15/cos521/lecnotes/lec12.pdf}{source}).
+With increasing dimensions, the number of orthogonal vectors increases exponentially (\href{https://www.cs.princeton.edu/courses/archive/fall15/cos521/lecnotes/lec12.pdf}{source}).
 To generalize well, the model needs at least \texttt{exp(d)} points, where \texttt{d} is the data dimension.
 This is because for a new data point, the models should find another point in the dataset which is reasonably close to it. 
 
-The \href{https://github.com/Atcold/pytorch-Deep-Learning-Minicourse/blob/master/extra/a-projections.ipynb}{Jupyter notebook} illustrates orthogonality of random projections using a simple example.
+The \href{https://github.com/Atcold/pytorch-Deep-Learning-Minicourse/blob/master/extra/a-projections.ipynb}{Jupyter notebook} illustrates the orthogonality of random projections using a simple example.
 It plots the projection \texttt{p} of a random matrix \texttt{A} with one of its randomly chosen rows \texttt{a}.
 Since \texttt{A} is a random matrix of unit vectors (normalized with unitary L-2 norm), \texttt{p} will have a value of \texttt{1} for one row. 
 
@@ -65,8 +65,8 @@ Figure 3 shows the matrix plots for \texttt{d=5}.
 There are no rows with a value close to \texttt{1}, except for the one corresponding to \texttt{a}.
 
 The intuition is that in low dimensions random vectors point roughly in same directions.
-However in high dimensions, they point orthogonal to each other.
-As the dimensionality of the data is increased, more points becomes further apart and there are less matches.
+However, in high dimensions, they point orthogonal to each other.
+As the dimensionality of the data increases, more points become further apart and there are fewer matches.
 
 \begin{figure}
     \centering
