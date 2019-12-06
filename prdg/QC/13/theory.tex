@@ -6,7 +6,7 @@ We try to design a self-learning nonlinear controller to control the steering of
 \\
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{figs/figure1.png}
+    \includegraphics[width=0.7\textwidth]{figs/truck-trailer-and-loading-dock.png}
     \caption{The Truck, trailer and loading dock}
     \label{fig:general}
 \end{figure}
@@ -16,7 +16,7 @@ State variables representing the position of the truck: $\theta_{cab}$, the angl
 \subsection{Model}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{figs/figure2.png}
+    \includegraphics[width=0.6\textwidth]{figs/the-two-part-model.png}
     \caption{The two part model}
     \label{fig:learn}
 \end{figure}
@@ -37,7 +37,7 @@ In the paper, there are 6 parameters. However, we just need 4 variables in state
 The block labeled $C$ represent the controller and $T$ represent the emulator. The initial position of truck is chosen at random. The final error is used by back-propagation to adapt to each state Controller/Trailer.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figs/figure5.png}
+    \includegraphics[width=0.8\textwidth]{figs/training-the-controller.png}
     \label{fig:loss}
 \end{figure}
 Each time, we have 6 inputs for controller at state $k$, and we add bias and forward the inputs to 25 hidden units, and give 1 output unit. So there are 3 layers in the controller. 
@@ -45,7 +45,7 @@ Each time, we have 6 inputs for controller at state $k$, and we add bias and for
 Then we put the controller's output to the Emulator, which has 45 hidden units and 6 output for the next state. It is analogous to a neural network having a number of layers equal to four times the number of backing up steps.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figs/figure6.png}
+    \includegraphics[width=0.8\textwidth]{figs/details-of-emulator.png}
     \label{fig:nn}
 \end{figure}
 
