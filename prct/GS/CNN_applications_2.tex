@@ -10,10 +10,10 @@ CNNs have also been successfully applied to medical imaging. Some examples are:
     \item Proximal Femur Segmentation from MR Images \cite{Deniz2018SegmentationOT}
 \end{itemize}
 
-However, medical imaging is challenging because of the lack of labeled data.
+However, medical imaging is challenging because of the lack of labelled data.
 
 \subsection{ConvNets in Connectomics}
-Connectomics is the study of reconstructing schematics of the brain. Researchers typically proceed by taking a stack of images (thin slices) to get information for the complete volume. One approach to making a 3D reconstruction from 2D images is, of course, using ConvNets \cite{jain2010}. One challenge of this reconstruction is that the neurons are very densely packed and each shape of the neuron is a strong indicator of its role. Hence, the reconstructions have to be very accurate and high-res.
+Connectomics is the study of reconstructing schematics of the brain. Researchers typically proceed by taking a stack of images (thin slices) to get information for the complete volume. One approach to making a 3D reconstruction of neural structures from 2D images is, of course, using ConvNets \cite{jain2010}. One challenge of this reconstruction is that the neurons are very densely packed and the shape of each neuron is a strong indicator of its role. Hence, the reconstructions have to be very accurate and high-res.
 
 \subsection{3D ConvNets for Medical Image Analysis}
 
@@ -38,13 +38,13 @@ In medical imaging applications, the U-Net architecture is often used. This arch
     \begin{subfigure}{0.25\textwidth}
     \includegraphics[width=0.9\linewidth]{figs/checkerboard2.png}
     \end{subfigure}
-    \caption{checkerboard artifacts from \citep{odena2016deconvolution}}
+    \caption{checkerboard artefacts from \citep{odena2016deconvolution}}
     \label{fig:checkerboard}
 \end{figure}
 
-However, one issue with deconvolution is that it can produce "checkerboard" artifacts because of uneven overlaps. Deconvolution is essentially a convolution in reverse, except the pooling step now is replaced with upsampling. There are several different ways to do this upsampling. One naive choice is just repeating the same value over all pixels in the upsampled region, which can lead to aforementioned checkerboard artifacts. Another choice is bilinear interpolation between nearby pixels at the lower resolution to get smoother upsampled image. A third way is a switch type upsampling that tries to mimic an inverse to max-pooling. This can be implemented by remembering the pixel position selected by max pooing during the downsampling step and, in the upsampling step, copying the low-res pixel to the corresponding upsampled pixel position and filling in other pixels with 0's.
+However, one issue with deconvolution is that it can produce "checkerboard" artefacts because of uneven overlaps. Deconvolution is essentially a convolution in reverse, except the pooling step now is replaced with upsampling. There are several different ways to do this upsampling. One naive choice is just repeating the same value over all pixels in the upsampled region, which can lead to the checkerboard artefacts mentioned above. Another choice is bilinear interpolation between nearby pixels at the lower resolution to get a smoother upsampled image. A third way is a switch type upsampling that tries to mimic an inverse to max-pooling. This can be implemented by remembering the pixel position selected by max pooing during the downsampling step and, in the upsampling step, copying the low-res pixel to the corresponding upsampled pixel position and filling in other pixels with 0's.
 \section{Point Cloud Data}
-Some 3D data can be represented as 2D images along with estimates of the depth of each pixel. This depth estimate comes from either stereo cameras or LIDAR systems. Unfortunately, the LIDAR is very expensive and often unreliable (eg. doesn't work well when it rains) so some applications like self-driving cars are trying to find other ways to estimate depth.
+Some 3D data can be represented as 2D images along with estimates of the depth of each pixel. This depth estimate comes from either stereo cameras or LIDAR systems. Unfortunately, the LIDAR is very expensive and often unreliable (e.g. does not work well when it rains) so some applications like self-driving cars are trying to find other ways to estimate depth.
 
 Point cloud (Figure \ref{fig:pointcloud}) is another way of representing 3D data. The data here consists of a "cloud" of $(x,y,z)$  coordinates along with RGB values. However, point clouds are very sparse since most voxels do not contain any object. This causes problems for traditional ConvNets because the input would be almost entirely zeros.
 
@@ -66,7 +66,7 @@ There are mainly two approaches to speech recognition:
     \item End-to-end approach (Wav2Letter): The model goes from speech signal to letter transcription directly without intermediate phonetic transcriptions. The input data can be either a spectrogram or even raw waveform \cite{Collobert2017Wav2LetterAE}.
 \end{enumerate}
 The aim of an Automatic Speech Recognition(ASR) system is to find the most likely sentence (word sequence) $W$ which transcribes the speech audio $A$, with acoustic model $P(A|W)$ and language model $P(W)$. The general process of utilizing ConvNets for speech recognition can be illustrated as Figure \ref{fig:cnn_asr}.
-Useful techniques for speech feature extraction are Short-time Fourier Transforms(STFTS), Mel-frequency cepstrum (MFFCs), Linear Predictive Coding (LPC), etc (\ref{fig:feature}). Then a ConvNet is trained on labeled transcriptions for frame-level classification. Further alighment techniques such as Hidden Markov Models will be applied to get phones. Then the alighed phones will be fit into some pre-trained lexicon model to get the corresponding words. At last, a language model will be applied to the words to get the transcription. 
+Useful techniques for speech feature extraction are Short-time Fourier Transforms(STFTS), Mel-frequency cepstrum (MFFCs), Linear Predictive Coding (LPC), etc (\ref{fig:feature}). Then a ConvNet is trained on labelled transcriptions for frame-level classification. Further alignment techniques such as Hidden Markov Models will be applied to get phones. Then the aligned phones will be fit into some pre-trained lexicon model to get the corresponding words. At last, a language model will be applied to the words to get the transcription. 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{figs/cnn_asr.png}

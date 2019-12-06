@@ -53,14 +53,14 @@ The dimensionality of data significantly impacts how well a machine learning mod
 Consider unit orthogonal vectors in space.
 With increasing dimensions, the number of orthogonal vectors increases exponentially (\href{https://www.cs.princeton.edu/courses/archive/fall15/cos521/lecnotes/lec12.pdf}{source}).
 To generalize well, the model needs at least \texttt{exp(d)} points, where \texttt{d} is the data dimension.
-This is because for a new data point, the models should find another point in the dataset which is reasonably close to it. 
+This is because, for a new data point, the models should find another point in the dataset, which is reasonably close to it. 
 
 The \href{https://github.com/Atcold/pytorch-Deep-Learning-Minicourse/blob/master/extra/a-projections.ipynb}{Jupyter notebook} illustrates the orthogonality of random projections using a simple example.
 It plots the projection \texttt{p} of a random matrix \texttt{A} with one of its randomly chosen rows \texttt{a}.
 Since \texttt{A} is a random matrix of unit vectors (normalized with unitary L-2 norm), \texttt{p} will have a value of \texttt{1} for one row. 
 
 Figure 2 shows the matrix plots for \texttt{d=3}.
-There are at least three rows in the projections which have a value greater than \texttt{0.800}.
+There are at least three rows in the projections which have a value higher than \texttt{0.800}.
 Figure 3 shows the matrix plots for \texttt{d=5}.
 There are no rows with a value close to \texttt{1}, except for the one corresponding to \texttt{a}.
 

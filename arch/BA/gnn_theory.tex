@@ -1,8 +1,8 @@
 \chapter{Graph Neural Networks}
 % Authors: Yu Cao 5/7/19.
-
+% Editor: Ben Ahlbrand
 \section{Graph Neural Network}
-Graph contains vertexes and edges and the messages (information) associated, and can be used to formalize Images and texts. Deep learning on graph structure composes GNN. GNN learns embedding on graphs. 
+Graph contains vertexes and edges and the messages (information) associated, and can be used to formalize texts and images. Deep learning on graph structures - GNNs. These GNNs learn embeddings on graphs.
 
 \begin{figure}[ht]
 \begin{center}
@@ -10,7 +10,7 @@ Graph contains vertexes and edges and the messages (information) associated, and
 %   \includegraphics[width=0.9\linewidth]{imgs/PnL_Problem}
   \includegraphics[width=3.38in]{figs/Embedding_ConvNet.png}
 \end{center}
-   \caption{ConvNets: Learn embedding of an image}
+   \caption{Convolutional Neural Networks: Learn embedding of an image}
 \label{fig:CV}
 \end{figure}
 
@@ -55,8 +55,7 @@ It is widely applied in the tasks of Natural Language Processing. Medical Comput
 \label{fig:CV}
 \end{figure}
 
-
-Graph neural network has been an emerging topic of research as shown in the graph below
+Graph neural network has been an emerging topic of research as shown in the graph below:
 
 \begin{figure}[ht]
 \begin{center}
@@ -68,8 +67,8 @@ Graph neural network has been an emerging topic of research as shown in the grap
 \label{fig:CV}
 \end{figure}
 
-\section{Message passing on graph}
- In this section, we will focus on how to perform computation on graph structures following Message Passing paradigm. Many graph neural networks follows the \textit{message passing} computation model \href{https://arxiv.org/abs/1704.01212}{Gilmer et al, 2017}:
+\section{Message Passing on Graphs}
+ In this section, we will focus on how to perform computation on graph structures following Message Passing paradigm. Many graph neural networks follow the \textit{message passing} computation model \href{https://arxiv.org/abs/1704.01212}{Gilmer et al, 2017}:
 \begin{itemize}
     \item Each node receives and aggregates messages from its neighbors  
 \begin{gather}
@@ -96,7 +95,7 @@ where $\mathcal{N}(v)$ is the neighbour set of node $v$.
 
 \section{Graph Convolutional Network}
 
-Graph convolutional network (GCN) is a popular model proposed by \href{https://arxiv.org/abs/1609.02907}{Kipf \& Welling} to encode graph structure by message passing. The high-level idea is similar to our toy task: node features are updated by aggregating the messages from the neighbors. Here is its message passing equation:
+Graph convolutional network (GCN) is a popular model proposed by \href{https://arxiv.org/abs/1609.02907}{Kipf \& Welling} to encode graph structure by message passing. The high-level idea is similar to our toy task: node features are updated by aggregating the messages from the neighbors. Here is the message passing equation:
 
 $$
 h_{v_i}^{(l+1)} = \sigma \left(\sum_{j\in\mathcal{N}(i)}\frac{1}{c_{ij}}h_{v_j}^{(l)}W^{(l)} \right),
