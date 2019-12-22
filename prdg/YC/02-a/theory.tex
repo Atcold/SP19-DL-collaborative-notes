@@ -57,7 +57,7 @@ For backpropagation on the input vector and bias, we again use the chain rule: $
 Euclidean distance is a metric for determining proximity of two points in Euclidean space.
 This module is often used as the final layer of a neural network to compute the distance between a prediction and a ground truth label, where it is also commonly known as the mean squared error (MSE).
 
-In forward propagation, the output, scalar quantity is calculated as one half the $\ell_2$ norm of the difference between the input vector $X_{in}$ and the provided label $Y$, squared: $$X_{out} = \frac{1}{2}||X_{in} - Y||^2$$ Back propagation to the input vector and label is symmetric: $$\frac{\partial E}{\partial X_{in}} = X_{in} - Y$$ $$\frac{\partial E}{\partial Y} = Y - X_{in}$$
+In forward propagation, the output, scalar quantity is calculated as one half the $\ell_2$ norm of the difference between the input vector $X_{in}$ and the provided label $Y$, squared: $$X_{out} = \frac{1}{2}||X_{in} - Y||^2$$ backpropagation to the input vector and label is symmetric: $$\frac{\partial E}{\partial X_{in}} = X_{in} - Y$$ $$\frac{\partial E}{\partial Y} = Y - X_{in}$$
 
 \subsection{Y-connector and Addition Modules}
 % Authors: Vaibhav A Gadodia, Yair Schiff, Goutham Panneeru
@@ -86,7 +86,7 @@ The Addition module can be expressed as:
 
 This module takes in $k$ input vectors $X_{in}^{(k)}$ and a discrete-valued $Y$ variable, which acts as a switch, selecting one of the $k$ inputs to be copied to the output vector $X_{out}$.
 At first glance, this module may seem non-differentiable, but further examination reveals that indeed the gradient can be calculated by simply passing the gradient of the output to the input vector that was selected by $Y$ and setting the gradient for all other input vectors to zero.
-For this module, the state variable that maintains information about forward propagation is essential to back propagation as well, since it allows for the gradient to flow backwards through the selected input.
+For this module, the state variable that maintains information about forward propagation is essential to backpropagation as well, since it allows for the gradient to flow backwards through the selected input.
 
 \subsection{SoftMax Module}
 % Authors: Vaibhav A Gadodia, Yair Schiff, Goutham Panneeru
@@ -94,7 +94,7 @@ For this module, the state variable that maintains information about forward pro
 
 The SoftMax module is an important module that is often used in multi-class supervised learning.
 Known also as the Boltzmann-Gibbs distribution by the Physics community, this module takes as an input a vector $X_{in}$ and produces an output vector $X_{out}$ that resembles a probability distribution, as each output component $X_{out, i} \in [0, 1]$ and they all sum to 1: $||X_{out}||_1 = 1$.
-The softmax equation for a given index $j$ of the output vector is expressed as follows: $$X_{out, j} = \frac{\exp(\beta X_{in, j})}{\sum_i{\exp(\beta X_{in, i})}}$$ Back propagation for each component $i$ of the input vector depends on whether that component is equal to $j$ or not.
+The softmax equation for a given index $j$ of the output vector is expressed as follows: $$X_{out, j} = \frac{\exp(\beta X_{in, j})}{\sum_i{\exp(\beta X_{in, i})}}$$ Backpropagation for each component $i$ of the input vector depends on whether that component is equal to $j$ or not.
 More formally:
 \begin{itemize}
     \item $i = j$: $\frac{\partial X_{out, j}}{\partial X_{in, i}} = \beta X_{out, j}(1 - X_{out, j})$
